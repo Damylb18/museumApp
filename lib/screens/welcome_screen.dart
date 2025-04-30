@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'explore_screen.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -119,7 +120,11 @@ class HomePage1LowFid extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // TODO: Add navigation to next screen
+                    // Navigate to the Explore screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ExploreScreen()),
+                    );
                   },
                   child: const Text(
                     'Go',

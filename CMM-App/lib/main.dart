@@ -12,9 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Museum App',
+      title: 'Cheshire Military Museum Tour',
       theme: ThemeData(
         primarySwatch: Colors.brown,
+        useMaterial3: true,
       ),
       home: const FigmaToCodeApp(),
     );
