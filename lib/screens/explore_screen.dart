@@ -25,7 +25,7 @@ class ExploreScreen extends StatelessWidget {
                   child: Stack(
                     children: [
                       // Back button
-                      Positioned(   
+                      Positioned(
                         left: 0,
                         top: 0,
                         child: Container(
@@ -66,18 +66,14 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 127,
                         top: 11,
-                        child: SizedBox(
-                          width: 104,
-                          height: 26,
-                          child: Text(
-                            'Explore',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          'Explore',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -145,17 +141,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 117 - 10,
                         top: 156 - 137,
-                        child: SizedBox(
-                          width: 263,
-                          height: 23,
-                          child: Text(
-                            'War Room',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          'War Room',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -164,17 +156,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 117 - 10,
                         top: 184 - 137,
-                        child: SizedBox(
-                          width: 171,
-                          height: 26,
-                          child: Text(
-                            '(FLOOR -2A)',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        child: Text(
+                          '(FLOOR -2A)',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
@@ -186,7 +174,7 @@ class ExploreScreen extends StatelessWidget {
                         child: Container(
                           width: 253,
                           height: 1,
-                          color: Colors.black.withOpacity(0.2),
+                          color: const Color.fromRGBO(0, 0, 0, 0.2),
                         ),
                       ),
 
@@ -194,17 +182,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 117 - 10,
                         top: 226 - 137,
-                        child: SizedBox(
-                          width: 51,
-                          height: 23,
-                          child: Text(
-                            '35m',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          '35m',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -212,17 +196,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 117 - 10,
                         top: 249 - 137,
-                        child: SizedBox(
-                          width: 63,
-                          height: 14,
-                          child: Text(
-                            'Distance',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        child: Text(
+                          'Distance',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
@@ -231,17 +211,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 197 - 10,
                         top: 226 - 137,
-                        child: SizedBox(
-                          width: 80,
-                          height: 26,
-                          child: Text(
-                            '5 min',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          '5 min',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -249,17 +225,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 197 - 10,
                         top: 249 - 137,
-                        child: SizedBox(
-                          width: 47,
-                          height: 14,
-                          child: Text(
-                            'Time',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        child: Text(
+                          'Time',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
@@ -268,17 +240,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 279 - 10,
                         top: 226 - 137,
-                        child: SizedBox(
-                          width: 75,
-                          height: 27,
-                          child: Text(
-                            '5 of 20',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          '5 of 20',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -286,17 +254,13 @@ class ExploreScreen extends StatelessWidget {
                       const Positioned(
                         left: 279 - 10,
                         top: 249 - 137,
-                        child: SizedBox(
-                          width: 47,
-                          height: 14,
-                          child: Text(
-                            'Steps',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        child: Text(
+                          'Steps',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
@@ -379,24 +343,26 @@ class ExploreScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       // Direction icon container
-                      Container(
-                        margin: const EdgeInsets.only(left: 9),
-                        width: 45,
-                        height: 45,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 9),
+                        child: Container(
+                          width: 45,
+                          height: 45,
+                          decoration: ShapeDecoration(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                           ),
-                        ),
-                        child: const Icon(
-                          Icons.arrow_upward,
-                          color: Colors.black,
+                          child: const Icon(
+                            Icons.arrow_upward,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                       // Distance text
-                      Container(
-                        margin: const EdgeInsets.only(left: 8),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -507,7 +473,7 @@ class ExploreScreen extends StatelessWidget {
                   width: 134,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: const Color.fromRGBO(0, 0, 0, 0.3),
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
