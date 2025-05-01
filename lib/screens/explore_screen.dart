@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'scan_qr_screen.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -446,7 +447,11 @@ class ExploreScreen extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
                         onPressed: () {
-                          // TODO: Add QR code scanning functionality
+                          // Navigate to the QR scan screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ScanQRScreen()),
+                          );
                         },
                       ),
                     ),
