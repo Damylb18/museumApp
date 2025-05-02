@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'scan_qr_screen.dart';
-
+//testing push to github
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
 
