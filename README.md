@@ -1,16 +1,6 @@
-# cheshire_military_museum_tour
+# Cheshire Military Museum
 
-An interactive tour app for the Cheshire Military Museum.
+### Contents:
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- CMM-App: A flutter app for the museum
+- CMM-Admin: A .NET web app and api to store and manage the app data, and make it editable by museum staff
