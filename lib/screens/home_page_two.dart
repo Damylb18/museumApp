@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'explore_screen.dart';
+import 'scan_qr_screen.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({Key? key}) : super(key: key);
@@ -78,6 +80,23 @@ class HomePageTwo extends StatelessWidget {
         selectedItemColor: Color(0xFF72745D),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        currentIndex: 0,
+        onTap: (index) {
+          // Handle navigation based on the bottom navigation item clicked
+          if (index == 1) {
+            // Navigate to Explore screen when Explore icon is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ExploreScreen()),
+            );
+          } else if (index == 2) {
+            // Navigate to Scan QR screen when Scan QR icon is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ScanQRScreen()),
+            );
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_mini_rounded),

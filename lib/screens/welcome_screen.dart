@@ -1,3 +1,4 @@
+import 'package:cheshire_military_museum_tour/screens/home_page_two.dart';
 import 'package:flutter/material.dart';
 import 'explore_screen.dart';
 
@@ -123,7 +124,7 @@ class HomePage1LowFid extends StatelessWidget {
                     // Navigate to the Explore screen
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ExploreScreen()),
+                      MaterialPageRoute(builder: (context) => const HomePageTwo()),
                     );
                   },
                   child: const Text(
