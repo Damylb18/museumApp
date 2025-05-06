@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "uk.org.museumsofcheshire.cheshire_military_museum_tour"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

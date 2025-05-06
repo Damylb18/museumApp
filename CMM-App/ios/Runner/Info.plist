@@ -45,5 +45,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>Camera permission is required to scan QR codes in the museum tour.</string>
 </dict>
 </plist>
