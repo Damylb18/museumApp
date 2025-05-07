@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'explore_screen.dart';
 import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
 
@@ -86,11 +85,6 @@ class HomePageTwo extends StatelessWidget {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ExploreScreen()),
-            );
-          } else if (index == 2) {
-            Navigator.push(
-              context,
               MaterialPageRoute(builder: (context) => const ScanQRScreen()),
             );
           }
@@ -99,10 +93,6 @@ class HomePageTwo extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.home_mini_rounded),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner),
