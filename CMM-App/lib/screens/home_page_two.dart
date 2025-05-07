@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'explore_screen.dart';
 import 'scan_qr_screen.dart';
+import 'webview_screen.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({Key? key}) : super(key: key);
@@ -65,10 +66,10 @@ class HomePageTwo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildCircleIcon(Icons.shopping_bag, 'Shop'),
-                    _buildCircleIcon(Icons.confirmation_num, 'Tickets'),
-                    _buildCircleIcon(Icons.volunteer_activism, 'Donate'),
-                    _buildCircleIcon(Icons.event, 'Events'),
+                    _buildCircleIcon(context, Icons.shopping_bag, 'Shop'),
+                    _buildCircleIcon(context, Icons.confirmation_num, 'Tickets'),
+                    _buildCircleIcon(context, Icons.volunteer_activism, 'Donate'),
+                    _buildCircleIcon(context, Icons.event, 'Events'),
                   ],
                 ),
               ],
@@ -77,20 +78,17 @@ class HomePageTwo extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xFF72745D),
+        selectedItemColor: const Color(0xFF72745D),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         currentIndex: 0,
         onTap: (index) {
-          // Handle navigation based on the bottom navigation item clicked
           if (index == 1) {
-            // Navigate to Explore screen when Explore icon is tapped
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ExploreScreen()),
             );
           } else if (index == 2) {
-            // Navigate to Scan QR screen when Scan QR icon is tapped
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ScanQRScreen()),
@@ -143,17 +141,77 @@ class HomePageTwo extends StatelessWidget {
     );
   }
 
-  Widget _buildCircleIcon(IconData icon, String label) {
+  Widget _buildCircleIcon(BuildContext context, IconData icon, String label) {
     return Column(
       children: [
-        CircleAvatar(
-          backgroundColor: const Color(0xFFDBD3BD),
-          radius: 30,
-          child: Icon(icon, color: Colors.black),
+        GestureDetector(
+          onTap: () {
+            if (label == 'Shop') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebPageScreen(
+                    title: 'Shop',
+                    //TODO Make link changeable by staff
+                    url: 'https://museumsofcheshire.org.uk/shopping',
+                  ),
+                ),
+              );
+            } else if (label == 'Tickets') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebPageScreen(
+                    title: 'Tickets',
+                    //TODO Make link changeable by staff
+                    url: 'https://cheshiremilitarymuseum.org.uk/product/adult-ticket/',
+                  ),
+                ),
+              );
+            } else if (label == 'Donate') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebPageScreen(
+                    title: 'Donate',
+                    //TODO Make link changeable by staff
+                    url: 'https://cheshiremilitarymuseum.org.uk/friends/',
+                  ),
+                ),
+              );
+            } else if (label == 'Events') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebPageScreen(
+                    title: 'Events',
+                    //TODO Make link changeable by staff
+                    url: 'https://cheshiremilitarymuseum.org.uk/category/event/',
+                  ),
+                ),
+              );
+            }
+          },
+          child: CircleAvatar(
+            backgroundColor: const Color(0xFFDBD3BD),
+            radius: 30,
+            child: IconTheme(
+              data: const IconThemeData(color: Colors.black),
+              child: Icon(icon),
+            ),
+          ),
         ),
         const SizedBox(height: 8),
-        Text(label),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     );
   }
+
+
 }
