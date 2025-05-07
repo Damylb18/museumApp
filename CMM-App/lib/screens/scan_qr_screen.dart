@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:cheshire_military_museum_tour/models/medal_tracker.dart';
+import 'artefact_screen.dart';
 
 class ScanQRScreen extends StatefulWidget {
   const ScanQRScreen({super.key});
@@ -153,35 +155,32 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                   )
                       : MobileScanner(
                     controller: controller,
-                    onDetect: (capture) {
-                      final List<Barcode> barcodes = capture.barcodes;
-                      if (barcodes.isNotEmpty) {
-                        final String code = barcodes.first.rawValue ?? 'Failed to scan';
-                        setState(() {
-                          _hasScanned = true;
-                          _scanResult = code;
-                        });
+                      onDetect: (capture) {
+                        final List<Barcode> barcodes = capture.barcodes;
+                        if (barcodes.isNotEmpty) {
+                          final String code = barcodes.first.rawValue ?? 'Failed to scan';
 
-                        // Show a dialog with the result
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('QR Code Result'),
-                              content: Text('Scanned content: $code'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                          if (!_hasScanned) {
+                            setState(() {
+                              _hasScanned = true;
+                              _scanResult = code;
+                            });
+
+                            final bool isNew = MedalTracker().addScan(code);
+
+                            // Navigate to artefact detail screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ArtefactDetailScreen(
+                                  artefactId: code, // Pass the scanned code as the ID
+                                  isNew: isNew,
                                 ),
-                              ],
+                              ),
                             );
-                          },
-                        );
+                          }
+                        }
                       }
-                    },
                   ),
                 ),
               ),
