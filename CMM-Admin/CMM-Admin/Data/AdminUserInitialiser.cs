@@ -12,6 +12,7 @@ public static class AdminUserInitialiser
         await context.Database.EnsureCreatedAsync();
         
         const string adminRole = "Admin";
+        const string username = "admin";
         const string password = "humble.flanked.repackage.unpiloted.sulfide";
 
         //Create admin role if not exists
@@ -25,8 +26,9 @@ public static class AdminUserInitialiser
         {
             var adminUser = new IdentityUser
             {
-                UserName = "cmm-admin",
-                // Email = "",
+                UserName = username,
+                EmailConfirmed = true,
+                LockoutEnabled = false,
             };
 
             var result = await userManager.CreateAsync(adminUser);

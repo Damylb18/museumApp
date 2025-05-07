@@ -12,7 +12,15 @@ builder.Services.AddDbContext<MuseumContext>(options =>
 
 
 builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddIdentity<IdentityUser, IdentityRole>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+            options.Stores.MaxLengthForKeys = 128;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireDigit = false;
+        }
+    )
     .AddEntityFrameworkStores<MuseumContext>()
     .AddRoles<IdentityRole>()
     .AddDefaultTokenProviders();
