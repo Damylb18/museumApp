@@ -1,5 +1,6 @@
 using CMM_Admin.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MuseumContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Database"))
 );
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MuseumContext>();
 
 var app = builder.Build();
 
