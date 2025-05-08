@@ -75,62 +75,65 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
             Expanded(
               flex: 3,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: resp.getHorizontalSpacing(20),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: resp.getBorderRadius(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)), // Padding on all sides
+                child: Center(  // Center the scanner container
+                  child: AspectRatio(  // Maintain square aspect ratio
+                    aspectRatio: 1.0,  // 1:1 ratio for square
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: resp.getBorderRadius(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.6),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: _hasScanned
-                      ? Center(
-                    child: Text(
-                      _scanResult,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: resp.fontSize(16),
-                        fontWeight: FontWeight.w500,
+                      clipBehavior: Clip.hardEdge,
+                      child: _hasScanned
+                          ? Center(
+                        child: Text(
+                          _scanResult,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: resp.fontSize(16),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                          : MobileScanner(
+                        controller: controller,
+                        onDetect: (capture) {
+                          final List<Barcode> barcodes = capture.barcodes;
+                          if (barcodes.isNotEmpty) {
+                            final String code = barcodes.first.rawValue ?? 'Failed to scan';
+                            setState(() {
+                              _hasScanned = true;
+                              _scanResult = code;
+                            });
+
+                            // Navigate to artifact detail screen
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => ArtifactDetailScreen(
+                            //       artifactId: code,
+                            //     ),
+                            //   ),
+                            // ).then((_) {
+                            //   // Reset scanner when returning
+                            //   setState(() {
+                            //     _hasScanned = false;
+                            //     _scanResult = "";
+                            //   });
+                            //   controller.start();
+                            // });
+                          }
+                        },
                       ),
                     ),
-                  )
-                      : MobileScanner(
-                    controller: controller,
-                    onDetect: (capture) {
-                      final List<Barcode> barcodes = capture.barcodes;
-                      if (barcodes.isNotEmpty) {
-                        final String code = barcodes.first.rawValue ?? 'Failed to scan';
-                        setState(() {
-                          _hasScanned = true;
-                          _scanResult = code;
-                        });
-
-                        // Navigate to artifact detail screen
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ArtifactDetailScreen(
-                        //       artifactId: code,
-                        //     ),
-                        //   ),
-                        // ).then((_) {
-                        //   // Reset scanner when returning
-                        //   setState(() {
-                        //     _hasScanned = false;
-                        //     _scanResult = "";
-                        //   });
-                        //   controller.start();
-                        // });
-                      }
-                    },
                   ),
                 ),
               ),
@@ -248,7 +251,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           width: resp.scaleWidth(134),
                           height: resp.scaleHeight(5),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
+                            color: Colors.white.withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(resp.scaleWidth(100)),
                           ),
                         ),
