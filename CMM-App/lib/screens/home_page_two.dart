@@ -4,7 +4,7 @@ import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
 
 class HomePageTwo extends StatelessWidget {
-  const HomePageTwo({Key? key}) : super(key: key);
+  const HomePageTwo({super. key});
 
   @override
   Widget build(BuildContext context) {
