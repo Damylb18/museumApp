@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'explore_screen.dart';
+//import 'explore_screen.dart';
 import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
+import 'medals_screen.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({Key? key}) : super(key: key);
@@ -83,26 +84,23 @@ class HomePageTwo extends StatelessWidget {
         showUnselectedLabels: true,
         currentIndex: 0,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ExploreScreen()),
-            );
-          } else if (index == 2) {
+           if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ScanQRScreen()),
             );
           }
+           else if (index == 3){
+             Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => const MedalsScreen()),
+             );
+           }
         },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_mini_rounded),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner),
@@ -212,6 +210,5 @@ class HomePageTwo extends StatelessWidget {
       ],
     );
   }
-
 
 }
