@@ -118,7 +118,7 @@ class HomePageTwo extends StatelessWidget {
                     radius: 7,
                     backgroundColor: Colors.red,
                     child: Text(
-                      '4',
+                      '9',
                       style: TextStyle(
                         fontSize: 10,
                         color: Colors.white,
