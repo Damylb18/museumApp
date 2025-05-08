@@ -57,34 +57,35 @@ namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        // public async Task<IActionResult> OnPostAsync()
+        public void OnPost()
         {
-            var user = await userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            var email = await userManager.GetEmailAsync(user);
-            if (Input.Email != email)
-            {
-                var setEmailResult = await userManager.SetEmailAsync(user, Input.Email);
-                if (!setEmailResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set email.";
-                    return RedirectToPage();
-                }
-            }
-
-            await signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            // var user = await userManager.GetUserAsync(User);
+            // if (user == null)
+            // {
+            //     return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+            // }
+            //
+            // if (!ModelState.IsValid)
+            // {
+            //     await LoadAsync(user);
+            //     return Page();
+            // }
+            //
+            // var email = await userManager.GetEmailAsync(user);
+            // if (Input.Email != email)
+            // {
+            //     var setEmailResult = await userManager.SetEmailAsync(user, Input.Email);
+            //     if (!setEmailResult.Succeeded)
+            //     {
+            //         StatusMessage = "Unexpected error when trying to set email.";
+            //         return RedirectToPage();
+            //     }
+            // }
+            //
+            // await signInManager.RefreshSignInAsync(user);
+            // StatusMessage = "Your profile has been updated";
+            // return RedirectToPage();
         }
     }
 }
