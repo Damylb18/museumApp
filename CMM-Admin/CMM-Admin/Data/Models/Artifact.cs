@@ -8,6 +8,10 @@ public class Artifact
     public int ArtifactId { get; init; }
     
     [Required]
+    [MaxLength(100)]
+    public required string Name { get; set; }
+    
+    [Required]
     [MaxLength(200)]
     public required string ImagePath { get; set; }
     
