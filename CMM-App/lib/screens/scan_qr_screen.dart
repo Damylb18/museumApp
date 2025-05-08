@@ -247,15 +247,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           ),
                         ),
 
-                        // Home indicator
-                        Container(
-                          width: resp.scaleWidth(134),
-                          height: resp.scaleHeight(5),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.5),
-                            borderRadius: BorderRadius.circular(resp.scaleWidth(100)),
-                          ),
-                        ),
                       ],
                     ),
                   ],

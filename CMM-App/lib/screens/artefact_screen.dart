@@ -216,15 +216,6 @@ class ArtefactDetailScreen extends StatelessWidget {
 
                     SizedBox(height: resp.getVerticalSpacing(20)),
 
-                    // Bottom indicator
-                    Container(
-                      width: resp.scaleWidth(134),
-                      height: resp.scaleHeight(5),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.5),
-                        borderRadius: BorderRadius.circular(resp.scaleWidth(100)),
-                      ),
-                    ),
                   ],
                 ),
               ),
