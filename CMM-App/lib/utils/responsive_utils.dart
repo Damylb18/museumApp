@@ -45,12 +45,12 @@ class ResponsiveUtils {
   /// Get bottom padding (for notches, home indicators, etc.)
   double get bottomPadding => _mediaQueryData.padding.bottom;
 
-  /// Scale width based on design width (default 393px from your mockups)
+  /// Scale width based on design width (default 393px from mockups)
   double scaleWidth(double width, {double designWidth = 393}) {
     return width * _screenWidth / designWidth;
   }
 
-  /// Scale height based on design height (default 852px from your mockups)
+  /// Scale height based on design height (default 852px from mockups)
   double scaleHeight(double height, {double designHeight = 852}) {
     return height * _screenHeight / designHeight;
   }

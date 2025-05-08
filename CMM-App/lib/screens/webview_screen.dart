@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 
 class WebPageScreen extends StatefulWidget {
   final String title;
@@ -39,6 +40,8 @@ class _WebPageScreenState extends State<WebPageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final resp = ResponsiveUtils.instance;
+
     return WillPopScope(
       onWillPop: () async {
         if (await _controller.canGoBack()) {
@@ -49,11 +52,17 @@ class _WebPageScreenState extends State<WebPageScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            style: TextStyle(fontSize: resp.fontSize(18)),
+          ),
           backgroundColor: const Color(0xFF72745D),
           foregroundColor: Colors.white,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(
+              Icons.arrow_back,
+              size: resp.iconSize(24),
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -61,7 +70,11 @@ class _WebPageScreenState extends State<WebPageScreen> {
           children: [
             WebViewWidget(controller: _controller),
             if (isLoading)
-              const Center(child: CircularProgressIndicator()),
+              Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: resp.scaleWidth(2),
+                ),
+              ),
           ],
         ),
       ),
