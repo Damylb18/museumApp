@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
+import 'medals_screen.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super. key});
@@ -96,12 +97,18 @@ class HomePageTwo extends StatelessWidget {
         unselectedFontSize: resp.fontSize(12),
         currentIndex: 0,
         onTap: (index) {
-          if (index == 1) {
+           if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ScanQRScreen()),
             );
           }
+           else if (index == 3){
+             Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => const MedalsScreen()),
+             );
+           }
         },
         items: [
           BottomNavigationBarItem(
@@ -124,7 +131,7 @@ class HomePageTwo extends StatelessWidget {
                     radius: resp.scaleWidth(7),
                     backgroundColor: Colors.red,
                     child: Text(
-                      '4',
+                      '9',
                       style: TextStyle(
                         fontSize: resp.fontSize(10),
                         color: Colors.white,
@@ -225,4 +232,5 @@ class HomePageTwo extends StatelessWidget {
       ],
     );
   }
+
 }

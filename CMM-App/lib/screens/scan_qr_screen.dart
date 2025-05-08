@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
-//import 'package:cheshire_military_museum_tour/screens/artifact_detail_screen.dart';
+import 'package:cheshire_military_museum_tour/screens/artefact_screen.dart';
+import '../models/medal_tracker.dart';
 
 class ScanQRScreen extends StatefulWidget {
   const ScanQRScreen({super.key});
@@ -108,30 +109,30 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         onDetect: (capture) {
                           final List<Barcode> barcodes = capture.barcodes;
                           if (barcodes.isNotEmpty) {
-                            final String code = barcodes.first.rawValue ?? 'Failed to scan';
-                            setState(() {
-                              _hasScanned = true;
-                              _scanResult = code;
-                            });
+                          final String code = barcodes.first.rawValue ?? 'Failed to scan';
 
-                            // Navigate to artifact detail screen
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ArtifactDetailScreen(
-                            //       artifactId: code,
-                            //     ),
-                            //   ),
-                            // ).then((_) {
-                            //   // Reset scanner when returning
-                            //   setState(() {
-                            //     _hasScanned = false;
-                            //     _scanResult = "";
-                            //   });
-                            //   controller.start();
-                            // });
+                          if (!_hasScanned) {
+                          setState(() {
+                          _hasScanned = true;
+                          _scanResult = code;
+                          });
+
+                          final bool isNew = MedalTracker().addScan(code);
+
+                          // Navigate to artefact detail screen
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) => ArtefactDetailScreen(
+                          artefactId: code, // Pass the scanned code as the ID
+                          isNew: isNew,
+                                  ),
+                                ),
+                               );
+                              }
+                            }
                           }
-                        },
+                        ,
                       ),
                     ),
                   ),
@@ -246,15 +247,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           ),
                         ),
 
-                        // Home indicator
-                        Container(
-                          width: resp.scaleWidth(134),
-                          height: resp.scaleHeight(5),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.5),
-                            borderRadius: BorderRadius.circular(resp.scaleWidth(100)),
-                          ),
-                        ),
                       ],
                     ),
                   ],
