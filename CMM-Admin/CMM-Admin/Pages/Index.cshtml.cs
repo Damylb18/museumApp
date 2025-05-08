@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,7 +13,16 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (User.IsInRole("Admin"))
+        {
+            return RedirectToPage("Artifacts/Index");
+        }
+        else
+        {
+            return RedirectToPage("Account/Login", new {area = "Identity"});
+        }
+        
     }
 }
