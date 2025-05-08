@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using QRCoder;
 
 namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
 {
@@ -83,6 +84,8 @@ namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Verification Code")]
             public string Code { get; set; }
         }
+        
+        public string QrCodeImageUri { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -93,7 +96,14 @@ namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
             }
 
             await LoadSharedKeyAndQrCodeUriAsync(user);
+            
 
+            using var qrGenerator = new QRCodeGenerator();
+            using var qrCodeData = qrGenerator.CreateQrCode(AuthenticatorUri, QRCodeGenerator.ECCLevel.Q);
+            using var qrCode = new PngByteQRCode(qrCodeData);
+            var qrCodeBytes = qrCode.GetGraphic(20);
+
+            QrCodeImageUri = "data:image/png;base64," + Convert.ToBase64String(qrCodeBytes);
             return Page();
         }
 
