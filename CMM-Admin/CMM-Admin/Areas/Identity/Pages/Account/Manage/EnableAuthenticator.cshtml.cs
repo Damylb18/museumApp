@@ -164,8 +164,7 @@ namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
 
             SharedKey = FormatKey(unformattedKey);
 
-            var email = await _userManager.GetEmailAsync(user);
-            AuthenticatorUri = GenerateQrCodeUri(email, unformattedKey);
+            AuthenticatorUri = GenerateQrCodeUri(unformattedKey);
         }
 
         private string FormatKey(string unformattedKey)
@@ -185,13 +184,13 @@ namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
             return result.ToString().ToLowerInvariant();
         }
 
-        private string GenerateQrCodeUri(string email, string unformattedKey)
+        private string GenerateQrCodeUri(string unformattedKey)
         {
             return string.Format(
                 CultureInfo.InvariantCulture,
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("Microsoft.AspNetCore.Identity.UI"),
-                _urlEncoder.Encode(email),
+                _urlEncoder.Encode("CMM Tour"),
+                _urlEncoder.Encode("admin"),
                 unformattedKey);
         }
     }
