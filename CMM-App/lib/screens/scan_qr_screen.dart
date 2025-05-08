@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
+//import 'package:cheshire_military_museum_tour/screens/artifact_detail_screen.dart';
 
 class ScanQRScreen extends StatefulWidget {
   const ScanQRScreen({super.key});
@@ -21,285 +23,268 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final resp = ResponsiveUtils.instance;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(color: Colors.white),
-          child: Stack(
-            children: [
-              // Curved bottom section
-              Positioned(
-                left: 0,
-                top: 495,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 359,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF75775D),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    ),
-                  ),
-                ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // App bar with title and navigation buttons
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: resp.getHorizontalSpacing(16),
+                vertical: resp.getVerticalSpacing(10),
               ),
-
-              // App bar with title and navigation buttons
-              Positioned(
-                left: 11,
-                top: 60,
-                child: SizedBox(
-                  width: 371,
-                  height: 51,
-                  child: Stack(
-                    children: [
-                      // Back button
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFF75775D),
-                            shape: OvalBorder(),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back, color: Colors.white),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ),
-
-                      // Settings button
-                      Positioned(
-                        left: 323,
-                        top: 0,
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFF75775D),
-                            shape: OvalBorder(),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(Icons.settings, color: Colors.white),
-                            onPressed: () {
-                              // Settings action
-                            },
-                          ),
-                        ),
-                      ),
-
-                      // Page title
-                      const Positioned(
-                        left: 127,
-                        top: 11,
-                        child: SizedBox(
-                          width: 104,
-                          height: 26,
-                          child: Text(
-                            'Scan QR',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Back button
+                  _buildCircleButton(
+                    context,
+                    Icons.arrow_back,
+                        () => Navigator.pop(context),
+                    resp,
                   ),
-                ),
-              ),
 
-              // QR Scanner
-              Positioned(
-                left: 73,
-                top: 166,
-                child: Container(
-                  width: 247,
-                  height: 273,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: _hasScanned
-                      ? Center(
-                    child: Text(
-                      _scanResult,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  )
-                      : MobileScanner(
-                    controller: controller,
-                    onDetect: (capture) {
-                      final List<Barcode> barcodes = capture.barcodes;
-                      if (barcodes.isNotEmpty) {
-                        final String code = barcodes.first.rawValue ?? 'Failed to scan';
-                        setState(() {
-                          _hasScanned = true;
-                          _scanResult = code;
-                        });
-
-                        // Show a dialog with the result
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('QR Code Result'),
-                              content: Text('Scanned content: $code'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ),
-
-              // Get Started title
-              const Positioned(
-                left: 79,
-                top: 552,
-                child: SizedBox(
-                  width: 236,
-                  height: 29,
-                  child: Text(
-                    'Get Started',
-                    textAlign: TextAlign.center,
+                  // Title
+                  Text(
+                    'Scan QR',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
+                      color: Colors.black,
+                      fontSize: resp.fontSize(24),
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                ),
-              ),
 
-              // Description text
-              const Positioned(
-                left: 37,
-                top: 597,
-                child: SizedBox(
-                  width: 319,
-                  height: 66,
-                  child: Text(
-                    'Scan the QR code to explore detailed information about this artefact, including its history, significance, and origin.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
+                  // Settings button
+                  _buildCircleButton(
+                    context,
+                    Icons.settings,
+                        () {}, // Settings action
+                    resp,
                   ),
-                ),
+                ],
               ),
+            ),
 
-              // Go button
-              Positioned(
-                left: 242,
-                top: 759,
-                child: Container(
-                  width: 114,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        // Reset the scan if already scanned
-                        if (_hasScanned) {
-                          setState(() {
-                            _hasScanned = false;
-                            _scanResult = "";
-                          });
-                        }
-                        // Force a restart of the scanner
-                        controller.start();
-                      },
-                      borderRadius: BorderRadius.circular(12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            _hasScanned ? 'Retry' : 'Go',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            _hasScanned ? Icons.refresh : Icons.arrow_forward,
-                            size: 20,
-                            color: Colors.black,
+            SizedBox(height: resp.getVerticalSpacing(20)),
+
+            // QR Scanner
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)), // Padding on all sides
+                child: Center(  // Center the scanner container
+                  child: AspectRatio(  // Maintain square aspect ratio
+                    aspectRatio: 1.0,  // 1:1 ratio for square
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: resp.getBorderRadius(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.6),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
                         ],
                       ),
+                      clipBehavior: Clip.hardEdge,
+                      child: _hasScanned
+                          ? Center(
+                        child: Text(
+                          _scanResult,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: resp.fontSize(16),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                          : MobileScanner(
+                        controller: controller,
+                        onDetect: (capture) {
+                          final List<Barcode> barcodes = capture.barcodes;
+                          if (barcodes.isNotEmpty) {
+                            final String code = barcodes.first.rawValue ?? 'Failed to scan';
+                            setState(() {
+                              _hasScanned = true;
+                              _scanResult = code;
+                            });
+
+                            // Navigate to artifact detail screen
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => ArtifactDetailScreen(
+                            //       artifactId: code,
+                            //     ),
+                            //   ),
+                            // ).then((_) {
+                            //   // Reset scanner when returning
+                            //   setState(() {
+                            //     _hasScanned = false;
+                            //     _scanResult = "";
+                            //   });
+                            //   controller.start();
+                            // });
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
+            ),
 
-              // Home indicator
-              Positioned(
-                left: 129,
-                bottom: 6,
-                child: Container(
-                  width: 134,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(100),
+            // Bottom curved section
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(resp.scaleWidth(50)),
+                    topRight: Radius.circular(resp.scaleWidth(50)),
                   ),
                 ),
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(20)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Instructions section
+                    Column(
+                      children: [
+                        SizedBox(height: resp.getVerticalSpacing(20)),
+
+                        Text(
+                          'Get Started',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: resp.fontSize(24),
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+
+                        SizedBox(height: resp.getVerticalSpacing(15)),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: resp.getHorizontalSpacing(20),
+                          ),
+                          child: Text(
+                            'Scan the QR code to explore detailed information about this artefact, including its history, significance, and origin.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: resp.fontSize(14),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // Bottom section with button
+                    Column(
+                      children: [
+                        // Go/Retry button
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              bottom: resp.getVerticalSpacing(20),
+                            ),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.black,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: resp.getHorizontalSpacing(20),
+                                  vertical: resp.getVerticalSpacing(15),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: resp.getBorderRadius(12),
+                                ),
+                              ),
+                              onPressed: () {
+                                // Reset the scan if already scanned
+                                if (_hasScanned) {
+                                  setState(() {
+                                    _hasScanned = false;
+                                    _scanResult = "";
+                                  });
+                                }
+                                // Force a restart of the scanner
+                                controller.start();
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    _hasScanned ? 'Retry' : 'Go',
+                                    style: TextStyle(
+                                      fontSize: resp.fontSize(16),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(width: resp.getHorizontalSpacing(8)),
+                                  Icon(
+                                    _hasScanned ? Icons.refresh : Icons.arrow_forward,
+                                    size: resp.iconSize(20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // Home indicator
+                        Container(
+                          width: resp.scaleWidth(134),
+                          height: resp.scaleHeight(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.5),
+                            borderRadius: BorderRadius.circular(resp.scaleWidth(100)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  // Helper method to build circular buttons
+  Widget _buildCircleButton(
+      BuildContext context,
+      IconData icon,
+      VoidCallback onPressed,
+      ResponsiveUtils resp,
+      ) {
+    return Container(
+      width: resp.scaleWidth(48),
+      height: resp.scaleWidth(48),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        shape: BoxShape.circle,
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: Colors.white, size: resp.iconSize(24)),
+        padding: EdgeInsets.zero,
+        onPressed: onPressed,
       ),
     );
   }
