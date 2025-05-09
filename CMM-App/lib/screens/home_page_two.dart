@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
+import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
 import 'medals_screen.dart';
@@ -17,23 +18,14 @@ class HomePageTwo extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
-            Icons.more_vert,
+          icon: CustomIcon(
+           assetName: 'assets/icons/threeDotsVertical.svg',
             color: const Color(0xFF72745D),
             size: resp.iconSize(24),
           ),
           onPressed: () {},
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: const Color(0xFF72745D),
-              size: resp.iconSize(24),
-            ),
-            onPressed: () {},
-          ),
-        ],
+
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,10 +69,10 @@ class HomePageTwo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildCircleIcon(context, Icons.shopping_bag, 'Shop', resp),
-                    _buildCircleIcon(context, Icons.confirmation_num, 'Tickets', resp),
-                    _buildCircleIcon(context, Icons.volunteer_activism, 'Donate', resp),
-                    _buildCircleIcon(context, Icons.event, 'Events', resp),
+                    _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
+                    _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
+                    _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
+                    _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
                   ],
                 ),
               ],
@@ -112,39 +104,54 @@ class HomePageTwo extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_mini_rounded, size: resp.iconSize(24)),
+            icon: CustomIcon(
+              assetName: 'assets/icons/home.svg',
+              size: resp.iconSize(24),
+            ),
+            activeIcon: CustomIcon(
+              assetName: 'assets/icons/home.svg',
+              size: resp.iconSize(24),
+              color: const Color(0xFF72745D),
+            ),
             label: 'Home',
           ),
+
           BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner, size: resp.iconSize(24)),
+            icon: CustomIcon(
+              assetName: 'assets/icons/qr.svg',
+              size: resp.iconSize(24),
+            ),
+            activeIcon: CustomIcon(
+              assetName: 'assets/icons/qr.svg',
+              size: resp.iconSize(24),
+              color: const Color(0xFF72745D),
+            ),
             label: 'Scan QR',
           ),
+
           BottomNavigationBarItem(
-            icon: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Icon(Icons.favorite, size: resp.iconSize(24)),
-                Positioned(
-                  right: resp.scaleWidth(-6),
-                  top: resp.scaleHeight(-2),
-                  child: CircleAvatar(
-                    radius: resp.scaleWidth(7),
-                    backgroundColor: Colors.red,
-                    child: Text(
-                      '9',
-                      style: TextStyle(
-                        fontSize: resp.fontSize(10),
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            icon: CustomIcon(
+              assetName: 'assets/icons/artefact.svg',
+              size: resp.iconSize(24),
             ),
-            label: 'Saved',
+            activeIcon: CustomIcon(
+              assetName: 'assets/icons/artefact.svg',
+              size: resp.iconSize(24),
+              color: const Color(0xFF72745D),
+            ),
+            label: 'Artefacts',
           ),
+
           BottomNavigationBarItem(
-            icon: Icon(Icons.military_tech, size: resp.iconSize(24)),
+            icon: CustomIcon(
+              assetName: 'assets/icons/medal.svg',
+              size: resp.iconSize(24),
+            ),
+            activeIcon: CustomIcon(
+              assetName: 'assets/icons/medal.svg',
+              size: resp.iconSize(24),
+              color: const Color(0xFF72745D),
+            ),
             label: 'Medals',
           ),
         ],
@@ -154,7 +161,7 @@ class HomePageTwo extends StatelessWidget {
 
   Widget _buildCircleIcon(
       BuildContext context,
-      IconData icon,
+      String iconsAsset,
       String label,
       ResponsiveUtils resp,
       ) {
@@ -211,15 +218,13 @@ class HomePageTwo extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: const Color(0xFFDBD3BD),
             radius: resp.scaleWidth(30),
-            child: IconTheme(
-              data: IconThemeData(
+            child: CustomIcon(
+            assetName: iconsAsset,
                 color: Colors.black,
                 size: resp.iconSize(24),
               ),
-              child: Icon(icon),
             ),
           ),
-        ),
         SizedBox(height: resp.getVerticalSpacing(8)),
         Text(
           label,
