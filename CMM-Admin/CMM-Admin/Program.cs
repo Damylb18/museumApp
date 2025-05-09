@@ -1,4 +1,5 @@
 using CMM_Admin.Data;
+using CMM_Admin.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MuseumContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Database"))
 );
+
+builder.Services.AddTransient<ImageHandler>();
 
 
 builder.Services

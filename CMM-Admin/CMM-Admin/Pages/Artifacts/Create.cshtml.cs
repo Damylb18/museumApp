@@ -8,60 +8,35 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
+using CMM_Admin.Helpers;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class CreateModel : PageModel
+    public class CreateModel(MuseumContext context, ImageHandler imageHandler) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
-
-        public CreateModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        [BindProperty] public Artifact Artifact { get; set; } = default!;
+        [BindProperty] public Artifact Artifact { get; set; } = null!;
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
+                return Page();
+
+            var errorMessage = imageHandler.CheckUpload(Request.Form.Files);
+            if (!errorMessage.IsNullOrEmpty())
             {
+                ModelState.AddModelError(string.Empty, errorMessage);
                 return Page();
             }
 
-            if (Request.Form.Files.IsNullOrEmpty())
-            {
-                ModelState.AddModelError(string.Empty, "No image file selected");
-                return Page();
-            }
-
-            var file = Request.Form.Files[0];
-            var extension = Path.GetExtension(file.FileName);
-            List<string> validExtensions = [".jpg", ".png"];
-
-            if (!validExtensions.Contains(extension))
-            {
-                var builder = new StringBuilder();
-                foreach (var str in validExtensions)
-                {
-                    builder.Append(str + " ");
-                }
-
-                var validExtensionsString = builder.ToString();
-                ModelState.AddModelError(string.Empty,
-                    $"Invalid file ({extension}). Accepted formats are {validExtensionsString}");
-                return Page();
-            }
-
-
-            _context.Artifacts.Add(Artifact);
-            await _context.SaveChangesAsync();
+            context.Artifacts.Add(Artifact);
+            await context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
