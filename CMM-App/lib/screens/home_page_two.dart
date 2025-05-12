@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
-import 'scan_qr_screen.dart';
+import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import 'webview_screen.dart';
-import 'medals_screen.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
 
 class HomePageTwo extends StatelessWidget {
-  const HomePageTwo({super. key});
+  const HomePageTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,81 +82,8 @@ class HomePageTwo extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFF72745D),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        iconSize: resp.iconSize(24),
-        selectedFontSize: resp.fontSize(12),
-        unselectedFontSize: resp.fontSize(12),
+      bottomNavigationBar: const FloatingNavBar(
         currentIndex: 0,
-        onTap: (index) {
-           if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ScanQRScreen()),
-            );
-          }
-           else if (index == 3){
-             Navigator.push(
-                 context,
-                 MaterialPageRoute(builder: (context) => const MedalsScreen()),
-             );
-           }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: CustomIcon(
-              assetName: 'assets/icons/home.svg',
-              size: resp.iconSize(24),
-            ),
-            activeIcon: CustomIcon(
-              assetName: 'assets/icons/home.svg',
-              size: resp.iconSize(24),
-              color: const Color(0xFF72745D),
-            ),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: CustomIcon(
-              assetName: 'assets/icons/qr.svg',
-              size: resp.iconSize(24),
-            ),
-            activeIcon: CustomIcon(
-              assetName: 'assets/icons/qr.svg',
-              size: resp.iconSize(24),
-              color: const Color(0xFF72745D),
-            ),
-            label: 'Scan QR',
-          ),
-
-          BottomNavigationBarItem(
-            icon: CustomIcon(
-              assetName: 'assets/icons/artefact.svg',
-              size: resp.iconSize(24),
-            ),
-            activeIcon: CustomIcon(
-              assetName: 'assets/icons/artefact.svg',
-              size: resp.iconSize(24),
-              color: const Color(0xFF72745D),
-            ),
-            label: 'Artefacts',
-          ),
-
-          BottomNavigationBarItem(
-            icon: CustomIcon(
-              assetName: 'assets/icons/medal.svg',
-              size: resp.iconSize(24),
-            ),
-            activeIcon: CustomIcon(
-              assetName: 'assets/icons/medal.svg',
-              size: resp.iconSize(24),
-              color: const Color(0xFF72745D),
-            ),
-            label: 'Medals',
-          ),
-        ],
       ),
     );
   }
@@ -222,12 +148,12 @@ class HomePageTwo extends StatelessWidget {
             backgroundColor: const Color(0xFFDBD3BD),
             radius: resp.scaleWidth(30),
             child: CustomIcon(
-            assetName: iconsAsset,
-                color: Colors.black,
-                size: resp.iconSize(24),
-              ),
+              assetName: iconsAsset,
+              color: Colors.black,
+              size: resp.iconSize(24),
             ),
           ),
+        ),
         SizedBox(height: resp.getVerticalSpacing(8)),
         Text(
           label,
@@ -240,5 +166,4 @@ class HomePageTwo extends StatelessWidget {
       ],
     );
   }
-
 }

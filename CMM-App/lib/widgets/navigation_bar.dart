@@ -3,6 +3,7 @@ import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/screens/scan_qr_screen.dart';
 import 'package:cheshire_military_museum_tour/screens/medals_screen.dart';
 import 'package:cheshire_military_museum_tour/screens/home_page_two.dart';
+import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 
 class FloatingNavBar extends StatelessWidget {
   final int currentIndex;
@@ -10,7 +11,7 @@ class FloatingNavBar extends StatelessWidget {
   final int badgeCount;
 
   const FloatingNavBar({
-    super. key,
+    super.key,
     required this.currentIndex,
     this.showBadge = false,
     this.badgeCount = 0,
@@ -48,21 +49,21 @@ class FloatingNavBar extends StatelessWidget {
             children: [
               _buildNavItem(
                   context,
-                  Icons.home_mini_rounded,
+                  'assets/icons/home.svg',
                   'Home',
                   0,
                   resp
               ),
               _buildNavItem(
                   context,
-                  Icons.qr_code_scanner,
+                  'assets/icons/qr.svg',
                   'Scan QR',
                   1,
                   resp
               ),
               _buildNavItem(
                 context,
-                Icons.favorite,
+                'assets/icons/artefact.svg',
                 'Saved',
                 2,
                 resp,
@@ -71,7 +72,7 @@ class FloatingNavBar extends StatelessWidget {
               ),
               _buildNavItem(
                   context,
-                  Icons.military_tech,
+                  'assets/icons/medal.svg',
                   'Medals',
                   3,
                   resp
@@ -85,7 +86,7 @@ class FloatingNavBar extends StatelessWidget {
 
   Widget _buildNavItem(
       BuildContext context,
-      IconData icon,
+      String assetName,
       String label,
       int index,
       ResponsiveUtils resp, {
@@ -104,8 +105,8 @@ class FloatingNavBar extends StatelessWidget {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Icon(
-                  icon,
+                CustomIcon(
+                  assetName: assetName,
                   color: color,
                   size: resp.iconSize(24),
                 ),
@@ -163,14 +164,14 @@ class FloatingNavBar extends StatelessWidget {
           MaterialPageRoute(builder: (context) => const ScanQRScreen()),
         );
         break;
-        //Uncomment this section after creating saved artefacts screen.
-      // case 2:
-      // // Navigate to Saved
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => const SavedArtefactsScreen()),
-      //   );
-      //   break;
+    //Uncomment this section after creating saved artefacts screen.
+    // case 2:
+    // // Navigate to Saved
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => const SavedArtefactsScreen()),
+    //   );
+    //   break;
       case 3:
       // Navigate to Medals
         Navigator.push(
