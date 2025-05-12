@@ -82,7 +82,7 @@ class HomePageTwo extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const FloatingNavBar(
+      bottomNavigationBar: const CustomNavigationBar(
         currentIndex: 0,
       ),
     );
