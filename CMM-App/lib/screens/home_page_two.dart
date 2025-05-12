@@ -4,6 +4,7 @@ import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'scan_qr_screen.dart';
 import 'webview_screen.dart';
 import 'medals_screen.dart';
+import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super. key});
@@ -204,14 +205,14 @@ class HomePageTwo extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (label == 'Events') {
+            } else if (label == 'News') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const WebPageScreen(
                     title: 'Events',
                     //TODO Make link changeable by staff
-                    url: 'https://cheshiremilitarymuseum.org.uk/',
+                    url: 'https://cheshiremilitarymuseum.org.uk/news/',
                   ),
                 ),
               );
