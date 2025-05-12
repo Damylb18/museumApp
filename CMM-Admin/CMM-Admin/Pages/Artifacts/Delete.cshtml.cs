@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,26 +6,19 @@ using CMM_Admin.Data.Models;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel(MuseumContext context) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
-
-        public DeleteModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
         [BindProperty]
-        public Artifact Artifact { get; set; } = default!;
+        public Artifact Artifact { get; set; } = null!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var artifact = await _context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
+            var artifact = await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
 
             if (artifact == null)
             {
@@ -42,19 +31,19 @@ namespace CMM_Admin.Pages.Artifacts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var artifact = await _context.Artifacts.FindAsync(id);
+            var artifact = await context.Artifacts.FindAsync(id);
             if (artifact != null)
             {
                 Artifact = artifact;
-                _context.Artifacts.Remove(Artifact);
-                await _context.SaveChangesAsync();
+                context.Artifacts.Remove(Artifact);
+                await context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

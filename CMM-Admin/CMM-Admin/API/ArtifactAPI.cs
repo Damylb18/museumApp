@@ -6,7 +6,7 @@ public static class ArtifactApi
 {
     public static void MapArtifactEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/artifact/data/{id:int}", (int id, MuseumContext db) =>
+        app.MapGet("/api/artifact/data/{id}", (string id, MuseumContext db) =>
         {
             var artifact = db.Artifacts.FirstOrDefault(m => m.ArtifactId == id);
 

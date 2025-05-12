@@ -28,8 +28,12 @@ namespace CMM_Admin.Pages.Artifacts
             }
             var file = Request.Form.Files[0];
 
+            // Create Artifact ID
+            var id = Guid.NewGuid().ToString();
+            Artifact.ArtifactId = id;
+            
             // Upload image:
-            var imageSaveResult = await imageHandler.SaveImage(file);
+            var imageSaveResult = await imageHandler.SaveImage(file, id);
             if (!imageSaveResult.Success)
             {
                 ModelState.AddModelError(string.Empty, imageSaveResult.ErrorMessage!);

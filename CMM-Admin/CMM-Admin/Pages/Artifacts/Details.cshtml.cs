@@ -10,25 +10,18 @@ using CMM_Admin.Data.Models;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel(MuseumContext context) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
+        public Artifact Artifact { get; set; } = null!;
 
-        public DetailsModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
-        public Artifact Artifact { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var artifact = await _context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
+            var artifact = await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
             if (artifact == null)
             {
                 return NotFound();

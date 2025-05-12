@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMM_Admin.Migrations
 {
     [DbContext(typeof(MuseumContext))]
-    [Migration("20250508092514_Initial")]
+    [Migration("20250512183249_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -22,9 +22,9 @@ namespace CMM_Admin.Migrations
 
             modelBuilder.Entity("CMM_Admin.Data.Models.Artifact", b =>
                 {
-                    b.Property<int>("ArtifactId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ArtifactId")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()

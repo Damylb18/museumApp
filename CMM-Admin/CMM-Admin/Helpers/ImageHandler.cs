@@ -27,7 +27,7 @@ public class ImageHandler
         return new ImageValidationResult(true, null);
     }
 
-    public async Task<ImageUploadResult> SaveImage(IFormFile file)
+    public async Task<ImageUploadResult> SaveImage(IFormFile file, string id)
         // Intended to be called only after CheckUpload
     {
         try
@@ -36,7 +36,7 @@ public class ImageHandler
             Directory.CreateDirectory(targetDir);
             
             var fileExtension = Path.GetExtension(file.FileName);
-            var newFileName = Guid.NewGuid() + fileExtension;
+            var newFileName = id + fileExtension;
             var targetPath = Path.Combine(targetDir, newFileName);
 
             await using var fileStream = new FileStream(targetPath, FileMode.Create);

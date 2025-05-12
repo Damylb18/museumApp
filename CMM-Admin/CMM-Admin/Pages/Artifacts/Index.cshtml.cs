@@ -10,20 +10,13 @@ using CMM_Admin.Data.Models;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class IndexModel : PageModel
+    public class IndexModel(CMM_Admin.Data.MuseumContext context) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
-
-        public IndexModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Artifact> Artifact { get;set; } = default!;
+        public IList<Artifact> Artifact { get;set; } = null!;
 
         public async Task OnGetAsync()
         {
-            Artifact = await _context.Artifacts.ToListAsync();
+            Artifact = await context.Artifacts.ToListAsync();
         }
     }
 }

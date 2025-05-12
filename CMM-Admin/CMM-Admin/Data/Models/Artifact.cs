@@ -4,8 +4,7 @@ namespace CMM_Admin.Data.Models;
 
 public class Artifact
 {
-    [Required]
-    public int ArtifactId { get; init; }
+    [MaxLength(100)] public required string ArtifactId { get; set; } = "";
     
     [Required]
     [MaxLength(100)]

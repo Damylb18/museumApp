@@ -19,9 +19,9 @@ namespace CMM_Admin.Migrations
 
             modelBuilder.Entity("CMM_Admin.Data.Models.Artifact", b =>
                 {
-                    b.Property<int>("ArtifactId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ArtifactId")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
