@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
 using CMM_Admin.Helpers;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
 
 namespace CMM_Admin.Pages.Artifacts
 {
@@ -28,13 +20,23 @@ namespace CMM_Admin.Pages.Artifacts
             if (!ModelState.IsValid)
                 return Page();
 
-            var errorMessage = imageHandler.CheckUpload(Request.Form.Files);
-            if (!errorMessage.IsNullOrEmpty())
+            var imageCheckResult = imageHandler.CheckUpload(Request.Form.Files);
+            if (!imageCheckResult.Success)
             {
-                ModelState.AddModelError(string.Empty, errorMessage);
+                ModelState.AddModelError(string.Empty, imageCheckResult.ErrorMessage!);
+                return Page();
+            }
+            var file = Request.Form.Files[0];
+
+            // Upload image:
+            var imageSaveResult = await imageHandler.SaveImage(file);
+            if (!imageSaveResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, imageSaveResult.ErrorMessage!);
                 return Page();
             }
 
+            Artifact.ImagePath = imageSaveResult.FilePath!;
             context.Artifacts.Add(Artifact);
             await context.SaveChangesAsync();
 

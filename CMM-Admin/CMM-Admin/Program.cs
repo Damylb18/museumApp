@@ -1,3 +1,4 @@
+using CMM_Admin.API;
 using CMM_Admin.Data;
 using CMM_Admin.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -51,11 +52,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
 
 // Create admin user
@@ -68,5 +66,8 @@ using (var scope = app.Services.CreateScope())
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     AdminUserInitialiser.Initialise(context, userManager, roleManager).Wait();
 }
+
+// Minimal API
+app.MapArtifactEndpoints();
 
 app.Run();
