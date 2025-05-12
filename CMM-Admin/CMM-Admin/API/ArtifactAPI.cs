@@ -1,4 +1,5 @@
 using CMM_Admin.Data;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace CMM_Admin.API;
 
@@ -17,21 +18,37 @@ public static class ArtifactApi
 
             var data = new
             {
-                Name = artifact.Name,
-                Description = artifact.Description,
-                Img = artifact.ImagePath
+                artifact.Name,
+                artifact.Description,
+                artifact.ArtifactId
             };
 
             return Results.Ok(data);
         });
 
-        // TODO Write image api
         
-        // app.MapGet("/api/artifact/img/{id:int}", (int id) =>
-        // {
-        //     var fileBytes = System.IO.File.ReadAllBytes(
-        //         "/home/jonty/Chester/Cheshire-Military-Museum/museum-app/CMM-Admin/CMM-Admin/Data/img/6d5f6273-2b38-4faf-9cc1-84616ac34fc3.png");
-        //     return Results.File(fileBytes, "image/jpeg", "test-img.jpg");
-        // });
+        app.MapGet("/api/artifact/img/{id}", (string id) =>
+        {
+            var dirPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "img");
+            var file = Directory.GetFiles(dirPath, $"{id}.*").FirstOrDefault();
+            
+            
+            if (file == null)
+            {
+                return Results.NotFound(new { Message = "Image not found" });
+            }
+
+            var name = Path.GetFileName(file);
+            
+            var provider = new FileExtensionContentTypeProvider();
+
+            if (!provider.TryGetContentType(name, out var contentType))
+            {
+                contentType = "application/octet-stream"; // safe fallback
+            }
+
+            var stream = File.OpenRead(file);
+            return Results.File(stream, contentType, name);
+        });
     }
 }
