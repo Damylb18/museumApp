@@ -17,15 +17,17 @@ class HomePageTwo extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: CustomIcon(
-           assetName: 'assets/icons/threeDotsVertical.svg',
-            color: const Color(0xFF72745D),
-            size: resp.iconSize(24),
+        leading: Padding(
+          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
+          child: CircleButton(
+            icon: Icons.more_vert,
+            onPressed: () {
+              // Menu action
+            },
+            backgroundColor: const Color(0xFF72745D),
           ),
-          onPressed: () {},
         ),
-
+        leadingWidth: resp.scaleWidth(64), // Ensure enough space for the button
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -209,7 +211,7 @@ class HomePageTwo extends StatelessWidget {
                   builder: (context) => const WebPageScreen(
                     title: 'Events',
                     //TODO Make link changeable by staff
-                    url: 'https://cheshiremilitarymuseum.org.uk/category/event/',
+                    url: 'https://cheshiremilitarymuseum.org.uk/',
                   ),
                 ),
               );
