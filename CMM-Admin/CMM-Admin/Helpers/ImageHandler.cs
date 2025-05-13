@@ -32,9 +32,9 @@ public class ImageHandler
     {
         try
         {
-            var targetDir = Path.Combine(Directory.GetCurrentDirectory(), "Data", "img");
+            var targetDir = Path.Combine(AppContext.BaseDirectory, "Data", "img");
             Directory.CreateDirectory(targetDir);
-            
+
             var fileExtension = Path.GetExtension(file.FileName);
             var newFileName = id + fileExtension;
             var targetPath = Path.Combine(targetDir, newFileName);
