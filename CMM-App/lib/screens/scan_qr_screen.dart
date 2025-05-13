@@ -29,6 +29,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             // App bar with title and navigation buttons
@@ -57,14 +58,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w700,
                     ),
-                  ),
-
-                  // Settings button
-                  _buildCircleButton(
-                    context,
-                    Icons.settings,
-                        () {}, // Settings action
-                    resp,
                   ),
                 ],
               ),
@@ -142,7 +135,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
 
             // Bottom curved section
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -166,13 +159,13 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: resp.fontSize(24),
+                            fontSize: resp.fontSize(34),
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w700,
                           ),
                         ),
 
-                        SizedBox(height: resp.getVerticalSpacing(15)),
+                        SizedBox(height: resp.getVerticalSpacing(20)),
 
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -183,7 +176,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: resp.fontSize(14),
+                              fontSize: resp.fontSize(18),
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                             ),
@@ -200,7 +193,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           alignment: Alignment.centerRight,
                           child: Container(
                             margin: EdgeInsets.only(
-                              bottom: resp.getVerticalSpacing(20),
+                              bottom: resp.getVerticalSpacing(50),
                             ),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
