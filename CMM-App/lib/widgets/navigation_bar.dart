@@ -22,8 +22,8 @@ class CustomNavigationBar extends StatelessWidget {
       unselectedItemColor: Colors.black,
       showUnselectedLabels: true,
       iconSize: resp.iconSize(24),
-      selectedFontSize: resp.fontSize(12),
-      unselectedFontSize: resp.fontSize(12),
+      selectedFontSize: resp.fontSize(16),
+      unselectedFontSize: resp.fontSize(16),
       currentIndex: currentIndex,
       onTap: (index) => _onItemTapped(context, index),
       type: BottomNavigationBarType.fixed, // This ensures equal spacing
@@ -31,7 +31,7 @@ class CustomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: CustomIcon(
             assetName: 'assets/icons/home.svg',
-            size: resp.iconSize(24),
+            //size: resp.iconSize(24),
           ),
           activeIcon: CustomIcon(
             assetName: 'assets/icons/home.svg',

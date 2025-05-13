@@ -36,38 +36,79 @@ class HomePageTwo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: resp.getVerticalSpacing(10)),
                 Text(
                   'Welcome!',
                   style: TextStyle(
-                    fontSize: resp.fontSize(26),
+                    fontSize: resp.fontSize(40),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: resp.getVerticalSpacing(20)),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: resp.scaleHeight(520),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: resp.getBorderRadius(12),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: resp.getHorizontalSpacing(15)),
-                    Expanded(
-                      child: Container(
-                        height: resp.scaleHeight(520),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: resp.getBorderRadius(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+
                 SizedBox(height: resp.getVerticalSpacing(30)),
+
+                SizedBox(
+                  height: resp.scaleHeight(400),
+                  child: SingleChildScrollView(
+                   scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
+
+                  child: Row(
+                   children:[
+                     //1st Block
+                 Container(
+                 width: resp.scaleWidth(280),  // Fixed width
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: resp.getBorderRadius(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withValues(alpha: 0.5),
+                            blurRadius: 20,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                   child: ClipRRect(
+                     borderRadius: resp.getBorderRadius(20),
+                     child: Image.asset(
+                       'lib/img/img2.jpg',
+                           fit: BoxFit.cover,
+                       // height: resp.scaleHeight(400),
+                       // width: resp.scaleWidth(280),
+                     ),
+                   ),
+                      ),
+                     SizedBox(width: resp.getHorizontalSpacing(15)),
+                  //2nd Block
+                     Container(
+                       width: resp.scaleWidth(280),  // Fixed width
+                       decoration: BoxDecoration(
+                         color: Colors.grey[100],
+                         borderRadius: resp.getBorderRadius(20),
+                         boxShadow: [
+                           BoxShadow(
+                             color: Colors.grey.withValues(alpha: 0.5),
+                             blurRadius: 20,
+                             offset: Offset(0, 2),
+                           ),
+                         ],
+                       ),
+                       child: ClipRRect(
+                         borderRadius: resp.getBorderRadius(20),
+                         child: Image.asset(
+                           'lib/img/img1.jpg',
+                           fit: BoxFit.cover,
+                           // height: resp.scaleHeight(400),
+                           // width: resp.scaleWidth(280),
+                         ),
+                       ),
+                     ),
+                   ],
+                 )
+                  ),
+                ),
+                SizedBox(height: resp.getVerticalSpacing(35)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -150,7 +191,7 @@ class HomePageTwo extends StatelessWidget {
             child: CustomIcon(
               assetName: iconsAsset,
               color: Colors.black,
-              size: resp.iconSize(24),
+              size: resp.iconSize(30),
             ),
           ),
         ),
@@ -160,7 +201,7 @@ class HomePageTwo extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
-            fontSize: resp.fontSize(14),
+            fontSize: resp.fontSize(18),
           ),
         ),
       ],

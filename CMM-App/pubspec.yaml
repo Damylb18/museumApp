@@ -64,6 +64,8 @@ flutter:
 
   assets:
     - lib/img/img.png
+    - lib/img/img1.jpg
+    - lib/img/img2.jpg
     - assets/icons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
