@@ -9,31 +9,37 @@
 <h1>Create</h1>
 
 <h4>Artifact</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Artifact.Name" class="control-label"></label>
-                <input asp-for="Artifact.Name" class="form-control" />
+                <input asp-for="Artifact.Name" class="form-control"/>
                 <span asp-validation-for="Artifact.Name" class="text-danger"></span>
             </div>
+            @* <div class="form-group"> *@
+            @*     <span class="text-danger">*</span> *@
+            @*     <label asp-for="Artifact.ImagePath" class="control-label"></label> *@
+            @*     <input asp-for="Artifact.ImagePath" class="form-control" /> *@
+            @*     <span asp-validation-for="Artifact.ImagePath" class="text-danger"></span> *@
+            @* </div> *@
             <div class="form-group">
+                <label class="control-label">Image</label>
                 <span class="text-danger">*</span>
-                <label asp-for="Artifact.ImagePath" class="control-label"></label>
-                <input asp-for="Artifact.ImagePath" class="form-control" />
-                <span asp-validation-for="Artifact.ImagePath" class="text-danger"></span>
+                <input type="file" id="file1" name="file1">
+                @* <span asp-validation-for="Food.ImageData" class="text-danger"></span> *@
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Artifact.Description" class="control-label"></label>
-                <input asp-for="Artifact.Description" class="form-control" />
+                <input asp-for="Artifact.Description" class="form-control"/>
                 <span asp-validation-for="Artifact.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>

@@ -1,14 +1,26 @@
+using CMM_Admin.API;
 using CMM_Admin.Data;
+using CMM_Admin.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Construct absolute database path
+var dbDir = Path.Combine(AppContext.BaseDirectory, "Data");
+Directory.CreateDirectory(dbDir);
+var dbPath = Path.Combine(dbDir, "app.db");
+var absConnectionString = $"Data Source={dbPath}";
+
 // Add db context to the container
 builder.Services.AddDbContext<MuseumContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("Database"))
+    // options.UseSqlite(builder.Configuration.GetConnectionString("Database"))
+    options.UseSqlite(absConnectionString)
 );
+
+
+builder.Services.AddTransient<ImageHandler>();
 
 
 builder.Services
@@ -38,6 +50,19 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
 
 var app = builder.Build();
 
+
+// Create DB and initialise admin user
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<MuseumContext>();
+    context.Database.Migrate();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    AdminUserInitialiser.Initialise(context, userManager, roleManager).Wait();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -48,22 +73,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
 
-// Create admin user
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<MuseumContext>();
-    context.Database.Migrate();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    AdminUserInitialiser.Initialise(context, userManager, roleManager).Wait();
-}
+
+// Minimal API
+app.MapArtifactEndpoints();
 
 app.Run();

@@ -1,34 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
+using QRCoder;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel(MuseumContext context) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
+        public Artifact Artifact { get; set; } = null!;
+        public string? QrCodeBase64 { get; set; }
 
-        public DetailsModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
-        public Artifact Artifact { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var artifact = await _context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
+            var artifact = await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
             if (artifact == null)
             {
                 return NotFound();
@@ -37,6 +28,15 @@ namespace CMM_Admin.Pages.Artifacts
             {
                 Artifact = artifact;
             }
+            
+            
+            using var qrGenerator = new QRCodeGenerator();
+            using var qrData = qrGenerator.CreateQrCode(Artifact.ArtifactId, QRCodeGenerator.ECCLevel.M);
+            using var qrCode = new PngByteQRCode(qrData);
+
+            var qrCodeBytes = qrCode.GetGraphic(20);
+            QrCodeBase64 = Convert.ToBase64String(qrCodeBytes);
+            
             return Page();
         }
     }

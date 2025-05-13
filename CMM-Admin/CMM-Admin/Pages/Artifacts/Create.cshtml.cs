@@ -1,42 +1,48 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
+using CMM_Admin.Helpers;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class CreateModel : PageModel
+    public class CreateModel(MuseumContext context, ImageHandler imageHandler) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
-
-        public CreateModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        [BindProperty]
-        public Artifact Artifact { get; set; } = default!;
+        [BindProperty] public Artifact Artifact { get; set; } = null!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
+                return Page();
+
+            var imageCheckResult = imageHandler.CheckUpload(Request.Form.Files);
+            if (!imageCheckResult.Success)
             {
+                ModelState.AddModelError(string.Empty, imageCheckResult.ErrorMessage!);
+                return Page();
+            }
+            var file = Request.Form.Files[0];
+
+            // Create Artifact ID
+            var id = Guid.NewGuid().ToString();
+            Artifact.ArtifactId = id;
+            
+            // Upload image:
+            var imageSaveResult = await imageHandler.SaveImage(file, id);
+            if (!imageSaveResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, imageSaveResult.ErrorMessage!);
                 return Page();
             }
 
-            _context.Artifacts.Add(Artifact);
-            await _context.SaveChangesAsync();
+            Artifact.ImagePath = imageSaveResult.FilePath!;
+            context.Artifacts.Add(Artifact);
+            await context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

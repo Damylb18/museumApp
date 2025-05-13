@@ -1,36 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
 
 namespace CMM_Admin.Pages.Artifacts
 {
-    public class EditModel : PageModel
+    public class EditModel(Data.MuseumContext context) : PageModel
     {
-        private readonly CMM_Admin.Data.MuseumContext _context;
-
-        public EditModel(CMM_Admin.Data.MuseumContext context)
-        {
-            _context = context;
-        }
-
         [BindProperty]
-        public Artifact Artifact { get; set; } = default!;
+        public Artifact Artifact { get; set; } = null!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var artifact =  await _context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
+            var artifact =  await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
             if (artifact == null)
             {
                 return NotFound();
@@ -48,11 +35,11 @@ namespace CMM_Admin.Pages.Artifacts
                 return Page();
             }
 
-            _context.Attach(Artifact).State = EntityState.Modified;
+            context.Attach(Artifact).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -69,9 +56,9 @@ namespace CMM_Admin.Pages.Artifacts
             return RedirectToPage("./Index");
         }
 
-        private bool ArtifactExists(int id)
+        private bool ArtifactExists(string id)
         {
-            return _context.Artifacts.Any(e => e.ArtifactId == id);
+            return context.Artifacts.Any(e => e.ArtifactId == id);
         }
     }
 }

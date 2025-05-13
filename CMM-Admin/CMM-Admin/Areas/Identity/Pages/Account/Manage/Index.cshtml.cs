@@ -3,17 +3,14 @@
 
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CMM_Admin.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public class IndexModel(UserManager<IdentityUser> userManager)
         : PageModel
     {
         public string Username { get; set; }
