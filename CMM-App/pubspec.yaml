@@ -38,6 +38,7 @@ dependencies:
   url_launcher: ^6.1.7
   webview_flutter: ^4.0.7
   webview_flutter_wkwebview: ^3.0.0
+  flutter_svg: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,9 @@ flutter:
 
   assets:
     - lib/img/img.png
+    - lib/img/img1.jpg
+    - lib/img/img2.jpg
+    - assets/icons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

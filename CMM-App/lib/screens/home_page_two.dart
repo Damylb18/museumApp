@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
-import 'scan_qr_screen.dart';
+import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
+import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import 'webview_screen.dart';
-import 'medals_screen.dart';
+import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
 
 class HomePageTwo extends StatelessWidget {
-  const HomePageTwo({super. key});
+  const HomePageTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,17 @@ class HomePageTwo extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: const Color(0xFF72745D),
-            size: resp.iconSize(24),
+        leading: Padding(
+          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
+          child: CircleButton(
+            icon: Icons.more_vert,
+            onPressed: () {
+              // Menu action
+            },
+            backgroundColor: const Color(0xFF72745D),
           ),
-          onPressed: () {},
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: const Color(0xFF72745D),
-              size: resp.iconSize(24),
-            ),
-            onPressed: () {},
-          ),
-        ],
+        leadingWidth: resp.scaleWidth(64), // Ensure enough space for the button
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,45 +36,86 @@ class HomePageTwo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: resp.getVerticalSpacing(10)),
                 Text(
                   'Welcome!',
                   style: TextStyle(
-                    fontSize: resp.fontSize(26),
+                    fontSize: resp.fontSize(40),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: resp.getVerticalSpacing(20)),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: resp.scaleHeight(520),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: resp.getBorderRadius(12),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: resp.getHorizontalSpacing(15)),
-                    Expanded(
-                      child: Container(
-                        height: resp.scaleHeight(520),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: resp.getBorderRadius(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+
                 SizedBox(height: resp.getVerticalSpacing(30)),
+
+                SizedBox(
+                  height: resp.scaleHeight(400),
+                  child: SingleChildScrollView(
+                   scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
+
+                  child: Row(
+                   children:[
+                     //1st Block
+                 Container(
+                 width: resp.scaleWidth(280),  // Fixed width
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: resp.getBorderRadius(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withValues(alpha: 0.5),
+                            blurRadius: 20,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                   child: ClipRRect(
+                     borderRadius: resp.getBorderRadius(20),
+                     child: Image.asset(
+                       'lib/img/img2.jpg',
+                           fit: BoxFit.cover,
+                       // height: resp.scaleHeight(400),
+                       // width: resp.scaleWidth(280),
+                     ),
+                   ),
+                      ),
+                     SizedBox(width: resp.getHorizontalSpacing(15)),
+                  //2nd Block
+                     Container(
+                       width: resp.scaleWidth(280),  // Fixed width
+                       decoration: BoxDecoration(
+                         color: Colors.grey[100],
+                         borderRadius: resp.getBorderRadius(20),
+                         boxShadow: [
+                           BoxShadow(
+                             color: Colors.grey.withValues(alpha: 0.5),
+                             blurRadius: 20,
+                             offset: Offset(0, 2),
+                           ),
+                         ],
+                       ),
+                       child: ClipRRect(
+                         borderRadius: resp.getBorderRadius(20),
+                         child: Image.asset(
+                           'lib/img/img1.jpg',
+                           fit: BoxFit.cover,
+                           // height: resp.scaleHeight(400),
+                           // width: resp.scaleWidth(280),
+                         ),
+                       ),
+                     ),
+                   ],
+                 )
+                  ),
+                ),
+                SizedBox(height: resp.getVerticalSpacing(35)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildCircleIcon(context, Icons.shopping_bag, 'Shop', resp),
-                    _buildCircleIcon(context, Icons.confirmation_num, 'Tickets', resp),
-                    _buildCircleIcon(context, Icons.volunteer_activism, 'Donate', resp),
-                    _buildCircleIcon(context, Icons.event, 'Events', resp),
+                    _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
+                    _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
+                    _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
+                    _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
                   ],
                 ),
               ],
@@ -88,73 +123,15 @@ class HomePageTwo extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFF72745D),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        iconSize: resp.iconSize(24),
-        selectedFontSize: resp.fontSize(12),
-        unselectedFontSize: resp.fontSize(12),
+      bottomNavigationBar: const CustomNavigationBar(
         currentIndex: 0,
-        onTap: (index) {
-           if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ScanQRScreen()),
-            );
-          }
-           else if (index == 3){
-             Navigator.push(
-                 context,
-                 MaterialPageRoute(builder: (context) => const MedalsScreen()),
-             );
-           }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_mini_rounded, size: resp.iconSize(24)),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner, size: resp.iconSize(24)),
-            label: 'Scan QR',
-          ),
-          BottomNavigationBarItem(
-            icon: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Icon(Icons.favorite, size: resp.iconSize(24)),
-                Positioned(
-                  right: resp.scaleWidth(-6),
-                  top: resp.scaleHeight(-2),
-                  child: CircleAvatar(
-                    radius: resp.scaleWidth(7),
-                    backgroundColor: Colors.red,
-                    child: Text(
-                      '9',
-                      style: TextStyle(
-                        fontSize: resp.fontSize(10),
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            label: 'Saved',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.military_tech, size: resp.iconSize(24)),
-            label: 'Medals',
-          ),
-        ],
       ),
     );
   }
 
   Widget _buildCircleIcon(
       BuildContext context,
-      IconData icon,
+      String iconsAsset,
       String label,
       ResponsiveUtils resp,
       ) {
@@ -195,14 +172,14 @@ class HomePageTwo extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (label == 'Events') {
+            } else if (label == 'News') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const WebPageScreen(
                     title: 'Events',
                     //TODO Make link changeable by staff
-                    url: 'https://cheshiremilitarymuseum.org.uk/category/event/',
+                    url: 'https://cheshiremilitarymuseum.org.uk/news/',
                   ),
                 ),
               );
@@ -211,12 +188,10 @@ class HomePageTwo extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: const Color(0xFFDBD3BD),
             radius: resp.scaleWidth(30),
-            child: IconTheme(
-              data: IconThemeData(
-                color: Colors.black,
-                size: resp.iconSize(24),
-              ),
-              child: Icon(icon),
+            child: CustomIcon(
+              assetName: iconsAsset,
+              color: Colors.black,
+              size: resp.iconSize(30),
             ),
           ),
         ),
@@ -226,11 +201,10 @@ class HomePageTwo extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
-            fontSize: resp.fontSize(14),
+            fontSize: resp.fontSize(18),
           ),
         ),
       ],
     );
   }
-
 }
