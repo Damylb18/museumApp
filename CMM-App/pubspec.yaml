@@ -66,6 +66,8 @@ flutter:
     - lib/img/img.png
     - lib/img/img1.jpg
     - lib/img/img2.jpg
+    - lib/img/CharlieBlue.png
+    - lib/img/CharlieScout.png
     - assets/icons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
