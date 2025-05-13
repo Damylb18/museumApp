@@ -21,8 +21,8 @@ class MedalTracker {
   List<String> get earnedMedals {
     List<String> medals = [];
     if (scannedCount >= 3) medals.add("Bronze Explorer");
-    if (scannedCount >= 7) medals.add("Silver Historian");
-    if (scannedCount >= 12) medals.add("Gold Curator");
+    if (scannedCount >= 5) medals.add("Silver Historian");
+    if (scannedCount >= 7) medals.add("Gold Curator");
     return medals;
   }
 }
