@@ -4,6 +4,8 @@ import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import 'webview_screen.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super.key});
@@ -22,8 +24,105 @@ class HomePageTwo extends StatelessWidget {
           child: CircleButton(
             icon: Icons.more_vert,
             onPressed: () {
-              // Menu action
+              showDialog(
+                context: context,
+                barrierColor: Colors.black.withOpacity(0.5),
+                builder: (context) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        height: MediaQuery.of(context).size.height,
+                        decoration: const BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: const Icon(Icons.close, color: Colors.white),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            ListTile(
+                              leading: const Icon(Icons.phone, color: Colors.white),
+                              title: const Text('Contact us', style: TextStyle(color: Colors.white)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const WebPageScreen(
+                                      title: 'Contact Us',
+                                      url: 'https://cheshiremilitarymuseum.org.uk/contact/',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+
+                            ListTile(
+                              leading: const Icon(Icons.lock, color: Colors.white),
+                              title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const WebPageScreen(
+                                      title: 'Privacy Policy',
+                                      url: 'https://cheshiremilitarymuseum.org.uk/privacy-policy/',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+
+                            const Spacer(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.facebook, color: Colors.white),
+                                  onPressed: () {
+                                    _launchURL('https://www.facebook.com/cheshiremilitarymuseum');
+                                  },
+                                ),
+                                const SizedBox(width: 16),
+                                IconButton(
+                                  icon: const Icon(Icons.camera_alt, color: Colors.white),
+                                  onPressed: () {
+                                    _launchURL('https://www.instagram.com/cheshiremilitarymuseum');
+                                  },
+                                ),
+                                const SizedBox(width: 16),
+                                IconButton(
+                                  icon: const Icon(Icons.travel_explore, color: Colors.white),
+                                  onPressed: () {
+                                    _launchURL('https://www.tripadvisor.com/Attraction_Review-g186390-d212257-Reviews-Cheshire_Military_Museum-Chester_Cheshire_England.html');
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
             },
+
             backgroundColor: const Color(0xFF72745D),
           ),
         ),
@@ -111,12 +210,14 @@ class HomePageTwo extends StatelessWidget {
                         _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
                         _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
                         _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
+
                       ],
                     ),
                   ],
                 ),
               ),
             ),
+
             // Positioned CharlieBlue image in top right corner
             Positioned(
               top: resp.getVerticalSpacing(10),
@@ -186,6 +287,7 @@ class HomePageTwo extends StatelessWidget {
                   ),
                 ),
               );
+
             }
           },
           child: CircleAvatar(
@@ -209,5 +311,15 @@ class HomePageTwo extends StatelessWidget {
         ),
       ],
     );
+  } // <--- This closes _buildCircleIcon
+
+  // Now put the _launchURL function OUTSIDE
+  void _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
