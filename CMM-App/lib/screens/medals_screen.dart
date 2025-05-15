@@ -143,11 +143,11 @@ class MedalsScreen extends StatelessWidget {
           // Bottom-right image decoration
           Positioned(
             bottom: resp.scaleHeight(20),
-            right: resp.scaleWidth(20),
+            right: resp.scaleWidth(-20),
             child: Image.asset(
-              'lib/img/CharlieScout.png',
-              width: resp.scaleWidth(200), // Adjust as needed
-              height: resp.scaleHeight(200),
+              'lib/img/teddy/4-CharlieScout-A4-Noback.png',
+              width: resp.scaleWidth(250), // Adjust as needed
+              height: resp.scaleHeight(250),
             ),
           ),
         ],

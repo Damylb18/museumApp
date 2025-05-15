@@ -13,125 +13,135 @@ class HomePageTwo extends StatelessWidget {
     final resp = ResponsiveUtils.instance;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
-          child: CircleButton(
-            icon: Icons.more_vert,
-            onPressed: () {
-              // Menu action
-            },
-            backgroundColor: const Color(0xFF72745D),
-          ),
-        ),
-        leadingWidth: resp.scaleWidth(64), // Ensure enough space for the button
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(resp.getHorizontalSpacing(20)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: resp.getVerticalSpacing(10)),
-                    Text(
-                      'Welcome!',
-                      style: TextStyle(
-                        fontSize: resp.fontSize(40),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: resp.getVerticalSpacing(30)),
-                    SizedBox(
-                      height: resp.scaleHeight(400),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
-                        child: Row(
-                          children: [
-                            //1st Block
-                            Container(
-                              width: resp.scaleWidth(280),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: resp.getBorderRadius(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: resp.getBorderRadius(20),
-                                child: Image.asset(
-                                  'lib/img/img2.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: resp.getHorizontalSpacing(15)),
-                            //2nd Block
-                            Container(
-                              width: resp.scaleWidth(280),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: resp.getBorderRadius(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: resp.getBorderRadius(20),
-                                child: Image.asset(
-                                  'lib/img/img1.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
+      // Wrap the entire scaffold with a Stack to position Charlie over everything
+      body: Stack(
+        children: [
+          // Main Scaffold content as a Positioned.fill to take full space
+          Positioned.fill(
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: Padding(
+                  padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
+                  child: CircleButton(
+                    icon: Icons.more_vert,
+                    onPressed: () {
+                      // Menu action
+                    },
+                    backgroundColor: const Color(0xFF72745D),
+                  ),
+                ),
+                leadingWidth: resp.scaleWidth(64), // Ensure enough space for the button
+              ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Welcome section with padding - using less top padding since teddy is higher
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: resp.getHorizontalSpacing(20),
+                          top: resp.getVerticalSpacing(40), // Space for Welcome text
+                          right: resp.getHorizontalSpacing(20),
+                        ),
+                        child: Text(
+                          'Welcome!',
+                          style: TextStyle(
+                            fontSize: resp.fontSize(40),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: resp.getVerticalSpacing(35)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
-                        _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
-                        _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
-                        _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
-                      ],
-                    ),
-                  ],
+
+                      SizedBox(height: resp.getVerticalSpacing(30)),
+
+                      // Image carousel WITHOUT horizontal padding to solve edge issue
+                      SizedBox(
+                        height: resp.scaleHeight(400),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              // Add padding only to the first element
+                              SizedBox(width: resp.getHorizontalSpacing(20)),
+
+                              // 1st Block
+                              Container(
+                                width: resp.scaleWidth(280),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: resp.getBorderRadius(20),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: resp.getBorderRadius(20),
+                                  child: Image.asset(
+                                    'lib/img/img2.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(width: resp.getHorizontalSpacing(15)),
+
+                              // 2nd Block
+                              Container(
+                                width: resp.scaleWidth(280),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: resp.getBorderRadius(20),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: resp.getBorderRadius(20),
+                                  child: Image.asset(
+                                    'lib/img/img1.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+
+                              // Add padding to the right side as well
+                              SizedBox(width: resp.getHorizontalSpacing(20)),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: resp.getVerticalSpacing(35)),
+
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
+                            _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
+                            _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
+                            _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
+                          ],
+                        ),
+
+                    ],
+                  ),
                 ),
               ),
-            ),
-            // Positioned CharlieBlue image in top right corner
-            Positioned(
-              top: resp.getVerticalSpacing(10),
-              right: resp.getHorizontalSpacing(10),
-              child: Image.asset(
-                'lib/img/CharlieBlue.png',
-                width: resp.scaleWidth(100),
-                height: resp.scaleHeight(100),
+              bottomNavigationBar: const CustomNavigationBar(
+                currentIndex: 0,
               ),
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: const CustomNavigationBar(
-        currentIndex: 0,
+          ),
+
+          // Charlie positioned on top of everything, including the app bar
+          Positioned(
+            top: resp.getVerticalSpacing(70),
+            right: resp.getHorizontalSpacing(15),
+            child: Image.asset(
+              'lib/img/teddy/10-CharlieUniform-A2-Noback.png',
+              width: resp.scaleWidth(100),
+              height: resp.scaleHeight(140),
+            ),
+          ),
+        ],
       ),
     );
   }
