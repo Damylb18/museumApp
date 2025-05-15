@@ -192,7 +192,7 @@ class HomePageTwo extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const WebPageScreen(
-                    title: 'Events',
+                    title: 'News',
                     url: 'https://cheshiremilitarymuseum.org.uk/news/',
                   ),
                 ),
