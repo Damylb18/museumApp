@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-class ArtifactApiService {
+class ArtefactApiService {
   final String baseUrl;
 
-  ArtifactApiService({required this.baseUrl});
+  ArtefactApiService({required this.baseUrl});
 
-  Future<String?> fetchArtifactJson(String artifactId) async {
-    final url = Uri.parse('$baseUrl/artifact/data/$artifactId');
+  Future<String?> fetchArtifactJson(String artefactId) async {
+    final url = Uri.parse('$baseUrl/artifact/data/$artefactId');
     // print('Final url = $url');
 
     try {

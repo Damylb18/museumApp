@@ -1,4 +1,4 @@
-import 'package:cheshire_military_museum_tour/services/artifact_service.dart';
+import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

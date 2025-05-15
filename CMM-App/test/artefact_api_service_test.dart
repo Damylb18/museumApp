@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:cheshire_military_museum_tour/services/artifact_api_service.dart';
+import 'package:cheshire_military_museum_tour/services/artefact_api_service.dart';
 
 void main() {
   group('ArtifactApiService (real API)', () {
-    late ArtifactApiService apiService;
+    late ArtefactApiService apiService;
 
     setUp(() {
-      apiService = ArtifactApiService(baseUrl: 'https://2326780.win.studentwebserver.co.uk/cmm/api');
+      apiService = ArtefactApiService(baseUrl: 'https://2326780.win.studentwebserver.co.uk/cmm/api');
     });
 
     test('fetches artifact JSON from live API', () async {
