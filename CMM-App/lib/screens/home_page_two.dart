@@ -23,6 +23,7 @@ class HomePageTwo extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 elevation: 0,
+               scrolledUnderElevation: 0,
                 leading: Padding(
                   padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
                   child: CircleButton(
@@ -191,7 +192,7 @@ class HomePageTwo extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const WebPageScreen(
-                    title: 'Events',
+                    title: 'News',
                     url: 'https://cheshiremilitarymuseum.org.uk/news/',
                   ),
                 ),
