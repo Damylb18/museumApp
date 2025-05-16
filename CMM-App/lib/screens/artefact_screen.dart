@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:flutter/material.dart';
 import '../models/artefact.dart';
@@ -10,8 +12,10 @@ class ArtefactDetailScreen extends StatelessWidget {
 
   final ArtefactService artefactService = ArtefactService();
 
-  Future<Artefact?> _loadArtifact() {
-    return artefactService.getArtefactById(artefactId);
+  Future<Map<String, dynamic>> _loadArtifactAndImage() async {
+    final artefact = await artefactService.getArtefactById(artefactId);
+    final imageFile = await artefactService.getArtefactImage(artefactId);
+    return {'artefact': artefact, 'image': imageFile};
   }
 
   ArtefactDetailScreen({required this.artefactId, required this.isNew, super.key});
@@ -65,18 +69,19 @@ class ArtefactDetailScreen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: FutureBuilder<Artefact?>(
-            future: _loadArtifact(),
+          child: FutureBuilder<Map<String, dynamic>>(
+            future: _loadArtifactAndImage(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error loading artefact: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data == null) {
+              } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!['artefact'] == null) {
                 return const Center(child: Text('Artefact not found.'));
               }
 
-              final artefact = snapshot.data!;
+              final artefact = snapshot.data!['artefact'] as Artefact;
+              final imageFile = snapshot.data!['image'] as File?;
 
               return Column(
                 children: [
@@ -94,10 +99,13 @@ class ArtefactDetailScreen extends StatelessWidget {
                         color: Color(0xFF545555),
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      // child:
-                          // artefact.imageUrl != null
-                          //     ? Image.network(artefact.imageUrl!, fit: BoxFit.cover)
-                          //     : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
+                      child:
+                          imageFile != null
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(imageFile, fit: BoxFit.cover),
+                              )
+                              : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
                     ),
                   ),
 

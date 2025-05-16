@@ -7,6 +7,10 @@ class ArtefactApiService {
 
   ArtefactApiService({required this.baseUrl});
 
+  /// Fetches the JSON data for an artifact with the given [artefactId].
+  ///
+  /// Returns the raw JSON string if the request is successful, or `null` if
+  /// the request fails or an error occurs.
   Future<String?> fetchArtifactJson(String artefactId) async {
     final url = Uri.parse('$baseUrl/artifact/data/$artefactId');
     // print('Final url = $url');
@@ -22,6 +26,27 @@ class ArtefactApiService {
       }
     } catch (e) {
       print('Error fetching artifact: $e');
+      return null;
+    }
+  }
+
+  /// Fetches the image for an artifact with the given [artefactId].
+  ///
+  /// Returns the [http.Response] containing the image data if the request
+  /// is successful, or `null` if the request fails or an error occurs.
+  Future<http.Response?> fetchArtifactImage(String artefactId) async {
+    final url = Uri.parse('$baseUrl/artifact/img/$artefactId');
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == HttpStatus.ok) {
+        return response;
+      } else {
+        print('Failed to load artifact image: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching artifact image: $e');
       return null;
     }
   }
