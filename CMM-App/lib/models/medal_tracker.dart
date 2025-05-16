@@ -1,4 +1,4 @@
-
+import '../services/artefact_service.dart';
 
 class MedalTracker {
   static final MedalTracker _instance = MedalTracker._internal();
@@ -9,7 +9,7 @@ class MedalTracker {
 
   MedalTracker._internal();
 
-  final Set<String> scannedArtefacts = {}; // to prevent double-counting
+  final Set<String> scannedArtefacts = {};
   int get scannedCount => scannedArtefacts.length;
 
   bool addScan(String artefactId) {
@@ -24,5 +24,13 @@ class MedalTracker {
     if (scannedCount >= 5) medals.add("Silver Historian");
     if (scannedCount >= 7) medals.add("Gold Curator");
     return medals;
+  }
+
+  /// Loads all saved artefact IDs on startup and adds them to the tracker.
+  Future<void> initialize(ArtefactService artefactService) async {
+    final savedArtefacts = await artefactService.getAllSavedArtefacts();
+    for (var artefact in savedArtefacts) {
+      scannedArtefacts.add(artefact.id);
+    }
   }
 }
