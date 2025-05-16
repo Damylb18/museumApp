@@ -15,7 +15,7 @@ class ArtefactService {
   /// it from the API and saves it for future use.
   Future<Artefact?> getArtefactById(String artefactId) async {
     String? json;
-    if (!await _artefactExists(artefactId)) {
+    if (!await artefactExists(artefactId)) {
       json = await apiService.fetchArtifactJson(artefactId);
       if (json == null || json.isEmpty) return null;
       await _saveArtefactJson(artefactId, json);
@@ -26,7 +26,6 @@ class ArtefactService {
 
     return _parseArtefactFromJson(json);
   }
-
 
   /// Returns the image file associated with the given artefact ID.
   ///
@@ -70,6 +69,14 @@ class ArtefactService {
     return artefacts;
   }
 
+  /// Checks if an artefact has been collected already.
+  ///
+  /// Looks in file for existing json file.
+  Future<bool> artefactExists(String artefactId) async {
+    final file = await _getArtefactFile(artefactId);
+    return file.exists();
+  }
+
   Future<File> _getArtefactFile(String artefactId) async {
     Directory directory = await _getArtefactJsonDirPath();
     await directory.create(recursive: true);
@@ -108,11 +115,6 @@ class ArtefactService {
       return await file.readAsString();
     }
     return null;
-  }
-
-  Future<bool> _artefactExists(String artefactId) async {
-    final file = await _getArtefactFile(artefactId);
-    return file.exists();
   }
 
   Artefact _parseArtefactFromJson(String jsonContent) {

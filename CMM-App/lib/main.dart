@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cheshire_military_museum_tour/models/medal_tracker.dart';
+import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -8,6 +10,8 @@ import 'utils/responsive_utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var artefactService = ArtefactService();
+  await MedalTracker().initialize(artefactService);
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
