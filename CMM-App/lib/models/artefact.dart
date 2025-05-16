@@ -1,5 +1,5 @@
 class Artefact {
-  final int id;
+  final String id;
   String name;
   String description;
 

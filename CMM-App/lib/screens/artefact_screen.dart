@@ -1,4 +1,6 @@
+import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:flutter/material.dart';
+import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
 
@@ -6,11 +8,13 @@ class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
   final bool isNew;
 
-  const ArtefactDetailScreen({
-    required this.artefactId,
-    required this.isNew,
-    super.key,
-  });
+  final ArtefactService artefactService = ArtefactService();
+
+  Future<Artefact?> _loadArtifact() {
+    return artefactService.getArtefactById(artefactId);
+  }
+
+  ArtefactDetailScreen({required this.artefactId, required this.isNew, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,8 @@ class ArtefactDetailScreen extends StatelessWidget {
           milestoneMessage = '🎉 Congrats on finding your first artefact! 🎉 Find more to win medals!';
           break;
         case 2:
-          milestoneMessage = '🎉 Congrats on finding your second artefact! 🎉 Find one more to win your Bronze Historian medal!';
+          milestoneMessage =
+              '🎉 Congrats on finding your second artefact! 🎉 Find one more to win your Bronze Historian medal!';
           break;
         case 3:
           milestoneMessage = '🏅 Bronze Historian Unlocked! Keep scanning to earn Silver!';
@@ -49,177 +54,161 @@ class ArtefactDetailScreen extends StatelessWidget {
     return Theme(
       data: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF595B41),
-          foregroundColor: Colors.white,
-        ),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF595B41), foregroundColor: Colors.white),
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Artefact',
-            style: TextStyle(fontSize: resp.fontSize(18)),
-          ),
+          title: Text('Artefact', style: TextStyle(fontSize: resp.fontSize(18))),
           leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: resp.iconSize(24),
-            ),
+            icon: Icon(Icons.arrow_back, size: resp.iconSize(24)),
             onPressed: () => Navigator.pop(context),
           ),
         ),
         body: SafeArea(
-          child: Column(
-            children: [
-              // Top image section
-              Padding(
-                padding: EdgeInsets.only(
-                  top: resp.getVerticalSpacing(100),
-                  left: resp.getHorizontalSpacing(40),
-                  right: resp.getHorizontalSpacing(40),
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: resp.scaleHeight(273),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF545555),
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.white54,
-                      size: 60,
+          child: FutureBuilder<Artefact?>(
+            future: _loadArtifact(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error loading artefact: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data == null) {
+                return const Center(child: Text('Artefact not found.'));
+              }
+
+              final artefact = snapshot.data!;
+
+              return Column(
+                children: [
+                  // Top image section (can be updated later to load image from artefact.imageUrl)
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: resp.getVerticalSpacing(100),
+                      left: resp.getHorizontalSpacing(40),
+                      right: resp.getHorizontalSpacing(40),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: resp.scaleHeight(273),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF545555),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                      // child:
+                          // artefact.imageUrl != null
+                          //     ? Image.network(artefact.imageUrl!, fit: BoxFit.cover)
+                          //     : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
                     ),
                   ),
-                ),
-              ),
 
-              // Spacer to push curved section to bottom
-              const Spacer(),
+                  const Spacer(),
 
-              // Bottom curved section with content
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF595B41),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(resp.scaleWidth(50)),
-                    topRight: Radius.circular(resp.scaleWidth(50)),
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: resp.getHorizontalSpacing(40),
-                  vertical: resp.getVerticalSpacing(30),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Milestone message or warning
-                    if (milestoneMessage != null)
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: resp.getVerticalSpacing(12),
+                  // Bottom section
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF595B41),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(resp.scaleWidth(50)),
+                        topRight: Radius.circular(resp.scaleWidth(50)),
+                      ),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: resp.getHorizontalSpacing(40),
+                      vertical: resp.getVerticalSpacing(30),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (milestoneMessage != null)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
+                            child: Text(
+                              milestoneMessage,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: resp.fontSize(16),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        if (!isNew)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
+                            child: Text(
+                              '⚠️ You\'ve already scanned this artefact.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.yellow,
+                                fontSize: resp.fontSize(14),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+
+                        Text(
+                          artefact.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: resp.fontSize(20),
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                        child: Text(
-                          milestoneMessage,
+
+                        SizedBox(height: resp.getVerticalSpacing(8)),
+
+                        Text(
+                          artefact.description,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: resp.fontSize(16),
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ),
-                    if (!isNew)
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: resp.getVerticalSpacing(12),
-                        ),
-                        child: Text(
-                          '⚠️ You\'ve already scanned this artefact.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.yellow,
-                            fontSize: resp.fontSize(14),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
 
-                    // Artefact name
-                    Text(
-                      'Name of Artefact',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: resp.fontSize(20),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                        SizedBox(height: resp.getVerticalSpacing(30)),
 
-                    SizedBox(height: resp.getVerticalSpacing(8)),
-
-                    // Artefact description
-                    Text(
-                      'Artefact description retrieved from database',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: resp.fontSize(16),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-
-                    SizedBox(height: resp.getVerticalSpacing(30)),
-
-                    // Play button and bottom content
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // Play button
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: resp.getHorizontalSpacing(24),
-                              vertical: resp.getVerticalSpacing(15),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: resp.getBorderRadius(50),
-                            ),
-                          ),
-                          onPressed: () {
-                            // TODO: Implement play functionality
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.play_arrow,
-                                size: resp.iconSize(20),
-                              ),
-                              SizedBox(width: resp.getHorizontalSpacing(4)),
-                              Text(
-                                'Play',
-                                style: TextStyle(
-                                  fontSize: resp.fontSize(16),
-                                  fontWeight: FontWeight.w600,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.black,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: resp.getHorizontalSpacing(24),
+                                  vertical: resp.getVerticalSpacing(15),
                                 ),
+                                shape: RoundedRectangleBorder(borderRadius: resp.getBorderRadius(50)),
                               ),
-                            ],
-                          ),
+                              onPressed: () {
+                                // TODO: Implement play functionality
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.play_arrow, size: resp.iconSize(20)),
+                                  SizedBox(width: resp.getHorizontalSpacing(4)),
+                                  Text(
+                                    'Play',
+                                    style: TextStyle(fontSize: resp.fontSize(16), fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+
+                        SizedBox(height: resp.getVerticalSpacing(20)),
                       ],
                     ),
-
-                    SizedBox(height: resp.getVerticalSpacing(20)),
-
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
