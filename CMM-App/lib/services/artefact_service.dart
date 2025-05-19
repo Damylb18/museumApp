@@ -23,9 +23,13 @@ class ArtefactService {
       json = await _getArtefactJsonFromFile(artefactId);
       if (json == null || json.isEmpty) return null;
     }
-
     var artefact = _parseArtefactFromJson(json);
-    artefact.setImage(await _getArtefactImageFile(artefactId));
+
+    var image = await getArtefactImage(artefactId);
+
+    if (image != null) {
+      artefact.setImage(image);
+    }
 
     return artefact;
   }
