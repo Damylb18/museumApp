@@ -31,26 +31,36 @@ class ArtefactDetailScreen extends StatelessWidget {
     if (isNew) {
       switch (scannedCount) {
         case 1:
-          milestoneMessage = '🎉 Congrats on finding your first artefact! 🎉 Find more to win medals!';
+          milestoneMessage = '🪖 Welcome, Private! '
+              'Your first artefact is logged. Keep going, recruit!';
           break;
         case 2:
-          milestoneMessage =
-              '🎉 Congrats on finding your second artefact! 🎉 Find one more to win your Bronze Historian medal!';
+          milestoneMessage = '📌 Two artefacts secured. '
+              'One more and you’ll earn your stripes as a Sergeant!';
           break;
         case 3:
-          milestoneMessage = '🏅 Bronze Historian Unlocked! Keep scanning to earn Silver!';
+          milestoneMessage = '🎖 Promotion unlocked: Sergeant!'
+              'Your journey through history intensifies.';
           break;
         case 4:
-          milestoneMessage = '📜 Four artefacts found! One more for Silver Historian!';
+          milestoneMessage = '🗺 Four artefacts collected. '
+              'One more and Lieutenant rank is within reach!';
           break;
         case 5:
-          milestoneMessage = '🥈 Silver Historian Unlocked! You\'re doing great!';
+          milestoneMessage = '🎖️ Rank up! You’ve become a Lieutenant. '
+              'Outstanding fieldwork, soldier.';
           break;
         case 6:
-          milestoneMessage = 'Six down! Almost there for the Gold!';
+          milestoneMessage = '🔍 Six artefacts down. '
+              'Marshal status is almost yours — eyes sharp!';
           break;
         case 7:
-          milestoneMessage = '🥇 Gold Historian Unlocked! Incredible effort!';
+          milestoneMessage = '🏅 Marshal Unlocked! '
+              'You’ve conquered the museum’s past like a true commander!';
+          break;
+        default:
+          milestoneMessage = '🎯 Marshal status maintained! '
+              'Keep exploring to discover even more of the museum’s hidden history.';
           break;
       }
     }

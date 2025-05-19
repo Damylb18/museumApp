@@ -4,7 +4,7 @@ import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import 'webview_screen.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
-import 'package:cheshire_military_museum_tour/screens/sidebar_menu.dart'; // ✅ Sidebar import
+import 'package:cheshire_military_museum_tour/screens/sidebar_menu.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super.key});
