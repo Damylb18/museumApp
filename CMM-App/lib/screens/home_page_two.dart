@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
-import 'webview_screen.dart';
+import '../utils/navigation_utils.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
-import 'package:cheshire_military_museum_tour/screens/sidebar_menu.dart'; // ✅ Sidebar import
+import 'package:cheshire_military_museum_tour/screens/sidebar_menu.dart';
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super.key});
@@ -145,47 +145,32 @@ class HomePageTwo extends StatelessWidget {
         GestureDetector(
           onTap: () {
             if (label == 'Shop') {
-              Navigator.push(
+              NavigationUtils.openWebPage(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const WebPageScreen(
-                    title: 'Shop',
-                    url: 'https://museumsofcheshire.org.uk/shopping',
-                  ),
-                ),
+                'Shop',
+                'https://museumsofcheshire.org.uk/shopping',
               );
             } else if (label == 'Tickets') {
-              Navigator.push(
+              NavigationUtils.openWebPage(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const WebPageScreen(
-                    title: 'Tickets',
-                    url: 'https://cheshiremilitarymuseum.org.uk/product/adult-ticket/',
-                  ),
-                ),
+                'Tickets',
+                'https://cheshiremilitarymuseum.org.uk/product/adult-ticket/',
               );
             } else if (label == 'Donate') {
-              Navigator.push(
+              NavigationUtils.openWebPage(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const WebPageScreen(
-                    title: 'Donate',
-                    url: 'https://cheshiremilitarymuseum.org.uk/friends/',
-                  ),
-                ),
+                'Donate',
+                'https://cheshiremilitarymuseum.org.uk/friends/',
               );
             } else if (label == 'News') {
-              Navigator.push(
+              NavigationUtils.openWebPage(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const WebPageScreen(
-                    title: 'News',
-                    url: 'https://cheshiremilitarymuseum.org.uk/news/',
-                  ),
-                ),
+                'News',
+                'https://cheshiremilitarymuseum.org.uk/news/',
               );
             }
-          },
+          }
+          ,
           child: CircleAvatar(
             backgroundColor: const Color(0xFFDBD3BD),
             radius: resp.scaleWidth(30),
