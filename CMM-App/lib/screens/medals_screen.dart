@@ -4,7 +4,7 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/circle_button.dart';
 import '../utils/responsive_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/sidebar_menu.dart';
+import '../widgets/sidebar_menu.dart';
 
 class MedalsScreen extends StatelessWidget {
   const MedalsScreen({super.key});
