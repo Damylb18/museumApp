@@ -4,6 +4,7 @@ import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import 'webview_screen.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
+import 'package:cheshire_military_museum_tour/screens/sidebar_menu.dart'; // ✅ Sidebar import
 
 class HomePageTwo extends StatelessWidget {
   const HomePageTwo({super.key});
@@ -13,39 +14,41 @@ class HomePageTwo extends StatelessWidget {
     final resp = ResponsiveUtils.instance;
 
     return Scaffold(
-      // Wrap the entire scaffold with a Stack to position Charlie over everything
       body: Stack(
         children: [
-          // Main Scaffold content as a Positioned.fill to take full space
           Positioned.fill(
             child: Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 elevation: 0,
-               scrolledUnderElevation: 0,
+                scrolledUnderElevation: 0,
                 leading: Padding(
                   padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
                   child: CircleButton(
                     icon: Icons.more_vert,
                     onPressed: () {
-                      // Menu action
+                      // Sidebar
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black.withOpacity(0.5),
+                        builder: (context) => const SideBarMenu(),
+                      );
                     },
                     backgroundColor: const Color(0xFF72745D),
                   ),
                 ),
-                leadingWidth: resp.scaleWidth(64), // Ensure enough space for the button
+                leadingWidth: resp.scaleWidth(64),
               ),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Welcome section with padding - using less top padding since teddy is higher
                       Padding(
                         padding: EdgeInsets.only(
                           left: resp.getHorizontalSpacing(20),
-                          top: resp.getVerticalSpacing(40), // Space for Welcome text
+                          top: resp.getVerticalSpacing(40),
                           right: resp.getHorizontalSpacing(20),
                         ),
                         child: Text(
@@ -56,20 +59,14 @@ class HomePageTwo extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       SizedBox(height: resp.getVerticalSpacing(30)),
-
-                      // Image carousel WITHOUT horizontal padding to solve edge issue
                       SizedBox(
                         height: resp.scaleHeight(400),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
-                              // Add padding only to the first element
                               SizedBox(width: resp.getHorizontalSpacing(20)),
-
-                              // 1st Block
                               Container(
                                 width: resp.scaleWidth(280),
                                 decoration: BoxDecoration(
@@ -84,10 +81,7 @@ class HomePageTwo extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                               SizedBox(width: resp.getHorizontalSpacing(15)),
-
-                              // 2nd Block
                               Container(
                                 width: resp.scaleWidth(280),
                                 decoration: BoxDecoration(
@@ -102,26 +96,21 @@ class HomePageTwo extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
-                              // Add padding to the right side as well
                               SizedBox(width: resp.getHorizontalSpacing(20)),
                             ],
                           ),
                         ),
                       ),
-
                       SizedBox(height: resp.getVerticalSpacing(35)),
-
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
-                            _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
-                            _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
-                            _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
-                          ],
-                        ),
-
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
+                          _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
+                          _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
+                          _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -131,8 +120,6 @@ class HomePageTwo extends StatelessWidget {
               ),
             ),
           ),
-
-          // Charlie positioned on top of everything, including the app bar
           Positioned(
             top: resp.getVerticalSpacing(70),
             right: resp.getHorizontalSpacing(15),
