@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/artefact.dart';
-import '../screens/artefact_screen.dart';
+import '../screens/artefact_detail_screen.dart';
 import '../utils/responsive_utils.dart';
 
 class ArtefactWidget extends StatelessWidget {
