@@ -64,30 +64,37 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
   }
 
   Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomIcon(assetName: 'assets/icons/search.svg', size: resp.iconSize(40), color: Colors.grey),
-          SizedBox(height: resp.getVerticalSpacing(16)),
-          Text(
-            'No artefacts collected yet',
-            style: TextStyle(fontSize: resp.fontSize(18), fontWeight: FontWeight.w500, color: Colors.grey[700]),
-          ),
-          SizedBox(height: resp.getVerticalSpacing(8)),
-          Text(
-            'Scan QR codes at the museum to collect artefacts',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: resp.fontSize(14), color: Colors.grey[600]),
-          ),
-        ],
+    return Padding(
+      padding: EdgeInsets.only(top: resp.getVerticalSpacing(20)),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomIcon(assetName: 'assets/icons/search.svg', size: resp.iconSize(40), color: Colors.grey),
+            SizedBox(height: resp.getVerticalSpacing(16)),
+            Text(
+              'No artefacts collected yet',
+              style: TextStyle(fontSize: resp.fontSize(18), fontWeight: FontWeight.w500, color: Colors.grey[700]),
+            ),
+            SizedBox(height: resp.getVerticalSpacing(8)),
+            Text(
+              'Scan QR codes at the museum to collect artefacts',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: resp.fontSize(14), color: Colors.grey[600]),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildArtifactGrid(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
+      padding: EdgeInsets.only(
+        top: resp.getVerticalSpacing(20),
+        left: resp.getHorizontalSpacing(20),
+        right: resp.getHorizontalSpacing(20),
+      ),
       child: GridView.builder(
         itemCount: artefactFutures.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
