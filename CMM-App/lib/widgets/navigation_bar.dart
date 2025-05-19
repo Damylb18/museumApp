@@ -4,7 +4,7 @@ import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/screens/scan_qr_screen.dart';
 import 'package:cheshire_military_museum_tour/screens/medals_screen.dart';
 import 'package:cheshire_military_museum_tour/screens/home_page_two.dart';
-import 'package:cheshire_military_museum_tour/screens/artefacts_page.dart';
+import 'package:cheshire_military_museum_tour/screens/artefacts_screen.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final int currentIndex;
