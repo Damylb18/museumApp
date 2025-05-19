@@ -251,18 +251,74 @@ class HomePageTwo extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(height: resp.getVerticalSpacing(35)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
-                        _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
-                        _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
-                        _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
-                      ],
-                    ),
-                  ],
+
+                      SizedBox(height: resp.getVerticalSpacing(30)),
+
+                      // Image carousel WITHOUT horizontal padding to solve edge issue
+                      SizedBox(
+                        height: resp.scaleHeight(400),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              // Add padding only to the first element
+                              SizedBox(width: resp.getHorizontalSpacing(20)),
+
+                              // 1st Block
+                              Container(
+                                width: resp.scaleWidth(280),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: resp.getBorderRadius(20),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: resp.getBorderRadius(20),
+                                  child: Image.asset(
+                                    'lib/img/img2.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(width: resp.getHorizontalSpacing(15)),
+
+                              // 2nd Block
+                              Container(
+                                width: resp.scaleWidth(280),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: resp.getBorderRadius(20),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: resp.getBorderRadius(20),
+                                  child: Image.asset(
+                                    'lib/img/img1.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+
+                              // Add padding to the right side as well
+                              SizedBox(width: resp.getHorizontalSpacing(20)),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: resp.getVerticalSpacing(35)),
+
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
+                            _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
+                            _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
+                            _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
+                          ],
+                        ),
+
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -276,11 +332,19 @@ class HomePageTwo extends StatelessWidget {
                 height: resp.scaleHeight(100),
               ),
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: const CustomNavigationBar(
-        currentIndex: 0,
+          ),
+
+          // Charlie positioned on top of everything, including the app bar
+          Positioned(
+            top: resp.getVerticalSpacing(70),
+            right: resp.getHorizontalSpacing(15),
+            child: Image.asset(
+              'lib/img/teddy/10-CharlieUniform-A2-Noback.png',
+              width: resp.scaleWidth(100),
+              height: resp.scaleHeight(140),
+            ),
+          ),
+        ],
       ),
     );
   }

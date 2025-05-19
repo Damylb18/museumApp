@@ -3,6 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/screens/artefact_screen.dart';
 import '../models/medal_tracker.dart';
+import '../widgets/circle_button.dart';
 
 class ScanQRScreen extends StatefulWidget {
   const ScanQRScreen({super.key});
@@ -28,58 +29,43 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true, // Center the title
+        title: Text(
+          'Scan QR',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: resp.fontSize(24),
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        leading: Padding(
+          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
+          child: CircleButton(
+            icon: Icons.arrow_back,
+            onPressed: () => Navigator.pop(context),
+            backgroundColor: const Color(0xFF72745D),
+          ),
+        ),
+        leadingWidth: resp.scaleWidth(64),
+      ),
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
-            // App bar with title and navigation buttons
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: resp.getHorizontalSpacing(16),
-                vertical: resp.getVerticalSpacing(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Back button
-                  _buildCircleButton(
-                    context,
-                    Icons.arrow_back,
-                        () => Navigator.pop(context),
-                    resp,
-                  ),
-
-                  // Title
-                  Text(
-                    'Scan QR',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: resp.fontSize(24),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-
-                  // Settings button
-                  _buildCircleButton(
-                    context,
-                    Icons.settings,
-                        () {}, // Settings action
-                    resp,
-                  ),
-                ],
-              ),
-            ),
-
             SizedBox(height: resp.getVerticalSpacing(20)),
 
             // QR Scanner
             Expanded(
               flex: 3,
               child: Padding(
-                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)), // Padding on all sides
-                child: Center(  // Center the scanner container
-                  child: AspectRatio(  // Maintain square aspect ratio
-                    aspectRatio: 1.0,  // 1:1 ratio for square
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)),
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -109,30 +95,29 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         onDetect: (capture) {
                           final List<Barcode> barcodes = capture.barcodes;
                           if (barcodes.isNotEmpty) {
-                          final String code = barcodes.first.rawValue ?? 'Failed to scan';
+                            final String code = barcodes.first.rawValue ?? 'Failed to scan';
 
-                          if (!_hasScanned) {
-                          setState(() {
-                          _hasScanned = true;
-                          _scanResult = code;
-                          });
+                            if (!_hasScanned) {
+                              setState(() {
+                                _hasScanned = true;
+                                _scanResult = code;
+                              });
 
-                          final bool isNew = MedalTracker().addScan(code);
+                              final bool isNew = MedalTracker().addScan(code);
 
-                          // Navigate to artefact detail screen
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (context) => ArtefactDetailScreen(
-                          artefactId: code, // Pass the scanned code as the ID
-                          isNew: isNew,
+                              // Navigate to artefact detail screen
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ArtefactDetailScreen(
+                                    artefactId: code, // Pass the scanned code as the ID
+                                    isNew: isNew,
                                   ),
                                 ),
-                               );
-                              }
+                              );
                             }
                           }
-                        ,
+                        },
                       ),
                     ),
                   ),
@@ -142,7 +127,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
 
             // Bottom curved section
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -166,7 +151,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: resp.fontSize(24),
+                            fontSize: resp.fontSize(34),
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w700,
                           ),
@@ -183,7 +168,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: resp.fontSize(14),
+                              fontSize: resp.fontSize(18),
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                             ),
@@ -200,7 +185,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           alignment: Alignment.centerRight,
                           child: Container(
                             margin: EdgeInsets.only(
-                              bottom: resp.getVerticalSpacing(20),
+                              bottom: resp.getVerticalSpacing(50),
                             ),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -246,7 +231,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ],
@@ -255,28 +239,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Helper method to build circular buttons
-  Widget _buildCircleButton(
-      BuildContext context,
-      IconData icon,
-      VoidCallback onPressed,
-      ResponsiveUtils resp,
-      ) {
-    return Container(
-      width: resp.scaleWidth(48),
-      height: resp.scaleWidth(48),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.white, size: resp.iconSize(24)),
-        padding: EdgeInsets.zero,
-        onPressed: onPressed,
       ),
     );
   }
