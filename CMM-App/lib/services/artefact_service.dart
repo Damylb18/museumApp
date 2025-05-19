@@ -24,7 +24,10 @@ class ArtefactService {
       if (json == null || json.isEmpty) return null;
     }
 
-    return _parseArtefactFromJson(json);
+    var artefact = _parseArtefactFromJson(json);
+    artefact.setImage(await _getArtefactImageFile(artefactId));
+
+    return artefact;
   }
 
   /// Returns the image file associated with the given artefact ID.
