@@ -4,6 +4,7 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/circle_button.dart';
 import '../utils/responsive_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../screens/sidebar_menu.dart';
 
 class MedalsScreen extends StatelessWidget {
   const MedalsScreen({super.key});
@@ -18,19 +19,24 @@ class MedalsScreen extends StatelessWidget {
     // Map each rank to its scan threshold and asset image
     final ranks = [
       {
-        'label': 'Bronze Explorer',
-        'required': 3,
+        'label': 'Private',
+        'required': 1,
         'asset': 'assets/icons/Bronze.svg',
       },
       {
-        'label': 'Silver Historian',
-        'required': 5,
+        'label': 'Sergeant',
+        'required': 3,
         'asset': 'assets/icons/Silver.svg',
       },
       {
-        'label': 'Gold Curator',
-        'required': 7,
+        'label': 'Lieutenant',
+        'required': 5,
         'asset': 'assets/icons/Gold.svg',
+      },
+      {
+        'label': 'Marshal',
+        'required': 7,
+        'asset': '',
       },
     ];
 
@@ -38,35 +44,52 @@ class MedalsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Header Row with back button and title
+          // Header Row with sidebar and centered title
           Positioned(
             top: resp.scaleHeight(60),
-            left: resp.scaleWidth(11),
-            right: resp.scaleWidth(11),
-            child: Row(
-              children: [
-                CircleButton(
-                  icon: Icons.arrow_back,
-                  backgroundColor: const Color(0xFF595B41),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                SizedBox(width: resp.scaleWidth(16)),
-                Text(
-                  'Medals',
-                  style: TextStyle(
-                    fontSize: resp.fontSize(24),
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                    color: Colors.black,
+            left: 0,
+            right: 0,
+            child: SizedBox(
+              height: resp.scaleHeight(50),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Sidebar menu button on the left
+                  Positioned(
+                    left: resp.scaleWidth(11),
+                    child: CircleButton(
+                      icon: Icons.more_vert,
+                      backgroundColor: const Color(0xFF595B41),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierColor: Colors.black.withOpacity(0.5),
+                          builder: (context) => const SideBarMenu(),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+
+                  // Centered Title
+                  Center(
+                    child: Text(
+                      'Medals',
+                      style: TextStyle(
+                        fontSize: resp.fontSize(24),
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Inter',
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
 
           // Military Rank Title
           Positioned(
-            top: resp.scaleHeight(152),
+            top: resp.scaleHeight(130),
             left: resp.scaleWidth(22),
             child: Text(
               'Military Rank',
@@ -81,7 +104,7 @@ class MedalsScreen extends StatelessWidget {
 
           // Medals Row
           Positioned(
-            top: resp.scaleHeight(215),
+            top: resp.scaleHeight(195),
             left: resp.scaleWidth(21),
             right: resp.scaleWidth(21),
             child: Row(
@@ -99,11 +122,13 @@ class MedalsScreen extends StatelessWidget {
                         color: Color(0xFFDCCFBB),
                       ),
                       child: isEarned
-                          ? SvgPicture.asset(
-                              rank['asset'] as String,
-                              width: resp.scaleWidth(70),
-                              height: resp.scaleWidth(70),
-                          )
+                          ? Center(
+                        child: SvgPicture.asset(
+                          rank['asset'] as String,
+                          width: resp.scaleWidth(40), // Smaller size to fit inside circle
+                          height: resp.scaleWidth(40),
+                        ),
+                      )
                           : const Icon(Icons.lock, color: Colors.brown),
                     ),
           SizedBox(height: resp.scaleHeight(8)),
@@ -146,7 +171,7 @@ class MedalsScreen extends StatelessWidget {
             right: resp.scaleWidth(-20),
             child: Image.asset(
               'lib/img/teddy/4-CharlieScout-A4-Noback.png',
-              width: resp.scaleWidth(250), // Adjust as needed
+              width: resp.scaleWidth(250),
               height: resp.scaleHeight(250),
             ),
           ),
