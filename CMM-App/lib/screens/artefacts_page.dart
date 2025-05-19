@@ -4,7 +4,7 @@ import '../utils/responsive_utils.dart';
 import '../widgets/navigation_bar.dart';
 import '../widgets/circle_button.dart';
 import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
-import 'artefact_screen.dart';
+import 'artefact_details_screen.dart';
 
 class ArtefactsScreen extends StatelessWidget {
   const ArtefactsScreen({super.key});
