@@ -7,6 +7,7 @@ import '../widgets/artefact_card.dart';
 import '../widgets/circle_button.dart';
 import '../widgets/custom_icon.dart';
 import '../widgets/navigation_bar.dart';
+import '../widgets/sidebar_menu.dart';
 
 class ArtefactsScreen extends StatefulWidget {
   const ArtefactsScreen({super.key});
@@ -51,7 +52,11 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
           child: CircleButton(
             icon: Icons.more_vert,
             onPressed: () {
-              // Menu action
+              showDialog(
+                context: context,
+                barrierColor: Colors.black.withOpacity(0.5),
+                builder: (context) => const SideBarMenu(),
+              );// Menu action
             },
             backgroundColor: const Color(0xFF72745D),
           ),
