@@ -82,6 +82,7 @@ class ArtefactDetailScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
+        bottom: Platform.isIOS ? false : true,
         child: FutureBuilder<Map<String, dynamic>>(
           future: _loadArtifactAndImage(),
           builder: (context, snapshot) {
