@@ -54,11 +54,11 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
             onPressed: () {
               showDialog(
                 context: context,
-                barrierColor: Colors.black.withOpacity(0.5),
+                barrierColor: Colors.black.withValues(alpha: 0.5),
                 builder: (context) => const SideBarMenu(),
               );// Menu action
             },
-            backgroundColor: const Color(0xFF72745D),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         ),
         leadingWidth: resp.scaleWidth(64),
@@ -124,7 +124,7 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
                 );
               } else if (snapshot.hasData && snapshot.data != null) {
                 return Container(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withValues(alpha: 0.1),
                   child: ArtefactWidget(artefact: snapshot.data!, resp: resp),
                 );
               } else {

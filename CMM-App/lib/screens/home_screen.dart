@@ -31,11 +31,11 @@ class HomePageTwo extends StatelessWidget {
                       // Sidebar
                       showDialog(
                         context: context,
-                        barrierColor: Colors.black.withOpacity(0.5),
+                        barrierColor: Colors.black.withValues(alpha: 0.5),
                         builder: (context) => const SideBarMenu(),
                       );
                     },
-                    backgroundColor: const Color(0xFF72745D),
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
                 leadingWidth: resp.scaleWidth(64),
@@ -172,7 +172,7 @@ class HomePageTwo extends StatelessWidget {
           }
           ,
           child: CircleAvatar(
-            backgroundColor: const Color(0xFFDBD3BD),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             radius: resp.scaleWidth(30),
             child: CustomIcon(
               assetName: iconsAsset,

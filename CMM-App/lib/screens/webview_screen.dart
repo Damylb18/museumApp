@@ -56,7 +56,7 @@ class _WebPageScreenState extends State<WebPageScreen> {
             widget.title,
             style: TextStyle(fontSize: resp.fontSize(18)),
           ),
-          backgroundColor: const Color(0xFF72745D),
+          backgroundColor: Theme.of(context).colorScheme.primary,
           foregroundColor: Colors.white,
           leading: IconButton(
             icon: Icon(

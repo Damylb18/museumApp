@@ -59,11 +59,11 @@ class MedalsScreen extends StatelessWidget {
                     left: resp.scaleWidth(11),
                     child: CircleButton(
                       icon: Icons.more_vert,
-                      backgroundColor: const Color(0xFF595B41),
+                      backgroundColor: Theme.of(context).primaryColor,
                       onPressed: () {
                         showDialog(
                           context: context,
-                          barrierColor: Colors.black.withOpacity(0.5),
+                          barrierColor: Colors.black.withValues(alpha: 0.5),
                           builder: (context) => const SideBarMenu(),
                         );
                       },
@@ -117,9 +117,9 @@ class MedalsScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 600),
                       width: resp.scaleWidth(70),
                       height: resp.scaleWidth(70),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFDCCFBB),
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       child: isEarned
                           ? Center(
@@ -129,7 +129,7 @@ class MedalsScreen extends StatelessWidget {
                           height: resp.scaleWidth(40),
                         ),
                       )
-                          : const Icon(Icons.lock, color: Colors.brown),
+                          : const Icon(Icons.lock, color: Colors.black),
                     ),
           SizedBox(height: resp.scaleHeight(8)),
           Text(

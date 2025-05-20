@@ -19,7 +19,7 @@ class CustomNavigationBar extends StatelessWidget {
     final resp = ResponsiveUtils.instance;
 
     return BottomNavigationBar(
-      selectedItemColor: const Color(0xFF72745D),
+      selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: true,
       iconSize: resp.iconSize(24),
@@ -37,7 +37,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: CustomIcon(
             assetName: 'assets/icons/home.svg',
             size: resp.iconSize(24),
-            color: const Color(0xFF72745D),
+            color: Theme.of(context).colorScheme.primary,
           ),
           label: 'Home',
         ),
@@ -49,7 +49,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: CustomIcon(
             assetName: 'assets/icons/qr.svg',
             size: resp.iconSize(24),
-            color: const Color(0xFF72745D),
+            color: Theme.of(context).colorScheme.primary,
           ),
           label: 'Scan QR',
         ),
@@ -66,7 +66,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: CustomIcon(
             assetName: 'assets/icons/artefact.svg',
             size: resp.iconSize(24),
-            color: const Color(0xFF72745D),
+            color: Theme.of(context).colorScheme.primary,
           ),
           label: 'Artefacts',
         ),
@@ -78,7 +78,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: CustomIcon(
             assetName: 'assets/icons/medal.svg',
             size: resp.iconSize(24),
-            color: const Color(0xFF72745D),
+            color: Theme.of(context).colorScheme.primary,
           ),
           label: 'Medals',
         ),
