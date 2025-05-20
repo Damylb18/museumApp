@@ -31,35 +31,43 @@ class ArtefactDetailScreen extends StatelessWidget {
     if (isNew) {
       switch (scannedCount) {
         case 1:
-          milestoneMessage = '🪖 Welcome, Private! '
+          milestoneMessage =
+              '🪖 Welcome, Private! '
               'Your first artefact is logged. Keep going, recruit!';
           break;
         case 2:
-          milestoneMessage = '📌 Two artefacts secured. '
+          milestoneMessage =
+              '📌 Two artefacts secured. '
               'One more and you’ll earn your stripes as a Sergeant!';
           break;
         case 3:
-          milestoneMessage = '🎖 Promotion unlocked: Sergeant!'
+          milestoneMessage =
+              '🎖 Promotion unlocked: Sergeant!'
               'Your journey through history intensifies.';
           break;
         case 4:
-          milestoneMessage = '🗺 Four artefacts collected. '
+          milestoneMessage =
+              '🗺 Four artefacts collected. '
               'One more and Lieutenant rank is within reach!';
           break;
         case 5:
-          milestoneMessage = '🎖️ Rank up! You’ve become a Lieutenant. '
+          milestoneMessage =
+              '🎖️ Rank up! You’ve become a Lieutenant. '
               'Outstanding fieldwork, soldier.';
           break;
         case 6:
-          milestoneMessage = '🔍 Six artefacts down. '
+          milestoneMessage =
+              '🔍 Six artefacts down. '
               'Marshal status is almost yours — eyes sharp!';
           break;
         case 7:
-          milestoneMessage = '🏅 Marshal Unlocked! '
+          milestoneMessage =
+              '🏅 Marshal Unlocked! '
               'You’ve conquered the museum’s past like a true commander!';
           break;
         default:
-          milestoneMessage = '🎯 Marshal status maintained! '
+          milestoneMessage =
+              '🎯 Marshal status maintained! '
               'Keep exploring to discover even more of the museum’s hidden history.';
           break;
       }
@@ -95,10 +103,10 @@ class ArtefactDetailScreen extends StatelessWidget {
 
               return Column(
                 children: [
-                  // Top image section (can be updated later to load image from artefact.imageUrl)
+                  // Image
                   Padding(
                     padding: EdgeInsets.only(
-                      top: resp.getVerticalSpacing(100),
+                      top: resp.getVerticalSpacing(70),
                       left: resp.getHorizontalSpacing(40),
                       right: resp.getHorizontalSpacing(40),
                     ),
@@ -124,6 +132,7 @@ class ArtefactDetailScreen extends StatelessWidget {
                   // Bottom section
                   Container(
                     width: double.infinity,
+                    height: resp.scaleHeight(300),
                     decoration: BoxDecoration(
                       color: const Color(0xFF595B41),
                       borderRadius: BorderRadius.only(
@@ -177,50 +186,19 @@ class ArtefactDetailScreen extends StatelessWidget {
 
                         SizedBox(height: resp.getVerticalSpacing(8)),
 
-                        Text(
-                          artefact.description,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: resp.fontSize(16),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-
-                        SizedBox(height: resp.getVerticalSpacing(30)),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.black,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: resp.getHorizontalSpacing(24),
-                                  vertical: resp.getVerticalSpacing(15),
-                                ),
-                                shape: RoundedRectangleBorder(borderRadius: resp.getBorderRadius(50)),
-                              ),
-                              onPressed: () {
-                                // TODO: Implement play functionality
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.play_arrow, size: resp.iconSize(20)),
-                                  SizedBox(width: resp.getHorizontalSpacing(4)),
-                                  Text(
-                                    'Play',
-                                    style: TextStyle(fontSize: resp.fontSize(16), fontWeight: FontWeight.w600),
-                                  ),
-                                ],
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(
+                              artefact.description,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: resp.fontSize(16),
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-
-                        SizedBox(height: resp.getVerticalSpacing(20)),
                       ],
                     ),
                   ),
