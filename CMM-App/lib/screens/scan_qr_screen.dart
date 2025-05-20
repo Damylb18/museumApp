@@ -56,7 +56,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
           child: CircleButton(
             icon: Icons.arrow_back,
             onPressed: () => Navigator.pop(context),
-            backgroundColor: const Color(0xFF72745D),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         ),
         leadingWidth: resp.scaleWidth(64),

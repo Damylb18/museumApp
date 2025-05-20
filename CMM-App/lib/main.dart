@@ -74,8 +74,8 @@ class MyApp extends StatelessWidget {
         // Define app-wide color scheme
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF75775D),
-          primary: const Color(0xFF75775D),
-          secondary: const Color(0xFFDBD3BD),
+          primary: const Color(0xFF595B41),
+          secondary: const Color(0xFFDCCFBB),
           tertiary: const Color(0xFFB82F39),
           surface: Colors.white,
         ),
