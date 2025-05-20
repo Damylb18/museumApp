@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:flutter/material.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
+import '../widgets/circle_button.dart';
 
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
@@ -75,11 +75,28 @@ class ArtefactDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Artefact', style: TextStyle(fontSize: resp.fontSize(18))),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: resp.iconSize(24)),
-          onPressed: () => Navigator.pop(context),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        // Center the title
+        title: Text(
+          'Artefact',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: resp.fontSize(24),
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w700,
+          ),
         ),
+        leading: Padding(
+          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
+          child: CircleButton(
+            icon: Icons.arrow_back,
+            onPressed: () => Navigator.pop(context),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ),
+        leadingWidth: resp.scaleWidth(64),
       ),
       body: SafeArea(
         bottom: Platform.isIOS ? false : true,
