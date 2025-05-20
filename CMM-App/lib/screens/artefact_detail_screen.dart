@@ -9,6 +9,7 @@ import '../widgets/circle_button.dart';
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
   final bool isNew;
+  final bool fromScanner;
 
   final ArtefactService artefactService = ArtefactService();
 
@@ -18,7 +19,7 @@ class ArtefactDetailScreen extends StatelessWidget {
     return {'artefact': artefact, 'image': imageFile};
   }
 
-  ArtefactDetailScreen({required this.artefactId, required this.isNew, super.key});
+  ArtefactDetailScreen({required this.artefactId, required this.isNew, required this.fromScanner, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class ArtefactDetailScreen extends StatelessWidget {
           break;
         case 3:
           milestoneMessage =
-              '🎖 Promotion unlocked: Sergeant!'
+              '🎖 Promotion unlocked: Sergeant! '
               'Your journey through history intensifies.';
           break;
         case 4:
@@ -172,7 +173,7 @@ class ArtefactDetailScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (!isNew)
+                      if (!isNew && fromScanner)
                         Padding(
                           padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
                           child: Text(

@@ -23,6 +23,7 @@ class ArtefactWidget extends StatelessWidget {
             builder: (context) => ArtefactDetailScreen(
               artefactId: artefact.id,
               isNew: false,
+              fromScanner: false,
             ),
           ),
         );
