@@ -39,6 +39,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -66,13 +67,11 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
         bottom: false,
         child: Column(
           children: [
-            SizedBox(height: resp.getVerticalSpacing(20)),
-
             // QR Scanner
             Expanded(
               flex: 3,
               child: Padding(
-                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)),
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(50)),
                 child: Center(
                   child: AspectRatio(
                     aspectRatio: 1.0,
