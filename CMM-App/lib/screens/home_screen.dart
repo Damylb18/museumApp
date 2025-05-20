@@ -54,7 +54,7 @@ class HomePageTwo extends StatelessWidget {
                         child: Text(
                           'Welcome!',
                           style: TextStyle(
-                            fontSize: resp.fontSize(40),
+                            fontSize: resp.fontSize(48),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -186,8 +186,8 @@ class HomePageTwo extends StatelessWidget {
           label,
           style: TextStyle(
             color: Colors.black,
-            fontWeight: FontWeight.w500,
-            fontSize: resp.fontSize(18),
+            fontWeight: FontWeight.w600,
+            fontSize: resp.fontSize(16),
           ),
         ),
       ],
