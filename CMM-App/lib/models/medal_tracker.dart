@@ -10,15 +10,14 @@ class MedalTracker {
   MedalTracker._internal();
 
   final Set<String> scannedArtefacts = {};
-  
+
   int get scannedCount => scannedArtefacts.length;
+
   List<String> getArtefactIdList() => scannedArtefacts.toList();
 
-  bool addScan(String artefactId) {
-    if (scannedArtefacts.contains(artefactId)) return false;
-    scannedArtefacts.add(artefactId);
-    return true;
-  }
+  bool checkIfNew(String artefactId) => !scannedArtefacts.contains(artefactId);
+
+  void addScan(String artefactId) => scannedArtefacts.add(artefactId);
 
   List<String> get earnedMedals {
     List<String> medals = [];

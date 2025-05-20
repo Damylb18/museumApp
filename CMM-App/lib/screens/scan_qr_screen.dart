@@ -13,9 +13,17 @@ class ScanQRScreen extends StatefulWidget {
 }
 
 class _ScanQRScreenState extends State<ScanQRScreen> {
-  final MobileScannerController controller = MobileScannerController();
-  bool _hasScanned = false;
-  String _scanResult = "";
+  late final MobileScannerController controller;
+  late final MedalTracker medalTracker;
+  bool isHandlingScan = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = MobileScannerController();
+    medalTracker = MedalTracker();
+    isHandlingScan = false;
+  }
 
   @override
   void dispose() {
@@ -32,7 +40,8 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        centerTitle: true, // Center the title
+        centerTitle: true,
+        // Center the title
         title: Text(
           'Scan QR',
           style: TextStyle(
@@ -79,44 +88,33 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         ],
                       ),
                       clipBehavior: Clip.hardEdge,
-                      child: _hasScanned
-                          ? Center(
-                        child: Text(
-                          _scanResult,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: resp.fontSize(16),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      )
-                          : MobileScanner(
+                      child: MobileScanner(
                         controller: controller,
-                        onDetect: (capture) {
+                        onDetect: (capture) async {
+                          if (isHandlingScan) return;
+                          isHandlingScan = true;
                           final List<Barcode> barcodes = capture.barcodes;
                           if (barcodes.isNotEmpty) {
-                            final String code = barcodes.first.rawValue ?? 'Failed to scan';
+                            final String? code = barcodes.first.rawValue;
 
-                            if (!_hasScanned) {
-                              setState(() {
-                                _hasScanned = true;
-                                _scanResult = code;
-                              });
-
-                              final bool isNew = MedalTracker().addScan(code);
+                            if (code != null) {
+                              bool isNew = medalTracker.checkIfNew(code);
+                              if (isNew) {
+                                medalTracker.addScan(code);
+                              }
 
                               // Navigate to artefact detail screen
-                              Navigator.push(
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ArtefactDetailScreen(
-                                    artefactId: code, // Pass the scanned code as the ID
-                                    isNew: isNew,
-                                  ),
+                                  builder:
+                                      (context) =>
+                                          ArtefactDetailScreen(artefactId: code, isNew: isNew),
                                 ),
                               );
                             }
                           }
+                          isHandlingScan = false;
                         },
                       ),
                     ),
@@ -160,9 +158,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         SizedBox(height: resp.getVerticalSpacing(15)),
 
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: resp.getHorizontalSpacing(20),
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
                           child: Text(
                             'Scan the QR code to explore detailed information about this artefact, including its history, significance, and origin.',
                             textAlign: TextAlign.center,
@@ -178,61 +174,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                     ),
 
                     // Bottom section with button
-                    Column(
-                      children: [
-                        // Go/Retry button
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              bottom: resp.getVerticalSpacing(50),
-                            ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.black,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: resp.getHorizontalSpacing(20),
-                                  vertical: resp.getVerticalSpacing(15),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: resp.getBorderRadius(12),
-                                ),
-                              ),
-                              onPressed: () {
-                                // Reset the scan if already scanned
-                                if (_hasScanned) {
-                                  setState(() {
-                                    _hasScanned = false;
-                                    _scanResult = "";
-                                  });
-                                }
-                                // Force a restart of the scanner
-                                controller.start();
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    _hasScanned ? 'Retry' : 'Go',
-                                    style: TextStyle(
-                                      fontSize: resp.fontSize(16),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(width: resp.getHorizontalSpacing(8)),
-                                  Icon(
-                                    _hasScanned ? Icons.refresh : Icons.arrow_forward,
-                                    size: resp.iconSize(20),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
