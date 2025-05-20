@@ -71,7 +71,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
             Expanded(
               flex: 3,
               child: Padding(
-                padding: EdgeInsets.all(resp.getHorizontalSpacing(50)),
+                padding: EdgeInsets.all(resp.getHorizontalSpacing(65)),
                 child: Center(
                   child: AspectRatio(
                     aspectRatio: 1.0,
@@ -138,7 +138,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                     // Instructions section
                     Column(
                       children: [
-                        SizedBox(height: resp.getVerticalSpacing(20)),
+                        SizedBox(height: resp.getVerticalSpacing(15)),
 
                         Text(
                           'Get Started',
