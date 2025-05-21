@@ -1,10 +1,9 @@
+import 'package:cheshire_military_museum_tour/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/widgets/custom_icon.dart';
 import 'package:cheshire_military_museum_tour/widgets/navigation_bar.dart';
 import '../utils/navigation_utils.dart';
-import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
-import 'package:cheshire_military_museum_tour/widgets/sidebar_menu.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,28 +18,7 @@ class HomeScreen extends StatelessWidget {
           Positioned.fill(
             child: Scaffold(
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                toolbarHeight: 100,
-                backgroundColor: Colors.white,
-                elevation: 0,
-                scrolledUnderElevation: 0,
-                leading: Padding(
-                  padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
-                  child: CircleButton(
-                    icon: Icons.more_vert,
-                    onPressed: () {
-                      // Show sidebar menu as a dialog
-                      showDialog(
-                        context: context,
-                        barrierColor: Colors.black.withValues(alpha: 0.5),
-                        builder: (context) => const SideBarMenu(),
-                      );
-                    },
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-                leadingWidth: resp.scaleWidth(64),
-              ),
+              appBar: CustomAppBar(titleText: '', context: context),
               body: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontSize: resp.fontSize(48), fontWeight: FontWeight.bold),
                       ),
                     ),
+
                     // Horizontally scrollable image carousel
                     Expanded(
                       child: SingleChildScrollView(
