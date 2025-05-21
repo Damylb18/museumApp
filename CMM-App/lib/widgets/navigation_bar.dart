@@ -103,7 +103,7 @@ class CustomNavigationBar extends StatelessWidget {
       // Navigate to Home - handling differently to avoid stacking
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const HomePageTwo()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
               (route) => false,
         );
         break;

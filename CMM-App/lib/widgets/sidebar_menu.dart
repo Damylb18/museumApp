@@ -1,4 +1,4 @@
-// lib/widgets/sidebar_menu.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +15,7 @@ class SideBarMenu extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
+          // Sidebar width: 75% of screen
           width: MediaQuery.of(context).size.width * 0.75,
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
@@ -28,6 +29,7 @@ class SideBarMenu extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Close button
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
@@ -38,6 +40,7 @@ class SideBarMenu extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
+              // "Contact Us" link
               ListTile(
                 leading: const Icon(Icons.phone, color: Colors.white),
                 title: const Text('Contact us', style: TextStyle(color: Colors.white)),
@@ -49,6 +52,7 @@ class SideBarMenu extends StatelessWidget {
                   );
                 },
               ),
+              // "Privacy Policy" link
               ListTile(
                 leading: const Icon(Icons.lock, color: Colors.white),
                 title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
@@ -61,6 +65,7 @@ class SideBarMenu extends StatelessWidget {
                 },
               ),
               const Spacer(),
+              // Social media icons row
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

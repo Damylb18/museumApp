@@ -90,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                         // Navigate to the Home page
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const HomePageTwo()),
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
                         );
                       },
                       child: Row(
