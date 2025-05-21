@@ -4,12 +4,21 @@ import 'package:flutter/material.dart';
 import 'circle_button.dart';
 
 class CustomAppBar extends AppBar {
-  CustomAppBar({super.key, super.title, required BuildContext context})
+  final String titleText;
+
+  CustomAppBar({super.key, required this.titleText, required BuildContext context})
     : super(
         toolbarHeight: 100,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        
+        title: Text(
+          titleText,
+          // TODO Zwe change here:
+          style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
+        ),
+
         leading: Padding(
           padding: EdgeInsets.only(left: 8),
           child: CircleButton(

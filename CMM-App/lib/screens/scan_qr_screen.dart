@@ -38,10 +38,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         context: context,
-        title: Text(
-          'Scan QR',
-          style: TextStyle(color: Colors.black, fontSize: 24, fontFamily: 'Inter', fontWeight: FontWeight.w700),
-        ),
+        titleText: 'Scan QR' ,
       ),
       body: SafeArea(
         bottom: false,
