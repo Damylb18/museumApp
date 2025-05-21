@@ -92,7 +92,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                       child: MobileScanner(
                         controller: controller,
                         onDetect: (capture) async {
-                          controller.stop();
                           if (isHandlingScan) return;
                           isHandlingScan = true;
 
