@@ -16,6 +16,21 @@ class MedalsScreen extends StatelessWidget {
     final resp = ResponsiveUtils.instance;
     resp.init(context);
 
+    String progressMessage = '';
+    if (scanned == 0) {
+      progressMessage = 'No medals yet. Scan artefacts to earn them!';
+    } else if (scanned >= 1 && scanned < 3) {
+      progressMessage = 'Keep scanning to become a Sergeant!';
+    } else if (scanned >= 3 && scanned < 5) {
+      progressMessage = 'Great job! You\'re a Sergeant. Aim for Lieutenant!';
+    } else if (scanned >= 5 && scanned < 7) {
+      progressMessage = 'Lieutenant rank unlocked! Keep pushing for Marshal!';
+    } else if (scanned >= 7 && scanned < 9) {
+      progressMessage = 'You\'ve reached Marshal! Outstanding work, keep it up!';
+    } else {
+      progressMessage = 'You\'ve surpassed expectations, soldier! True museum hero!';
+    }
+
     // Map each rank to its scan threshold and asset image
     final ranks = [
       {
@@ -148,22 +163,22 @@ class MedalsScreen extends StatelessWidget {
           ),
 
 
-          // Informational note if no medals earned
-          if (medals.isEmpty)
-            Positioned(
-              top: resp.scaleHeight(340),
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Text(
-                  'No medals yet. Scan artefacts to earn them!',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: resp.fontSize(16),
-                  ),
+          Positioned(
+            top: resp.scaleHeight(340),
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                progressMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: resp.fontSize(16),
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
+          ),
 
           // Bottom-right image decoration
           Positioned(
@@ -171,8 +186,8 @@ class MedalsScreen extends StatelessWidget {
             right: resp.scaleWidth(-20),
             child: Image.asset(
               'lib/img/teddy/4-CharlieScout-A4-Noback.png',
-              width: resp.scaleWidth(250),
-              height: resp.scaleHeight(250),
+              width: resp.scaleWidth(300),
+              height: resp.scaleHeight(300),
             ),
           ),
         ],
