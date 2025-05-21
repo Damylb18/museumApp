@@ -5,6 +5,7 @@ import '../widgets/circle_button.dart';
 import '../utils/responsive_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/sidebar_menu.dart';
+import '../data/medal_milestones.dart';
 
 class MedalsScreen extends StatelessWidget {
   const MedalsScreen({super.key});
@@ -15,21 +16,6 @@ class MedalsScreen extends StatelessWidget {
     final scanned = MedalTracker().scannedCount;
     final resp = ResponsiveUtils.instance;
     resp.init(context);
-
-    String progressMessage = '';
-    if (scanned == 0) {
-      progressMessage = 'No medals yet. Scan artefacts to earn them!';
-    } else if (scanned >= 1 && scanned < 3) {
-      progressMessage = 'Keep scanning to become a Sergeant!';
-    } else if (scanned >= 3 && scanned < 5) {
-      progressMessage = 'Great job! You\'re a Sergeant. Aim for Lieutenant!';
-    } else if (scanned >= 5 && scanned < 7) {
-      progressMessage = 'Lieutenant rank unlocked! Keep pushing for Marshal!';
-    } else if (scanned >= 7 && scanned < 9) {
-      progressMessage = 'You\'ve reached Marshal! Outstanding work, keep it up!';
-    } else {
-      progressMessage = 'You\'ve surpassed expectations, soldier! True museum hero!';
-    }
 
     // Map each rank to its scan threshold and asset image
     final ranks = [
@@ -51,9 +37,11 @@ class MedalsScreen extends StatelessWidget {
       {
         'label': 'Marshal',
         'required': 7,
-        'asset': '',
+        'asset': 'assets/icons/platinum.svg',
       },
     ];
+
+    final String progressMessage = getProgressMessage(scanned);
 
     return Scaffold(
       backgroundColor: Colors.white,
