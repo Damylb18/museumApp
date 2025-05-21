@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
+import 'package:cheshire_military_museum_tour/widgets/app_bar.dart';
 import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
 import '../data/messages.dart';
@@ -38,30 +39,7 @@ class ArtefactDetailScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          'Artefact',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: resp.fontSize(24),
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
-          child: CircleButton(
-            icon: Icons.arrow_back,
-            onPressed: () => Navigator.pop(context),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ),
-        leadingWidth: resp.scaleWidth(64),
-      ),
+      appBar: CustomAppBar(titleText: 'Artefact', context: context),
       body: SafeArea(
         bottom: Platform.isIOS ? false : true,
         child: FutureBuilder<Artefact?>(
