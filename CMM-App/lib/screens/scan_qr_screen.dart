@@ -1,3 +1,4 @@
+import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
@@ -98,7 +99,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           final List<Barcode> barcodes = capture.barcodes;
                           final String? code = barcodes.first.rawValue;
                           if (code == null || code.isEmpty) return;
-                          
+
                           bool isNew = medalTracker.checkIfNew(code);
                           if (isNew) medalTracker.addScan(code);
 
@@ -122,56 +123,11 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
             // Bottom curved section
             Expanded(
               flex: 3,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(resp.scaleWidth(50)),
-                    topRight: Radius.circular(resp.scaleWidth(50)),
-                  ),
-                ),
-                padding: EdgeInsets.all(resp.getHorizontalSpacing(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Instructions section
-                    Column(
-                      children: [
-                        SizedBox(height: resp.getVerticalSpacing(15)),
-
-                        Text(
-                          'Get Started',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: resp.fontSize(34),
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-
-                        SizedBox(height: resp.getVerticalSpacing(15)),
-
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: resp.getHorizontalSpacing(20)),
-                          child: Text(
-                            'Scan the QR code to explore detailed information about this artefact, including its history, significance, and origin.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: resp.fontSize(18),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    // Bottom section with button
-                  ],
-                ),
+              // Instructions section
+              child: BottomInfoCard(
+                title: 'Get Started',
+                content:
+                    'Scan the QR code to explore detailed information about this artefact, including its history, significance, and origin.',
               ),
             ),
           ],
