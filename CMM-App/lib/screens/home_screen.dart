@@ -122,7 +122,7 @@ class HomePageTwo extends StatelessWidget {
         GestureDetector(
           onTap: () {
             if (label == 'Shop') {
-              NavigationUtils.openWebPage(context, 'Shop', 'https://museumsofcheshire.org.uk/shopping');
+              NavigationUtils.openWebPage(context, 'Shop', 'https://cheshiremilitarymuseum.org.uk/shop/');
             } else if (label == 'Tickets') {
               NavigationUtils.openWebPage(
                 context,
