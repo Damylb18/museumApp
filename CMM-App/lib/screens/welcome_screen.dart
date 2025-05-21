@@ -47,11 +47,8 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     'The Cheshire Military Museum',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: resp.fontSize(32),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
 
@@ -61,11 +58,8 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     'Begin your journey through four centuries of the military in Cheshire at the Cheshire Military Museum.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: resp.fontSize(14),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
 
@@ -98,10 +92,8 @@ class WelcomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Go',
-                            style: TextStyle(
-                              fontSize: resp.fontSize(16),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w600,
-                              fontFamily: 'Inter',
                             ),
                           ),
                           SizedBox(width: resp.getHorizontalSpacing(8)),
