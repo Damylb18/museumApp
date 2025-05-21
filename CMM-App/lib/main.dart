@@ -13,10 +13,7 @@ void main() async {
   var artefactService = ArtefactService();
   await MedalTracker().initialize(artefactService);
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   // Ensure WebView works properly on iOS
   if (Platform.isIOS) {
@@ -42,34 +39,13 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         // Define app-wide text themes
         textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-          displayMedium: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-          displaySmall: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-          headlineMedium: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-          ),
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-          bodyLarge: TextStyle(
-            fontWeight: FontWeight.normal,
-            color: Colors.black,
-          ),
-          bodyMedium: TextStyle(
-            fontWeight: FontWeight.normal,
-            color: Colors.black,
-          ),
+          displayLarge: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          displayMedium: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          displaySmall: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          headlineMedium: TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
+          titleLarge: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+          bodyLarge: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+          bodyMedium: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
         ),
         // Define app-wide color scheme
         colorScheme: ColorScheme.fromSeed(

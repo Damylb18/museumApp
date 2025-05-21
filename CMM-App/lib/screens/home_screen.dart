@@ -20,6 +20,7 @@ class HomePageTwo extends StatelessWidget {
             child: Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
+                toolbarHeight: 100,
                 backgroundColor: Colors.white,
                 elevation: 0,
                 scrolledUnderElevation: 0,
@@ -41,27 +42,17 @@ class HomePageTwo extends StatelessWidget {
                 leadingWidth: resp.scaleWidth(64),
               ),
               body: SafeArea(
-                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          left: resp.getHorizontalSpacing(20),
-                          top: resp.getVerticalSpacing(40),
-                          right: resp.getHorizontalSpacing(20),
-                        ),
+                        padding: EdgeInsets.only(left: resp.getHorizontalSpacing(20)),
                         child: Text(
                           'Welcome!',
-                          style: TextStyle(
-                            fontSize: resp.fontSize(48),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(fontSize: resp.fontSize(48), fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(height: resp.getVerticalSpacing(30)),
-                      SizedBox(
-                        height: resp.scaleHeight(400),
+                      Expanded(
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -75,10 +66,7 @@ class HomePageTwo extends StatelessWidget {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: resp.getBorderRadius(20),
-                                  child: Image.asset(
-                                    'lib/img/img2.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: Image.asset('lib/img/img2.jpg', fit: BoxFit.cover),
                                 ),
                               ),
                               SizedBox(width: resp.getHorizontalSpacing(15)),
@@ -90,10 +78,7 @@ class HomePageTwo extends StatelessWidget {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: resp.getBorderRadius(20),
-                                  child: Image.asset(
-                                    'lib/img/img1.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: Image.asset('lib/img/img1.jpg', fit: BoxFit.cover),
                                 ),
                               ),
                               SizedBox(width: resp.getHorizontalSpacing(20)),
@@ -101,23 +86,20 @@ class HomePageTwo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: resp.getVerticalSpacing(35)),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop', resp),
-                          _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets', resp),
-                          _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate', resp),
-                          _buildCircleIcon(context, 'assets/icons/news.svg', 'News', resp),
+                          _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop'),
+                          _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets'),
+                          _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate'),
+                          _buildCircleIcon(context, 'assets/icons/news.svg', 'News'),
                         ],
                       ),
                     ],
                   ),
-                ),
               ),
-              bottomNavigationBar: const CustomNavigationBar(
-                currentIndex: 0,
-              ),
+              bottomNavigationBar: const CustomNavigationBar(currentIndex: 0),
             ),
           ),
           Positioned(
@@ -134,22 +116,13 @@ class HomePageTwo extends StatelessWidget {
     );
   }
 
-  Widget _buildCircleIcon(
-      BuildContext context,
-      String iconsAsset,
-      String label,
-      ResponsiveUtils resp,
-      ) {
+  Widget _buildCircleIcon(BuildContext context, String iconsAsset, String label) {
     return Column(
       children: [
         GestureDetector(
           onTap: () {
             if (label == 'Shop') {
-              NavigationUtils.openWebPage(
-                context,
-                'Shop',
-                'https://museumsofcheshire.org.uk/shopping',
-              );
+              NavigationUtils.openWebPage(context, 'Shop', 'https://museumsofcheshire.org.uk/shopping');
             } else if (label == 'Tickets') {
               NavigationUtils.openWebPage(
                 context,
@@ -157,39 +130,20 @@ class HomePageTwo extends StatelessWidget {
                 'https://cheshiremilitarymuseum.org.uk/product/adult-ticket/',
               );
             } else if (label == 'Donate') {
-              NavigationUtils.openWebPage(
-                context,
-                'Donate',
-                'https://cheshiremilitarymuseum.org.uk/friends/',
-              );
+              NavigationUtils.openWebPage(context, 'Donate', 'https://cheshiremilitarymuseum.org.uk/friends/');
             } else if (label == 'News') {
-              NavigationUtils.openWebPage(
-                context,
-                'News',
-                'https://cheshiremilitarymuseum.org.uk/news/',
-              );
+              NavigationUtils.openWebPage(context, 'News', 'https://cheshiremilitarymuseum.org.uk/news/');
             }
-          }
-          ,
+          },
           child: CircleAvatar(
             backgroundColor: Theme.of(context).colorScheme.secondary,
-            radius: resp.scaleWidth(30),
-            child: CustomIcon(
-              assetName: iconsAsset,
-              color: Colors.black,
-              size: resp.iconSize(30),
-            ),
+            radius: 30,
+            child: CustomIcon(assetName: iconsAsset, color: Colors.black, size: 30),
           ),
         ),
-        SizedBox(height: resp.getVerticalSpacing(8)),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: resp.fontSize(16),
-          ),
-        ),
+        SizedBox(height: 5),
+        Text(label, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16)),
+        SizedBox(height: 7)
       ],
     );
   }

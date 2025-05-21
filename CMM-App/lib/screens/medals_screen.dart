@@ -50,7 +50,7 @@ class MedalsScreen extends StatelessWidget {
             left: 0,
             right: 0,
             child: SizedBox(
-              height: resp.scaleHeight(50),
+              height: resp.scaleHeight(70),
               child: Stack(
                 alignment: Alignment.center,
                 children: [

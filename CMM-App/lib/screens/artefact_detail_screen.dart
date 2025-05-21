@@ -9,21 +9,18 @@ import '../widgets/circle_button.dart';
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
   final bool isNew;
+  final bool fromScanner;
 
+  final resp = ResponsiveUtils.instance;
+  final tracker = MedalTracker();
   final ArtefactService artefactService = ArtefactService();
 
-  Future<Map<String, dynamic>> _loadArtifactAndImage() async {
-    final artefact = await artefactService.getArtefactById(artefactId);
-    final imageFile = await artefactService.getArtefactImage(artefactId);
-    return {'artefact': artefact, 'image': imageFile};
-  }
+  Future<Artefact?> _loadArtifact() async => artefactService.getArtefactById(artefactId);
 
-  ArtefactDetailScreen({required this.artefactId, required this.isNew, super.key});
+  ArtefactDetailScreen({required this.artefactId, required this.isNew, required this.fromScanner, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final resp = ResponsiveUtils.instance;
-    final tracker = MedalTracker();
     final scannedCount = tracker.scannedCount;
 
     // Select a milestone message based on progress
@@ -42,7 +39,7 @@ class ArtefactDetailScreen extends StatelessWidget {
           break;
         case 3:
           milestoneMessage =
-              '🎖 Promotion unlocked: Sergeant!'
+              '🎖 Promotion unlocked: Sergeant! '
               'Your journey through history intensifies.';
           break;
         case 4:
@@ -75,10 +72,10 @@ class ArtefactDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        toolbarHeight: 100,
         elevation: 0,
+        backgroundColor: Colors.white,
         centerTitle: true,
-        // Center the title
         title: Text(
           'Artefact',
           style: TextStyle(
@@ -100,26 +97,25 @@ class ArtefactDetailScreen extends StatelessWidget {
       ),
       body: SafeArea(
         bottom: Platform.isIOS ? false : true,
-        child: FutureBuilder<Map<String, dynamic>>(
-          future: _loadArtifactAndImage(),
+        child: FutureBuilder<Artefact?>(
+          future: _loadArtifact(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error loading artefact: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!['artefact'] == null) {
+            } else if (!snapshot.hasData) {
               return const Center(child: Text('Artefact not found.'));
             }
 
-            final artefact = snapshot.data!['artefact'] as Artefact;
-            final imageFile = snapshot.data!['image'] as File?;
+            final artefact = snapshot.data;
 
             return Column(
               children: [
                 // Image
                 Padding(
                   padding: EdgeInsets.only(
-                    top: resp.getVerticalSpacing(70),
+                    top: resp.getVerticalSpacing(40),
                     left: resp.getHorizontalSpacing(40),
                     right: resp.getHorizontalSpacing(40),
                   ),
@@ -130,10 +126,10 @@ class ArtefactDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     child:
-                        imageFile != null
+                        artefact?.imageFile != null
                             ? ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.file(imageFile, fit: BoxFit.cover),
+                              child: Image.file(artefact!.imageFile!, fit: BoxFit.cover),
                             )
                             : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
                   ),
@@ -172,7 +168,7 @@ class ArtefactDetailScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (!isNew)
+                      if (!isNew && fromScanner)
                         Padding(
                           padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
                           child: Text(
@@ -187,7 +183,7 @@ class ArtefactDetailScreen extends StatelessWidget {
                         ),
 
                       Text(
-                        artefact.name,
+                        artefact!.name,
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white, fontSize: resp.fontSize(20), fontWeight: FontWeight.w700),
                       ),

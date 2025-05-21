@@ -39,6 +39,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -66,8 +67,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
         bottom: false,
         child: Column(
           children: [
-            SizedBox(height: resp.getVerticalSpacing(20)),
-
             // QR Scanner
             Expanded(
               flex: 3,
@@ -92,29 +91,25 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                       child: MobileScanner(
                         controller: controller,
                         onDetect: (capture) async {
+                          controller.stop();
                           if (isHandlingScan) return;
                           isHandlingScan = true;
+
                           final List<Barcode> barcodes = capture.barcodes;
-                          if (barcodes.isNotEmpty) {
-                            final String? code = barcodes.first.rawValue;
+                          final String? code = barcodes.first.rawValue;
+                          if (code == null || code.isEmpty) return;
+                          
+                          bool isNew = medalTracker.checkIfNew(code);
+                          if (isNew) medalTracker.addScan(code);
 
-                            if (code != null) {
-                              bool isNew = medalTracker.checkIfNew(code);
-                              if (isNew) {
-                                medalTracker.addScan(code);
-                              }
-
-                              // Navigate to artefact detail screen
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) =>
-                                          ArtefactDetailScreen(artefactId: code, isNew: isNew),
-                                ),
-                              );
-                            }
-                          }
+                          // Navigate to artefact detail screen
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => ArtefactDetailScreen(artefactId: code, isNew: isNew, fromScanner: true),
+                            ),
+                          );
                           isHandlingScan = false;
                         },
                       ),
@@ -143,7 +138,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                     // Instructions section
                     Column(
                       children: [
-                        SizedBox(height: resp.getVerticalSpacing(20)),
+                        SizedBox(height: resp.getVerticalSpacing(15)),
 
                         Text(
                           'Get Started',
@@ -182,7 +177,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
           ],
         ),
       ),
-          bottomNavigationBar: const CustomNavigationBar(currentIndex: 1),
+      bottomNavigationBar: const CustomNavigationBar(currentIndex: 1),
     );
   }
 }

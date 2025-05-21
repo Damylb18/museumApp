@@ -28,8 +28,9 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
     artefactIds = MedalTracker().scannedArtefacts.toList();
 
     artefactFutures =
-        artefactIds.map((id) => artefactService
-            .getArtefactById(id))
+        artefactIds.map((id) =>
+            artefactService
+                .getArtefactById(id))
             .toList();
   }
 
@@ -40,6 +41,7 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -56,9 +58,11 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
                 context: context,
                 barrierColor: Colors.black.withValues(alpha: 0.5),
                 builder: (context) => const SideBarMenu(),
-              );// Menu action
+              ); // Menu action
             },
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme
+                .of(context)
+                .primaryColor,
           ),
         ),
         leadingWidth: resp.scaleWidth(64),
@@ -117,18 +121,15 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text(
-                    'Error loading artefact ${artefactIds[index]}',
+                    'Error loading artefact',
                     style: const TextStyle(color: Colors.red),
                     textAlign: TextAlign.center,
                   ),
                 );
-              } else if (snapshot.hasData && snapshot.data != null) {
-                return Container(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  child: ArtefactWidget(artefact: snapshot.data!, resp: resp),
-                );
+              } else if (snapshot.hasData) {
+                return ArtefactWidget(artefact: snapshot.data!, resp: resp);
               } else {
-                return const Center(child: Text('Artefact not found'));
+              return const Center(child: Text('Artefact not found'));
               }
             },
           );
