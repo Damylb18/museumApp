@@ -34,6 +34,21 @@ class ArtefactDetailScreen extends StatelessWidget {
       } else {
         milestoneMessage = milestoneMessages[0];
       }
+
+      // Show popup if new artefact
+      if (isNew && milestoneMessage != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+            context: context,
+            builder:
+                (context) => AlertDialog(
+                  title: const Text('New Artefact'),
+                  content: Text(milestoneMessage!),
+                  actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK'))],
+                ),
+          );
+        });
+      }
     }
 
     return Scaffold(
