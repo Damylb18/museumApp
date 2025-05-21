@@ -5,6 +5,7 @@ import '../widgets/circle_button.dart';
 import '../utils/responsive_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/sidebar_menu.dart';
+import '../data/messages.dart';
 
 class MedalsScreen extends StatelessWidget {
   const MedalsScreen({super.key});
@@ -18,26 +19,10 @@ class MedalsScreen extends StatelessWidget {
 
     // Map each rank to its scan threshold and asset image
     final ranks = [
-      {
-        'label': 'Private',
-        'required': 1,
-        'asset': 'assets/icons/Bronze.svg',
-      },
-      {
-        'label': 'Sergeant',
-        'required': 3,
-        'asset': 'assets/icons/Silver.svg',
-      },
-      {
-        'label': 'Lieutenant',
-        'required': 5,
-        'asset': 'assets/icons/Gold.svg',
-      },
-      {
-        'label': 'Marshal',
-        'required': 7,
-        'asset': '',
-      },
+      {'label': 'Private', 'required': 1, 'asset': 'assets/icons/Bronze.svg'},
+      {'label': 'Sergeant', 'required': 3, 'asset': 'assets/icons/Silver.svg'},
+      {'label': 'Lieutenant', 'required': 5, 'asset': 'assets/icons/Gold.svg'},
+      {'label': 'Marshal', 'required': 7, 'asset': 'assets/icons/platinum.svg'},
     ];
 
     return Scaffold(
@@ -109,61 +94,63 @@ class MedalsScreen extends StatelessWidget {
             right: resp.scaleWidth(21),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: ranks.map((rank) {
-                final isEarned = scanned >= (rank['required'] as int);
-                return Column(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 600),
-                      width: resp.scaleWidth(70),
-                      height: resp.scaleWidth(70),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      child: isEarned
-                          ? Center(
-                        child: SvgPicture.asset(
-                          rank['asset'] as String,
-                          width: resp.scaleWidth(40), // Smaller size to fit inside circle
-                          height: resp.scaleWidth(40),
+              children:
+                  ranks.map((rank) {
+                    final isEarned = scanned >= (rank['required'] as int);
+                    return Column(
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 600),
+                          width: resp.scaleWidth(70),
+                          height: resp.scaleWidth(70),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          child:
+                              isEarned
+                                  ? Center(
+                                    child: SvgPicture.asset(
+                                      rank['asset'] as String,
+                                      width: resp.scaleWidth(40),
+                                      // Smaller size to fit inside circle
+                                      height: resp.scaleWidth(40),
+                                    ),
+                                  )
+                                  : const Icon(Icons.lock, color: Colors.black),
                         ),
-                      )
-                          : const Icon(Icons.lock, color: Colors.black),
-                    ),
-          SizedBox(height: resp.scaleHeight(8)),
-          Text(
-            rank['label'] as String,
-            style: TextStyle(
-              fontSize: resp.fontSize(14),
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Inter',
-              color: Colors.black,
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
+                        SizedBox(height: resp.scaleHeight(8)),
+                        Text(
+                          rank['label'] as String,
+                          style: TextStyle(
+                            fontSize: resp.fontSize(14),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
             ),
           ),
 
-
-          // Informational note if no medals earned
-          if (medals.isEmpty)
-            Positioned(
-              top: resp.scaleHeight(340),
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Text(
-                  'No medals yet. Scan artefacts to earn them!',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: resp.fontSize(16),
-                  ),
+          Positioned(
+            top: resp.scaleHeight(340),
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                getProgressMessage(scanned),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: resp.fontSize(16),
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
+          ),
 
           // Bottom-right image decoration
           Positioned(
@@ -171,8 +158,8 @@ class MedalsScreen extends StatelessWidget {
             right: resp.scaleWidth(-20),
             child: Image.asset(
               'lib/img/teddy/4-CharlieScout-A4-Noback.png',
-              width: resp.scaleWidth(250),
-              height: resp.scaleHeight(250),
+              width: resp.scaleWidth(300),
+              height: resp.scaleHeight(300),
             ),
           ),
         ],

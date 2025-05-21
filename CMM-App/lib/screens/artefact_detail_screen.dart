@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
-import '../data/medal_milestones.dart';
+import '../data/messages.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
