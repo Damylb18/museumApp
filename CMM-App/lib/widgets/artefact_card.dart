@@ -38,7 +38,12 @@ class ArtefactWidget extends StatelessWidget {
           // Name
           Padding(
             padding: EdgeInsets.only(top: resp.getVerticalSpacing(4)),
-            child: Text(artefact.name, style: TextStyle(fontSize: resp.fontSize(14), fontWeight: FontWeight.w500)),
+            child: Text(artefact.name,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                )
+
+            ),
           ),
         ],
       ),

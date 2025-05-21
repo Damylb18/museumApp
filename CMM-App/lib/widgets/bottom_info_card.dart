@@ -25,14 +25,17 @@ class BottomInfoCard extends StatelessWidget {
               child: Text(
                 warning!,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.yellow, fontSize: 14, fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.yellowAccent,
+                ),
               ),
             ),
 
           Text(
             title ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 34, fontFamily: 'Inter', fontWeight: FontWeight.w700),
+            style:
+            Theme.of(context).textTheme.displayMedium?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
           ),
 
           SizedBox(height: 15),
@@ -42,7 +45,8 @@ class BottomInfoCard extends StatelessWidget {
               child: Text(
                 content ?? '',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 18, fontFamily: 'Inter', fontWeight: FontWeight.w400),
+                style:
+                Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ),
           ),
