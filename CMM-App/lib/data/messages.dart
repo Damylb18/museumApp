@@ -1,5 +1,5 @@
 
-///
+/// This message pops up on the Artefact details screen when an artefact has been scanned
 const Map<int, String> milestoneMessages = {
   0: '',
 
@@ -32,6 +32,8 @@ const Map<int, String> milestoneMessages = {
       'You’ve conquered the museum’s past like a true commander!',
 };
 
+
+/// This message displays on the medals page, telling the user the medals they have (if any) and prompting them to go for more.
 String getProgressMessage(int scanned) {
   if (scanned == 0) {
     return 'No medals yet. Scan artefacts to begin your mission!';
