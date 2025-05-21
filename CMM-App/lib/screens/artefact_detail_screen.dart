@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
+import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
@@ -122,9 +123,7 @@ class ArtefactDetailScreen extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     height: resp.scaleHeight(273),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
+                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
                     child:
                         artefact?.imageFile != null
                             ? ClipRRect(
@@ -137,73 +136,12 @@ class ArtefactDetailScreen extends StatelessWidget {
 
                 const Spacer(),
 
-                // Bottom section
-                Container(
-                  width: double.infinity,
-                  height: resp.scaleHeight(300),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(resp.scaleWidth(50)),
-                      topRight: Radius.circular(resp.scaleWidth(50)),
-                    ),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: resp.getHorizontalSpacing(40),
-                    vertical: resp.getVerticalSpacing(30),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (milestoneMessage != null)
-                        Padding(
-                          padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
-                          child: Text(
-                            milestoneMessage,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: resp.fontSize(16),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      if (!isNew && fromScanner)
-                        Padding(
-                          padding: EdgeInsets.only(bottom: resp.getVerticalSpacing(12)),
-                          child: Text(
-                            '⚠️ You\'ve already scanned this artefact.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.yellow,
-                              fontSize: resp.fontSize(14),
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-
-                      Text(
-                        artefact!.name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: resp.fontSize(20), fontWeight: FontWeight.w700),
-                      ),
-
-                      SizedBox(height: resp.getVerticalSpacing(8)),
-
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Text(
-                            artefact.description,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: resp.fontSize(16),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                Expanded(
+                  flex: 4,
+                  child: BottomInfoCard(
+                    title: artefact?.name,
+                    content: artefact?.description,
+                    warning: !isNew && fromScanner ? '⚠️ You\'ve already scanned this artefact.' : null,
                   ),
                 ),
               ],
