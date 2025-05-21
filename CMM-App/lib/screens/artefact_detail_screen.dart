@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
+import '../data/medal_milestones.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
@@ -26,48 +27,13 @@ class ArtefactDetailScreen extends StatelessWidget {
 
     // Select a milestone message based on progress
     String? milestoneMessage;
+
     if (isNew) {
-      switch (scannedCount) {
-        case 1:
-          milestoneMessage =
-              '🪖 Welcome, Private! '
-              'Your first artefact is logged. Keep going, recruit!';
-          break;
-        case 2:
-          milestoneMessage =
-              '📌 Two artefacts secured. '
-              'One more and you’ll earn your stripes as a Sergeant!';
-          break;
-        case 3:
-          milestoneMessage =
-              '🎖 Promotion unlocked: Sergeant! '
-              'Your journey through history intensifies.';
-          break;
-        case 4:
-          milestoneMessage =
-              '🗺 Four artefacts collected. '
-              'One more and Lieutenant rank is within reach!';
-          break;
-        case 5:
-          milestoneMessage =
-              '🎖️ Rank up! You’ve become a Lieutenant. '
-              'Outstanding fieldwork, soldier.';
-          break;
-        case 6:
-          milestoneMessage =
-              '🔍 Six artefacts down. '
-              'Marshal status is almost yours — eyes sharp!';
-          break;
-        case 7:
-          milestoneMessage =
-              '🏅 Marshal Unlocked! '
-              'You’ve conquered the museum’s past like a true commander!';
-          break;
-        default:
-          milestoneMessage =
-              '🎯 Marshal status maintained! '
-              'Keep exploring to discover even more of the museum’s hidden history.';
-          break;
+      if (milestoneMessages.containsKey(scannedCount)) {
+        milestoneMessage = milestoneMessages[scannedCount];
+      }
+        else {
+        milestoneMessage = milestoneMessages[0];
       }
     }
 
