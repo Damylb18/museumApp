@@ -1,13 +1,12 @@
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
+import 'package:cheshire_military_museum_tour/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
 import '../widgets/artefact_card.dart';
-import '../widgets/circle_button.dart';
 import '../widgets/custom_icon.dart';
 import '../widgets/navigation_bar.dart';
-import '../widgets/sidebar_menu.dart';
 
 class ArtefactsScreen extends StatefulWidget {
   const ArtefactsScreen({super.key});
@@ -40,33 +39,7 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        toolbarHeight: 100,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Artefacts',
-          style: TextStyle(color: Colors.black, fontSize: resp.fontSize(24), fontWeight: FontWeight.w700),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
-          child: CircleButton(
-            icon: Icons.more_vert,
-            onPressed: () {
-              showDialog(
-                context: context,
-                barrierColor: Colors.black.withValues(alpha: 0.5),
-                builder: (context) => const SideBarMenu(),
-              ); // Menu action
-            },
-            backgroundColor: Theme
-                .of(context)
-                .primaryColor,
-          ),
-        ),
-        leadingWidth: resp.scaleWidth(64),
-      ),
+      appBar: CustomAppBar(titleText: 'Artefacts', context: context),
       body: SafeArea(child: artefactIds.isEmpty ? _buildEmptyState() : _buildArtifactGrid(context)),
       bottomNavigationBar: const CustomNavigationBar(currentIndex: 2),
     );
