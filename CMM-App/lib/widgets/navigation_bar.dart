@@ -29,6 +29,7 @@ class CustomNavigationBar extends StatelessWidget {
       onTap: (index) => _onItemTapped(context, index),
       type: BottomNavigationBarType.fixed, // This ensures equal spacing
       items: [
+        // HOME
         BottomNavigationBarItem(
           icon: CustomIcon(
             assetName: 'assets/icons/home.svg',
@@ -41,6 +42,8 @@ class CustomNavigationBar extends StatelessWidget {
           ),
           label: 'Home',
         ),
+
+        // QR SCANNER
         BottomNavigationBarItem(
           icon: CustomIcon(
             assetName: 'assets/icons/qr.svg',
@@ -53,6 +56,8 @@ class CustomNavigationBar extends StatelessWidget {
           ),
           label: 'Scan QR',
         ),
+
+        // ARTEFACTS
         BottomNavigationBarItem(
           icon: Stack(
             clipBehavior: Clip.none,
@@ -70,6 +75,8 @@ class CustomNavigationBar extends StatelessWidget {
           ),
           label: 'Artefacts',
         ),
+
+        // MEDALS
         BottomNavigationBarItem(
           icon: CustomIcon(
             assetName: 'assets/icons/medal.svg',

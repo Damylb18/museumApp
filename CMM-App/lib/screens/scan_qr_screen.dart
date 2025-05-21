@@ -4,6 +4,7 @@ import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
 import 'package:cheshire_military_museum_tour/screens/artefact_detail_screen.dart';
 import '../models/medal_tracker.dart';
 import '../widgets/circle_button.dart';
+import '../widgets/navigation_bar.dart';
 
 class ScanQRScreen extends StatefulWidget {
   const ScanQRScreen({super.key});
@@ -181,6 +182,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
           ],
         ),
       ),
+          bottomNavigationBar: const CustomNavigationBar(currentIndex: 1),
     );
   }
 }
