@@ -1,3 +1,4 @@
+import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
 import 'package:cheshire_military_museum_tour/widgets/app_bar.dart';
 import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class ScanQRScreen extends StatefulWidget {
 class _ScanQRScreenState extends State<ScanQRScreen> {
   late final MobileScannerController controller;
   late final MedalTracker medalTracker;
+  late final ArtefactService artefactService;
   bool isHandlingScan = false;
 
   @override
@@ -23,6 +25,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
     super.initState();
     controller = MobileScannerController();
     medalTracker = MedalTracker();
+    artefactService = ArtefactService();
     isHandlingScan = false;
   }
 
@@ -71,16 +74,22 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           if (isHandlingScan) return;
                           isHandlingScan = true;
 
+
                           final List<Barcode> barcodes = capture.barcodes;
                           final String? code = barcodes.first.rawValue;
                           if (code == null || code.isEmpty) return;
+
+                          if (!await artefactService.artefactExistsInDatabase(code)) {
+                            return;
+                          }
 
                           bool isNew = medalTracker.checkIfNew(code);
                           if (isNew) medalTracker.addScan(code);
 
                           // Navigate to artefact detail screen
+                          if (!mounted) return;
                           await Navigator.push(
-                            context,
+                            context, //ignore: use_build_context_synchronously (checked above)
                             MaterialPageRoute(
                               builder:
                                   (context) => ArtefactDetailScreen(artefactId: code, isNew: isNew, fromScanner: true),

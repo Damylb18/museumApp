@@ -15,7 +15,7 @@ class ArtefactService {
   /// it from the API and saves it for future use.
   Future<Artefact?> getArtefactById(String artefactId) async {
     String? json;
-    if (!await artefactExists(artefactId)) {
+    if (!await artefactCollected(artefactId)) {
       json = await apiService.fetchArtifactJson(artefactId);
       if (json == null || json.isEmpty) return null;
       await _saveArtefactJson(artefactId, json);
@@ -49,6 +49,11 @@ class ArtefactService {
     return null;
   }
 
+  /// Checks if an artefact exists in the database
+  Future<bool> artefactExistsInDatabase(String artefactId) async {
+    return await apiService.fetchArtifactJson(artefactId) != null;
+  }
+
   /// Loads all artefacts that have been previously saved as JSON files locally.
   ///
   /// Only returns artefacts that already exist on the device; no network calls are made.
@@ -79,7 +84,7 @@ class ArtefactService {
   /// Checks if an artefact has been collected already.
   ///
   /// Looks in file for existing json file.
-  Future<bool> artefactExists(String artefactId) async {
+  Future<bool> artefactCollected(String artefactId) async {
     final file = await _getArtefactFile(artefactId);
     return file.exists();
   }
