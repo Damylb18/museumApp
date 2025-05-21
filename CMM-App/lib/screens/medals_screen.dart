@@ -5,7 +5,7 @@ import '../widgets/circle_button.dart';
 import '../utils/responsive_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/sidebar_menu.dart';
-import '../data/medal_milestones.dart';
+import '../data/messages.dart';
 
 class MedalsScreen extends StatelessWidget {
   const MedalsScreen({super.key});
@@ -17,46 +17,13 @@ class MedalsScreen extends StatelessWidget {
     final resp = ResponsiveUtils.instance;
     resp.init(context);
 
-    String progressMessage = '';
-    if (scanned == 0) {
-      progressMessage = 'No medals yet. Scan artefacts to earn them!';
-    } else if (scanned >= 1 && scanned < 3) {
-      progressMessage = 'Keep scanning to become a Sergeant!';
-    } else if (scanned >= 3 && scanned < 5) {
-      progressMessage = 'Great job! You\'re a Sergeant. Aim for Lieutenant!';
-    } else if (scanned >= 5 && scanned < 7) {
-      progressMessage = 'Lieutenant rank unlocked! Keep pushing for Marshal!';
-    } else if (scanned >= 7 && scanned < 9) {
-      progressMessage = 'You\'ve reached Marshal! Outstanding work, keep it up!';
-    } else {
-      progressMessage = 'You\'ve surpassed expectations, soldier! True museum hero!';
-    }
-
     // Map each rank to its scan threshold and asset image
     final ranks = [
-      {
-        'label': 'Private',
-        'required': 1,
-        'asset': 'assets/icons/Bronze.svg',
-      },
-      {
-        'label': 'Sergeant',
-        'required': 3,
-        'asset': 'assets/icons/Silver.svg',
-      },
-      {
-        'label': 'Lieutenant',
-        'required': 5,
-        'asset': 'assets/icons/Gold.svg',
-      },
-      {
-        'label': 'Marshal',
-        'required': 7,
-        'asset': 'assets/icons/platinum.svg',
-      },
+      {'label': 'Private', 'required': 1, 'asset': 'assets/icons/Bronze.svg'},
+      {'label': 'Sergeant', 'required': 3, 'asset': 'assets/icons/Silver.svg'},
+      {'label': 'Lieutenant', 'required': 5, 'asset': 'assets/icons/Gold.svg'},
+      {'label': 'Marshal', 'required': 7, 'asset': 'assets/icons/platinum.svg'},
     ];
-
-    final String progressMessage = getProgressMessage(scanned);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -127,44 +94,46 @@ class MedalsScreen extends StatelessWidget {
             right: resp.scaleWidth(21),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: ranks.map((rank) {
-                final isEarned = scanned >= (rank['required'] as int);
-                return Column(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 600),
-                      width: resp.scaleWidth(70),
-                      height: resp.scaleWidth(70),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      child: isEarned
-                          ? Center(
-                        child: SvgPicture.asset(
-                          rank['asset'] as String,
-                          width: resp.scaleWidth(40), // Smaller size to fit inside circle
-                          height: resp.scaleWidth(40),
+              children:
+                  ranks.map((rank) {
+                    final isEarned = scanned >= (rank['required'] as int);
+                    return Column(
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 600),
+                          width: resp.scaleWidth(70),
+                          height: resp.scaleWidth(70),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          child:
+                              isEarned
+                                  ? Center(
+                                    child: SvgPicture.asset(
+                                      rank['asset'] as String,
+                                      width: resp.scaleWidth(40),
+                                      // Smaller size to fit inside circle
+                                      height: resp.scaleWidth(40),
+                                    ),
+                                  )
+                                  : const Icon(Icons.lock, color: Colors.black),
                         ),
-                      )
-                          : const Icon(Icons.lock, color: Colors.black),
-                    ),
-          SizedBox(height: resp.scaleHeight(8)),
-          Text(
-            rank['label'] as String,
-            style: TextStyle(
-              fontSize: resp.fontSize(14),
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Inter',
-              color: Colors.black,
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
+                        SizedBox(height: resp.scaleHeight(8)),
+                        Text(
+                          rank['label'] as String,
+                          style: TextStyle(
+                            fontSize: resp.fontSize(14),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
             ),
           ),
-
 
           Positioned(
             top: resp.scaleHeight(340),
@@ -172,7 +141,7 @@ class MedalsScreen extends StatelessWidget {
             right: 0,
             child: Center(
               child: Text(
-                progressMessage,
+                getProgressMessage(scanned),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
