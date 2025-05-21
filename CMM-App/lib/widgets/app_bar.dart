@@ -15,8 +15,7 @@ class CustomAppBar extends AppBar {
         
         title: Text(
           titleText,
-          // TODO Zwe change here:
-          style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
 
         leading: Padding(
