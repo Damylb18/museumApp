@@ -6,8 +6,8 @@ import '../utils/navigation_utils.dart';
 import 'package:cheshire_military_museum_tour/widgets/circle_button.dart';
 import 'package:cheshire_military_museum_tour/widgets/sidebar_menu.dart';
 
-class HomePageTwo extends StatelessWidget {
-  const HomePageTwo({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class HomePageTwo extends StatelessWidget {
                   child: CircleButton(
                     icon: Icons.more_vert,
                     onPressed: () {
-                      // Sidebar
+                      // Show sidebar menu as a dialog
                       showDialog(
                         context: context,
                         barrierColor: Colors.black.withValues(alpha: 0.5),
@@ -42,62 +42,63 @@ class HomePageTwo extends StatelessWidget {
                 leadingWidth: resp.scaleWidth(64),
               ),
               body: SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: resp.getHorizontalSpacing(20)),
-                        child: Text(
-                          'Welcome!',
-                          style: TextStyle(fontSize: resp.fontSize(48), fontWeight: FontWeight.bold),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: resp.getHorizontalSpacing(20)),
+                      child: Text(
+                        'Welcome!',
+                        style: TextStyle(fontSize: resp.fontSize(48), fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    // Horizontally scrollable image carousel
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(width: resp.getHorizontalSpacing(20)),
+                            Container(
+                              width: resp.scaleWidth(280),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: resp.getBorderRadius(20),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: resp.getBorderRadius(20),
+                                child: Image.asset('lib/img/img2.jpg', fit: BoxFit.cover),
+                              ),
+                            ),
+                            SizedBox(width: resp.getHorizontalSpacing(15)),
+                            Container(
+                              width: resp.scaleWidth(280),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: resp.getBorderRadius(20),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: resp.getBorderRadius(20),
+                                child: Image.asset('lib/img/img1.jpg', fit: BoxFit.cover),
+                              ),
+                            ),
+                            SizedBox(width: resp.getHorizontalSpacing(20)),
+                          ],
                         ),
                       ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              SizedBox(width: resp.getHorizontalSpacing(20)),
-                              Container(
-                                width: resp.scaleWidth(280),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[100],
-                                  borderRadius: resp.getBorderRadius(20),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: resp.getBorderRadius(20),
-                                  child: Image.asset('lib/img/img2.jpg', fit: BoxFit.cover),
-                                ),
-                              ),
-                              SizedBox(width: resp.getHorizontalSpacing(15)),
-                              Container(
-                                width: resp.scaleWidth(280),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[100],
-                                  borderRadius: resp.getBorderRadius(20),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: resp.getBorderRadius(20),
-                                  child: Image.asset('lib/img/img1.jpg', fit: BoxFit.cover),
-                                ),
-                              ),
-                              SizedBox(width: resp.getHorizontalSpacing(20)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop'),
-                          _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets'),
-                          _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate'),
-                          _buildCircleIcon(context, 'assets/icons/news.svg', 'News'),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildCircleIcon(context, 'assets/icons/shop.svg', 'Shop'),
+                        _buildCircleIcon(context, 'assets/icons/tickets.svg', 'Tickets'),
+                        _buildCircleIcon(context, 'assets/icons/donate.svg', 'Donate'),
+                        _buildCircleIcon(context, 'assets/icons/news.svg', 'News'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               bottomNavigationBar: const CustomNavigationBar(currentIndex: 0),
             ),
@@ -116,6 +117,7 @@ class HomePageTwo extends StatelessWidget {
     );
   }
 
+  // Helper method to build circle icons with navigation actions
   Widget _buildCircleIcon(BuildContext context, String iconsAsset, String label) {
     return Column(
       children: [
@@ -143,7 +145,7 @@ class HomePageTwo extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Text(label, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16)),
-        SizedBox(height: 7)
+        SizedBox(height: 7),
       ],
     );
   }
