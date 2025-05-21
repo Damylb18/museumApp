@@ -7,7 +7,6 @@ import '../data/messages.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
-import '../widgets/circle_button.dart';
 
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
@@ -32,8 +31,7 @@ class ArtefactDetailScreen extends StatelessWidget {
     if (isNew) {
       if (milestoneMessages.containsKey(scannedCount)) {
         milestoneMessage = milestoneMessages[scannedCount];
-      }
-        else {
+      } else {
         milestoneMessage = milestoneMessages[0];
       }
     }
@@ -59,27 +57,26 @@ class ArtefactDetailScreen extends StatelessWidget {
               children: [
                 // Image
                 Padding(
-                  padding: EdgeInsets.only(
-                    top: resp.getVerticalSpacing(40),
-                    left: resp.getHorizontalSpacing(40),
-                    right: resp.getHorizontalSpacing(40),
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    height: resp.scaleHeight(273),
-                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child:
-                        artefact?.imageFile != null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.file(artefact!.imageFile!, fit: BoxFit.cover),
-                            )
-                            : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
+                  padding: EdgeInsets.only(left: 50, right: 50, top: 20),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      height: 150,
+                      decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child:
+                          artefact?.imageFile != null
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(artefact!.imageFile!, fit: BoxFit.cover),
+                              )
+                              : const Center(child: Icon(Icons.image, color: Colors.grey, size: 200)),
+                    ),
                   ),
                 ),
 
                 const Spacer(),
 
+                // Bottom info card
                 Expanded(
                   flex: 4,
                   child: BottomInfoCard(
