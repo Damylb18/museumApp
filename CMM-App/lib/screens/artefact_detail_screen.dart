@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:cheshire_military_museum_tour/services/artefact_service.dart';
+import 'package:cheshire_military_museum_tour/widgets/app_bar.dart';
 import 'package:cheshire_military_museum_tour/widgets/bottom_info_card.dart';
 import 'package:flutter/material.dart';
 import '../data/messages.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
 import '../utils/responsive_utils.dart';
-import '../widgets/circle_button.dart';
 
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
@@ -31,37 +31,28 @@ class ArtefactDetailScreen extends StatelessWidget {
     if (isNew) {
       if (milestoneMessages.containsKey(scannedCount)) {
         milestoneMessage = milestoneMessages[scannedCount];
-      }
-        else {
+      } else {
         milestoneMessage = milestoneMessages[0];
+      }
+
+      // Show popup if new artefact
+      if (isNew && milestoneMessage != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+            context: context,
+            builder:
+                (context) => AlertDialog(
+                  title: const Text('New Artefact'),
+                  content: Text(milestoneMessage!),
+                  actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK'))],
+                ),
+          );
+        });
       }
     }
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          'Artefact',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: resp.fontSize(24),
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: resp.getHorizontalSpacing(8)),
-          child: CircleButton(
-            icon: Icons.arrow_back,
-            onPressed: () => Navigator.pop(context),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ),
-        leadingWidth: resp.scaleWidth(64),
-      ),
+      appBar: CustomAppBar(titleText: 'Artefact', context: context),
       body: SafeArea(
         bottom: Platform.isIOS ? false : true,
         child: FutureBuilder<Artefact?>(
@@ -81,27 +72,26 @@ class ArtefactDetailScreen extends StatelessWidget {
               children: [
                 // Image
                 Padding(
-                  padding: EdgeInsets.only(
-                    top: resp.getVerticalSpacing(40),
-                    left: resp.getHorizontalSpacing(40),
-                    right: resp.getHorizontalSpacing(40),
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    height: resp.scaleHeight(273),
-                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child:
-                        artefact?.imageFile != null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.file(artefact!.imageFile!, fit: BoxFit.cover),
-                            )
-                            : const Center(child: Icon(Icons.image, color: Colors.white54, size: 60)),
+                  padding: EdgeInsets.only(left: 50, right: 50, top: 20),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      height: 150,
+                      decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child:
+                          artefact?.imageFile != null
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(artefact!.imageFile!, fit: BoxFit.cover),
+                              )
+                              : const Center(child: Icon(Icons.image, color: Colors.grey, size: 200)),
+                    ),
                   ),
                 ),
 
                 const Spacer(),
 
+                // Bottom info card
                 Expanded(
                   flex: 4,
                   child: BottomInfoCard(
