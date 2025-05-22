@@ -80,23 +80,20 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           final String? code = barcodes.first.rawValue;
                           if (code == null || code.isEmpty) {
                             isHandlingScan = false;
+                            controller.start();
                             return;
                           }
 
-                          if (!await artefactService.artefactExistsInDatabase(code)) {
-                            isHandlingScan = false;
-                            return;
-                          }
-
-                          bool isNew = medalTracker.checkIfNew(code);
+                          bool isNew = medalTracker.checkIfNew(code) && await artefactService.artefactExistsInDatabase(code);
                           if (isNew) medalTracker.addScan(code);
 
-                          // Navigate to artefact detail screen
                           if (!mounted) {
+                            controller.start();
                             isHandlingScan = false;
                             return;
                           }
 
+                          // Navigate to artefact detail screen
                           await Navigator.push(
                             context, //ignore: use_build_context_synchronously (checked above)
                             MaterialPageRoute(
