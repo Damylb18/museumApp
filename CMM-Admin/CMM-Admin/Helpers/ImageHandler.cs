@@ -54,7 +54,7 @@ public class ImageHandler
     private bool FileIsWithinSizeLimit(IFormFile file)
     {
         const long MB = 1024 * 1024;
-        return (file.Length <= MaxSizeMb * MB);
+        return file.Length <= MaxSizeMb * MB;
     }
 
     private bool FileIsEmpty(IFormFile file) => file.Length == 0;

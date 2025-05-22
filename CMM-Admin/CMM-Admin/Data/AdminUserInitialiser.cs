@@ -27,7 +27,7 @@ public static class AdminUserInitialiser
             {
                 UserName = username,
                 EmailConfirmed = true,
-                LockoutEnabled = false,
+                LockoutEnabled = false
             };
 
             var result = await userManager.CreateAsync(adminUser);
