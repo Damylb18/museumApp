@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cheshire_military_museum_tour/services/artefact_api_service.dart';
 
@@ -16,7 +17,7 @@ void main() {
 
       expect(result, isNotNull);
       expect(result, contains('"')); // basic check that it's a JSON string
-      print('API returned: $result');
+      debugPrint('API returned: $result');
     });
   });
 }

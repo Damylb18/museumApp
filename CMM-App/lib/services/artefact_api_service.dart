@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ArtefactApiService {
@@ -13,7 +14,6 @@ class ArtefactApiService {
   /// the request fails or an error occurs.
   Future<String?> fetchArtifactJson(String artefactId) async {
     final url = Uri.parse('$baseUrl/artifact/data/$artefactId');
-    // print('Final url = $url');
 
     try {
       final response = await http.get(url);
@@ -21,11 +21,11 @@ class ArtefactApiService {
       if (response.statusCode == HttpStatus.ok) {
         return response.body; // Raw JSON as string
       } else {
-        print('Failed to load artifact: ${response.statusCode}');
+        debugPrint('Failed to load artifact: ${response.statusCode}');
         return null;
       }
     } catch (e) {
-      print('Error fetching artifact: $e');
+      debugPrint('Error fetching artifact: $e');
       return null;
     }
   }
@@ -42,11 +42,11 @@ class ArtefactApiService {
       if (response.statusCode == HttpStatus.ok) {
         return response;
       } else {
-        print('Failed to load artifact image: ${response.statusCode}');
+        debugPrint('Failed to load artifact image: ${response.statusCode}');
         return null;
       }
     } catch (e) {
-      print('Error fetching artifact image: $e');
+      debugPrint('Error fetching artifact image: $e');
       return null;
     }
   }
