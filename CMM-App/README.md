@@ -2,15 +2,11 @@
 
 An interactive tour app for the Cheshire Military Museum.
 
-## Getting Started
+## Deploying
 
-This project is a starting point for a Flutter application.
+This app is deployable to both Android and iOS.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Open the app code in Android Studio or VS Code. (Follow Flutter documentation to get started: https://docs.flutter.dev/get-started/install ).
+1. Review the lib/app_settings.dart file. This is where settings and external links are configured.
+1. Follow the flutter documentation to deploy to android: https://docs.flutter.dev/deployment/android
+1. Follow the flutter documentation to deploy to iOS: https://docs.flutter.dev/deployment/ios
