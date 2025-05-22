@@ -1,3 +1,4 @@
+// lib/screens/webview_screen.dart
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:cheshire_military_museum_tour/utils/responsive_utils.dart';
@@ -41,7 +42,6 @@ class _WebPageScreenState extends State<WebPageScreen> {
   @override
   Widget build(BuildContext context) {
     final resp = ResponsiveUtils.instance;
-
     return WillPopScope(
       onWillPop: () async {
         if (await _controller.canGoBack()) {
@@ -54,10 +54,10 @@ class _WebPageScreenState extends State<WebPageScreen> {
         appBar: AppBar(
           title: Text(
             widget.title,
-            style: TextStyle(fontSize: resp.fontSize(18)),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Colors.white,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -73,6 +73,7 @@ class _WebPageScreenState extends State<WebPageScreen> {
               Center(
                 child: CircularProgressIndicator(
                   strokeWidth: resp.scaleWidth(2),
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
           ],

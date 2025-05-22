@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.only(left: resp.getHorizontalSpacing(20)),
                       child: Text(
                         'Welcome!',
-                        style: TextStyle(fontSize: resp.fontSize(48), fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
 
@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: 5),
-        Text(label, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16)),
+        Text(label, style: Theme.of(context).textTheme.bodyLarge),
         SizedBox(height: 7),
       ],
     );

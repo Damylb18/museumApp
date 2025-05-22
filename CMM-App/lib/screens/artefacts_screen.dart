@@ -52,17 +52,21 @@ class _ArtefactsScreenState extends State<ArtefactsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomIcon(assetName: 'assets/icons/search.svg', size: resp.iconSize(40), color: Colors.grey),
+            CustomIcon(assetName: 'assets/icons/search.svg', size: resp.iconSize(40), color: Colors.grey[600]),
             SizedBox(height: resp.getVerticalSpacing(16)),
             Text(
               'No artefacts collected yet',
-              style: TextStyle(fontSize: resp.fontSize(18), fontWeight: FontWeight.w500, color: Colors.grey[700]),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Colors.grey[600],
+              ),
             ),
             SizedBox(height: resp.getVerticalSpacing(8)),
             Text(
               'Scan QR codes at the museum to collect artefacts',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: resp.fontSize(14), color: Colors.grey[600]),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Colors.grey[600],
+              ),
             ),
           ],
         ),

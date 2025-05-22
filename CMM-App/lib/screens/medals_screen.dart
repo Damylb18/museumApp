@@ -32,8 +32,7 @@ class MedalsScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Military Rank',
-                //TODO Zwe change here:
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Inter', color: Colors.black),
+                style: Theme.of(context).textTheme.displayMedium,
               ),
             ),
           ),
@@ -70,13 +69,7 @@ class MedalsScreen extends StatelessWidget {
                       SizedBox(height: 8),
                       Text(
                         rank['label'] as String,
-                        //TODO Zwe change here:
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Inter',
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   );
@@ -89,7 +82,7 @@ class MedalsScreen extends StatelessWidget {
             getProgressMessage(scanned),
             textAlign: TextAlign.center,
             // TODO Zwe change here:
-            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           Spacer(flex: 10),
           Align(
