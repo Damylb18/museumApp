@@ -37,16 +37,15 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequireAdmin", policyBuilder => policyBuilder.RequireRole("Admin"));
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdmin", policyBuilder => policyBuilder.RequireRole("Admin"));
 
 builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
 {
     options.Conventions.AuthorizeFolder("/Artifacts", "RequireAdmin");
 });
 
+builder.Services.ConfigureApplicationCookie(options => { options.LoginPath = "/Identity/Account/Login"; });
 
 var app = builder.Build();
 
