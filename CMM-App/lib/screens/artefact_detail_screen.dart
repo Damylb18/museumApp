@@ -93,7 +93,7 @@ class ArtefactDetailScreen extends StatelessWidget {
 
                 // Bottom info card
                 Expanded(
-                  flex: 4,
+                  flex: 6,
                   child: BottomInfoCard(
                     title: artefact?.name,
                     content: artefact?.description,
