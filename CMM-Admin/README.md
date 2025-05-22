@@ -10,5 +10,4 @@ https://learn.microsoft.com/en-us/visualstudio/deployment/quickstart-deploy-aspn
 1. Change the default password to something memorable and secure - use modern password guidelines as these can change.
 1. (OPTIONAL, RECOMMENDED) Set up two-factor authentication in the account settings menu.
 1. Start adding artefacts - they will automatically become availabe to the app after creation. Maximum image size for artefacts is 10MB, but smaller is recommended to avoid large storage demands.
-
-
+1. Print QR codes for the artefacts and place them around the museum. The QR code can be found in the "Details" page for each artefact, where it can be right clicked and saved as an image. This can be resized as desired - most sizes will work.
