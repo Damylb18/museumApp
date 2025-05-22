@@ -72,14 +72,19 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         controller: controller,
                         onDetect: (capture) async {
                           if (isHandlingScan) return;
+                          controller.stop();
                           isHandlingScan = true;
 
 
                           final List<Barcode> barcodes = capture.barcodes;
                           final String? code = barcodes.first.rawValue;
-                          if (code == null || code.isEmpty) return;
+                          if (code == null || code.isEmpty) {
+                            isHandlingScan = false;
+                            return;
+                          }
 
                           if (!await artefactService.artefactExistsInDatabase(code)) {
+                            isHandlingScan = false;
                             return;
                           }
 
@@ -87,7 +92,11 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                           if (isNew) medalTracker.addScan(code);
 
                           // Navigate to artefact detail screen
-                          if (!mounted) return;
+                          if (!mounted) {
+                            isHandlingScan = false;
+                            return;
+                          }
+
                           await Navigator.push(
                             context, //ignore: use_build_context_synchronously (checked above)
                             MaterialPageRoute(
@@ -96,6 +105,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                             ),
                           );
                           isHandlingScan = false;
+                          controller.start();
                         },
                       ),
                     ),
