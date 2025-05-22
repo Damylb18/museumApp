@@ -10,6 +10,15 @@ class WebsiteLinks {
   static const String privacyPolicy = 'https://cheshiremilitarymuseum.org.uk/privacy-policy/';
 }
 
+class SideBarsSettings {
+  static const bool contactUsOn = true;
+  static const bool privacyPolicyOn = true;
+
+  static const bool facebookOn = true;
+  static const bool instagramOn = true;
+  static const bool tripadvisorOn = true;
+}
+
 /// Links to the CMM social medias.
 class SocialMediaLinks {
   static const String facebook = 'https://www.facebook.com/cheshiremilitarymuseum';

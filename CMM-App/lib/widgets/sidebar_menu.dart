@@ -38,6 +38,7 @@ class SideBarMenu extends StatelessWidget {
               const SizedBox(height: 10),
 
               // CONTACT US
+              if (SideBarsSettings.contactUsOn)
               ListTile(
                 leading: const Icon(Icons.phone, color: Colors.white),
                 title: const Text('Contact us', style: TextStyle(color: Colors.white)),
@@ -47,6 +48,7 @@ class SideBarMenu extends StatelessWidget {
               ),
 
               // PRIVACY POLICY
+              if (SideBarsSettings.privacyPolicyOn)
               ListTile(
                 leading: const Icon(Icons.lock, color: Colors.white),
                 title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
@@ -64,6 +66,7 @@ class SideBarMenu extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // FACEBOOK
+                  if (SideBarsSettings.facebookOn)
                   GestureDetector(
                     onTap: () {
                       UrlUtils.openExternalUrl(context, SocialMediaLinks.facebook);
@@ -78,6 +81,7 @@ class SideBarMenu extends StatelessWidget {
                   const SizedBox(width: 16),
 
                   // INSTAGRAM
+                  if (SideBarsSettings.instagramOn)
                   GestureDetector(
                     onTap: () {
                       UrlUtils.openExternalUrl(context, SocialMediaLinks.instagram);
@@ -93,6 +97,7 @@ class SideBarMenu extends StatelessWidget {
 
                   // TRIPADVISOR
                   const SizedBox(width: 16),
+                  if (SideBarsSettings.tripadvisorOn)
                   IconButton(
                     onPressed: () {
                       UrlUtils.openExternalUrl(
