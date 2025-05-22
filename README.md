@@ -13,7 +13,7 @@ An admin panel, intended to allow staff to manage the collection of artefacts an
 
 
 ### Deployment
-1. Deploy the admin panel by following the instructions in the README.md file in the *CMM-Admin* folder.
-1. Deploy the app by following the instructions in the README.md file in the *CMM-App* folder.
+1. Deploy the admin panel by following the instructions in the README.md file in the **CMM-Admin** folder.
+1. Deploy the app by following the instructions in the README.md file in the **CMM-App** folder.
 
 Some of the app functionality will work without deployment the admin panel (such as the links to the website pages), but the artefact scanning and collection will not be available. This functionality also requires an internet connection.
