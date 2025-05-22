@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 import '../data/messages.dart';
 import '../models/artefact.dart';
 import '../models/medal_tracker.dart';
-import '../utils/responsive_utils.dart';
 
 class ArtefactDetailScreen extends StatelessWidget {
   final String artefactId;
   final bool isNew;
   final bool fromScanner;
 
-  final resp = ResponsiveUtils.instance;
   final tracker = MedalTracker();
   final ArtefactService artefactService = ArtefactService();
 
