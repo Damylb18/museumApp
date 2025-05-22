@@ -42,7 +42,7 @@ class ArtefactDetailScreen extends StatelessWidget {
             context: context,
             builder:
                 (context) => AlertDialog(
-                  title: const Text('New Artefact'),
+                  title: const Text('New Artefact!'),
                   content: Text(milestoneMessage!),
                   actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK'))],
                 ),
@@ -93,7 +93,7 @@ class ArtefactDetailScreen extends StatelessWidget {
 
                 // Bottom info card
                 Expanded(
-                  flex: 4,
+                  flex: 6,
                   child: BottomInfoCard(
                     title: artefact?.name,
                     content: artefact?.description,

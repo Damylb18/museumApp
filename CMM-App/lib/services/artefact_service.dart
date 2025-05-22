@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:cheshire_military_museum_tour/app_settings.dart';
 import 'package:cheshire_military_museum_tour/services/artefact_api_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'dart:convert';
@@ -7,7 +9,7 @@ import 'dart:convert';
 import '../models/artefact.dart';
 
 class ArtefactService {
-  ArtefactApiService apiService = ArtefactApiService(baseUrl: 'https://2326780.win.studentwebserver.co.uk/cmm/api');
+  ArtefactApiService apiService = ArtefactApiService(baseUrl: AppSettings.apiBaseUrl);
 
   /// Retrieves an [Artefact] by its ID.
   ///
@@ -75,7 +77,7 @@ class ArtefactService {
         artefacts.add(artefact);
       } catch (e) {
         // Optionally log or handle corrupt file
-        print('Failed to parse artefact file ${file.path}: $e');
+        debugPrint('Failed to parse artefact file ${file.path}: $e');
       }
     }
     return artefacts;

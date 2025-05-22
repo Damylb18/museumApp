@@ -1,37 +1,36 @@
-
 /// This message pops up on the Artefact details screen when an artefact has been scanned
 const Map<int, String> milestoneMessages = {
-  0: '',
+  0:
+      'Excellent work! Keep going',
 
   1:
-      '🪖 Welcome, Private! '
+      '🪖 Welcome, Private!\n\n'
       'Your first artefact is logged. Keep going, recruit!',
 
   2:
-      '📌 Two artefacts secured. '
+      '📌 Two artefacts secured.\n\n'
       'One more and you’ll earn your stripes as a Sergeant!',
 
   3:
-      '🎖 Promotion unlocked: Sergeant! '
+      '🎖 Promotion unlocked: Sergeant!\n\n'
       'Your journey through history intensifies.',
 
   4:
-      '🗺 Four artefacts collected. '
+      '🗺 Four artefacts collected.\n\n'
       'One more and Lieutenant rank is within reach!',
 
   5:
-      '🎖️ Rank up! You’ve become a Lieutenant. '
+      '🎖️ Rank up! You’ve become a Lieutenant.\n\n'
       'Outstanding fieldwork, soldier.',
 
   6:
-      '🔍 Six artefacts down. '
+      '🔍 Six artefacts down.\n\n'
       'Marshal status is almost yours — eyes sharp!',
 
   7:
-      '🏅 Marshal Unlocked! '
+      '🏅 Marshal Unlocked!\n\n'
       'You’ve conquered the museum’s past like a true commander!',
 };
-
 
 /// This message displays on the medals page, telling the user the medals they have (if any) and prompting them to go for more.
 String getProgressMessage(int scanned) {

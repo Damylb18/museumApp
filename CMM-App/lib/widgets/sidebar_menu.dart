@@ -1,3 +1,4 @@
+import 'package:cheshire_military_museum_tour/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/navigation_utils.dart';
@@ -35,15 +36,19 @@ class SideBarMenu extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              // "Contact Us" link
+
+              // CONTACT US
+              if (SideBarsSettings.contactUsOn)
               ListTile(
                 leading: const Icon(Icons.phone, color: Colors.white),
                 title: const Text('Contact us', style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  NavigationUtils.openWebPage(context, 'Contact Us', 'https://cheshiremilitarymuseum.org.uk/contact/');
+                  NavigationUtils.openWebPage(context, 'Contact Us', WebsiteLinks.contactUs);
                 },
               ),
-              // "Privacy Policy" link
+
+              // PRIVACY POLICY
+              if (SideBarsSettings.privacyPolicyOn)
               ListTile(
                 leading: const Icon(Icons.lock, color: Colors.white),
                 title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
@@ -51,7 +56,7 @@ class SideBarMenu extends StatelessWidget {
                   NavigationUtils.openWebPage(
                     context,
                     'Privacy Policy',
-                    'https://cheshiremilitarymuseum.org.uk/privacy-policy/',
+                    WebsiteLinks.privacyPolicy,
                   );
                 },
               ),
@@ -60,9 +65,11 @@ class SideBarMenu extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // FACEBOOK
+                  if (SideBarsSettings.facebookOn)
                   GestureDetector(
                     onTap: () {
-                      UrlUtils.openExternalUrl(context, 'https://www.facebook.com/cheshiremilitarymuseum');
+                      UrlUtils.openExternalUrl(context, SocialMediaLinks.facebook);
                     },
                     child: Container(
                       width: 40,
@@ -72,9 +79,12 @@ class SideBarMenu extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 16),
+
+                  // INSTAGRAM
+                  if (SideBarsSettings.instagramOn)
                   GestureDetector(
                     onTap: () {
-                      UrlUtils.openExternalUrl(context, 'https://www.instagram.com/cheshiremilitarymuseum');
+                      UrlUtils.openExternalUrl(context, SocialMediaLinks.instagram);
                     },
                     child: Container(
                       width: 40,
@@ -84,12 +94,15 @@ class SideBarMenu extends StatelessWidget {
                       child: SvgPicture.asset('assets/icons/Instagram.svg', fit: BoxFit.contain),
                     ),
                   ),
+
+                  // TRIPADVISOR
                   const SizedBox(width: 16),
+                  if (SideBarsSettings.tripadvisorOn)
                   IconButton(
                     onPressed: () {
                       UrlUtils.openExternalUrl(
                         context,
-                        'https://www.tripadvisor.com/Attraction_Review-g186390-d212257-Reviews-Cheshire_Military_Museum-Chester_Cheshire_England.html',
+                        SocialMediaLinks.tripadvisor,
                       );
                     },
                     icon: Container(
