@@ -4,49 +4,44 @@ using Microsoft.EntityFrameworkCore;
 using CMM_Admin.Data;
 using CMM_Admin.Data.Models;
 
-namespace CMM_Admin.Pages.Artifacts
+namespace CMM_Admin.Pages.Artifacts;
+
+public class DeleteModel(MuseumContext context) : PageModel
 {
-    public class DeleteModel(MuseumContext context) : PageModel
+    [BindProperty]
+    public Artifact Artifact { get; set; } = null!;
+
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
-        [BindProperty]
-        public Artifact Artifact { get; set; } = null!;
-
-        public async Task<IActionResult> OnGetAsync(string? id)
+        if (id == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var artifact = await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
-
-            if (artifact == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Artifact = artifact;
-            }
-            return Page();
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(string? id)
+        var artifact = await context.Artifacts.FirstOrDefaultAsync(m => m.ArtifactId == id);
+
+        if (artifact == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var artifact = await context.Artifacts.FindAsync(id);
-            if (artifact != null)
-            {
-                Artifact = artifact;
-                context.Artifacts.Remove(Artifact);
-                await context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            return NotFound();
         }
+
+        Artifact = artifact;
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync(string? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var artifact = await context.Artifacts.FindAsync(id);
+        if (artifact == null) return RedirectToPage("./Index");
+        Artifact = artifact;
+        context.Artifacts.Remove(Artifact);
+        await context.SaveChangesAsync();
+
+        return RedirectToPage("./Index");
     }
 }

@@ -47,10 +47,8 @@ namespace CMM_Admin.Pages.Artifacts
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return RedirectToPage("./Index");

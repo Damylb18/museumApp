@@ -24,12 +24,10 @@ namespace CMM_Admin.Pages.Artifacts
             {
                 return NotFound();
             }
-            else
-            {
-                Artifact = artifact;
-            }
-            
-            
+
+            Artifact = artifact;
+
+
             using var qrGenerator = new QRCodeGenerator();
             using var qrData = qrGenerator.CreateQrCode(Artifact.ArtifactId, QRCodeGenerator.ECCLevel.M);
             using var qrCode = new PngByteQRCode(qrData);
