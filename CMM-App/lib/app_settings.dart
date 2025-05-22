@@ -11,6 +11,8 @@ class WebsiteLinks {
 }
 
 class SideBarsSettings {
+  static const bool sideBarOn = true;
+
   static const bool contactUsOn = true;
   static const bool privacyPolicyOn = true;
 
