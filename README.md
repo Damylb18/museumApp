@@ -4,7 +4,7 @@
 
 The **Cheshire Military Museum Digital Experience** project enhances visitor engagement through an interactive mobile app and a supporting web-based admin panel.
 
-This system bridges the gap between historical education and digital interactivity — allowing visitors to explore, discover, and collect artefacts around the museum using **QR codes**, while staff can manage and update content seamlessly through an online interface.
+This system bridges the gap between historical education and digital interactivity, allowing visitors to explore, discover, and collect artefacts around the museum using **QR codes**, while staff can manage and update content seamlessly through an online interface.
 
 ---
 
@@ -81,6 +81,6 @@ To deploy or run the mobile app, follow the setup instructions in
 
 ## 🏁 Summary
 
-This project transforms a traditional museum visit into a **gamified digital journey**, encouraging exploration, discovery, and engagement through technology — blending history with innovation.
+This project transforms a traditional museum visit into a **gamified digital journey**, encouraging exploration, discovery, and engagement through technology, blending history with innovation.
 
 ---
